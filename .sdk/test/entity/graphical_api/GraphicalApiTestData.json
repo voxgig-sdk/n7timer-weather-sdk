@@ -1,0 +1,20 @@
+{
+  "existing": {
+    "graphical_api": {
+      "GRAPHICAL_API00": {
+        "id": "GRAPHICAL_API00"
+      },
+      "GRAPHICAL_API01": {
+        "id": "GRAPHICAL_API01"
+      },
+      "GRAPHICAL_API02": {
+        "id": "GRAPHICAL_API02"
+      }
+    }
+  },
+  "new": {
+    "graphical_api": {
+      "graphical_api_ref01": {}
+    }
+  }
+}

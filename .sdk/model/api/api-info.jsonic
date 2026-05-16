@@ -1,0 +1,27 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        url: "https://www.7timer.info"
+      }
+      description: "The 7Timer Weather API provides global numerical weather forecasts derived from high-resolution models. Users can access weather data in graphical or machine-readable formats without needing an API key, enabling programmatic access to various meteorological elements."
+      license: {
+        name: "7Timer License"
+        url: "https://www.7timer.info/doc.php?lang=en"
+      }
+      servers: [
+        {
+          description: "7Timer Production Server"
+          url: "http://www.7timer.info"
+        }
+      ]
+      title: "7Timer Weather API"
+      version: "1.0.0"
+    }
+  }
+}
+
+}

@@ -1,0 +1,112 @@
+# Apipl direct test
+
+require "minitest/autorun"
+require "json"
+require_relative "../N7timerWeather_sdk"
+require_relative "runner"
+
+class ApiplDirectTest < Minitest::Test
+  def test_direct_list_apipl
+    setup = apipl_direct_setup([
+      { "id" => "direct01" },
+      { "id" => "direct02" },
+    ])
+    _should_skip, _reason = Runner.is_control_skipped("direct", "direct-list-apipl", setup[:live] ? "live" : "unit")
+    if _should_skip
+      skip(_reason || "skipped via sdk-test-control.json")
+      return
+    end
+    client = setup[:client]
+
+
+    result, err = client.direct({
+      "path" => "bin/api.pl",
+      "method" => "GET",
+      "params" => {},
+    })
+    if setup[:live]
+      # Live mode is lenient: synthetic IDs frequently 4xx and the list-
+      # response shape varies wildly across public APIs. Skip rather than
+      # fail when the call doesn't return a usable list.
+      if !err.nil?
+        skip("list call failed (likely synthetic IDs against live API): #{err}")
+        return
+      end
+      unless result["ok"]
+        skip("list call not ok (likely synthetic IDs against live API)")
+        return
+      end
+      status = Helpers.to_int(result["status"])
+      if status < 200 || status >= 300
+        skip("expected 2xx status, got #{status}")
+        return
+      end
+    else
+      assert_nil err
+      assert result["ok"]
+      assert_equal 200, Helpers.to_int(result["status"])
+      assert result["data"].is_a?(Array)
+      assert_equal 2, result["data"].length
+      assert_equal 1, setup[:calls].length
+    end
+  end
+
+end
+
+
+def apipl_direct_setup(mockres)
+  Runner.load_env_local
+
+  calls = []
+
+  env = Runner.env_override({
+    "N_TIMERWEATHER_TEST_APIPL_ENTID" => {},
+    "N_TIMERWEATHER_TEST_LIVE" => "FALSE",
+    "N_TIMERWEATHER_APIKEY" => "NONE",
+  })
+
+  live = env["N_TIMERWEATHER_TEST_LIVE"] == "TRUE"
+
+  if live
+    merged_opts = {
+      "apikey" => env["N_TIMERWEATHER_APIKEY"],
+    }
+    client = N7timerWeatherSDK.new(merged_opts)
+    return {
+      client: client,
+      calls: calls,
+      live: true,
+      idmap: {},
+    }
+  end
+
+  mock_fetch = ->(url, init) {
+    calls.push({ "url" => url, "init" => init })
+    return {
+      "status" => 200,
+      "statusText" => "OK",
+      "headers" => {},
+      "json" => ->() {
+        if !mockres.nil?
+          return mockres
+        end
+        return { "id" => "direct01" }
+      },
+      "body" => "mock",
+    }, nil
+  }
+
+  client = N7timerWeatherSDK.new({
+    "base" => "http://localhost:8080",
+    "system" => {
+      "fetch" => mock_fetch,
+    },
+  })
+
+  {
+    client: client,
+    calls: calls,
+    live: false,
+    idmap: {},
+  }
+end

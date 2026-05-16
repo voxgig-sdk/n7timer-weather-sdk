@@ -1,0 +1,807 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "7Timer Weather API",
+    "description": "The 7Timer Weather API provides global numerical weather forecasts derived from high-resolution models. Users can access weather data in graphical or machine-readable formats without needing an API key, enabling programmatic access to various meteorological elements.",
+    "version": "1.0.0",
+    "contact": {
+      "url": "https://www.7timer.info"
+    },
+    "license": {
+      "name": "7Timer License",
+      "url": "https://www.7timer.info/doc.php?lang=en"
+    }
+  },
+  "externalDocs": {
+    "description": "Official 7Timer Documentation",
+    "url": "https://www.7timer.info/doc.php?lang=en"
+  },
+  "servers": [
+    {
+      "url": "http://www.7timer.info",
+      "description": "7Timer Production Server"
+    }
+  ],
+  "paths": {
+    "/bin/astro.php": {
+      "get": {
+        "summary": "Get Graphical Weather Forecast",
+        "description": "Returns a PNG image containing the forecast diagram for the specified location. This endpoint supports various weather products including ASTRO, CIVIL, CIVILLIGHT, METEO, and TWO.",
+        "operationId": "getGraphicalForecast",
+        "tags": [
+          "Graphical API"
+        ],
+        "parameters": [
+          {
+            "name": "lon",
+            "in": "query",
+            "description": "Longitude coordinate of the location (float number with precision 0.001)",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": -180,
+              "maximum": 180,
+              "example": 113.17
+            }
+          },
+          {
+            "name": "lat",
+            "in": "query",
+            "description": "Latitude coordinate of the location (float number with precision 0.001)",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": -90,
+              "maximum": 90,
+              "example": 23.09
+            }
+          },
+          {
+            "name": "ac",
+            "in": "query",
+            "description": "Altitude Correction (only applicable in ASTRO forecast)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "enum": [
+                0,
+                2,
+                7
+              ],
+              "default": 0
+            }
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "description": "Language for the forecast (not applicable in METEO product)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "en",
+                "zh-CN",
+                "zh-TW"
+              ],
+              "default": "en"
+            }
+          },
+          {
+            "name": "unit",
+            "in": "query",
+            "description": "Unit system for measurements",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "metric",
+                "british"
+              ],
+              "default": "metric"
+            }
+          },
+          {
+            "name": "output",
+            "in": "query",
+            "description": "Output format for graphical API",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "internal"
+              ],
+              "default": "internal"
+            }
+          },
+          {
+            "name": "tzshift",
+            "in": "query",
+            "description": "Timezone adjustment",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "enum": [
+                -1,
+                0,
+                1
+              ],
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image containing the weather forecast diagram",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters provided"
+          }
+        }
+      }
+    },
+    "/bin/api.pl": {
+      "get": {
+        "summary": "Get Machine-Readable Weather Forecast",
+        "description": "Returns weather forecast data in machine-readable format (XML or JSON) for the specified location and product type.",
+        "operationId": "getMachineReadableForecast",
+        "tags": [
+          "Machine-Readable API"
+        ],
+        "parameters": [
+          {
+            "name": "lon",
+            "in": "query",
+            "description": "Longitude coordinate of the location (float number with precision 0.001)",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": -180,
+              "maximum": 180,
+              "example": 113.17
+            }
+          },
+          {
+            "name": "lat",
+            "in": "query",
+            "description": "Latitude coordinate of the location (float number with precision 0.001)",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "float",
+              "minimum": -90,
+              "maximum": 90,
+              "example": 23.09
+            }
+          },
+          {
+            "name": "product",
+            "in": "query",
+            "description": "Weather product type to retrieve",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "astro",
+                "civil",
+                "civillight",
+                "meteo",
+                "two"
+              ]
+            }
+          },
+          {
+            "name": "output",
+            "in": "query",
+            "description": "Output format for the data",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "xml",
+                "json"
+              ]
+            }
+          },
+          {
+            "name": "ac",
+            "in": "query",
+            "description": "Altitude Correction (only applicable in ASTRO forecast)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "enum": [
+                0,
+                2,
+                7
+              ],
+              "default": 0
+            }
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "description": "Language for the forecast (not applicable in METEO product)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "en",
+                "zh-CN",
+                "zh-TW"
+              ],
+              "default": "en"
+            }
+          },
+          {
+            "name": "unit",
+            "in": "query",
+            "description": "Unit system for measurements",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "metric",
+                "british"
+              ],
+              "default": "metric"
+            }
+          },
+          {
+            "name": "tzshift",
+            "in": "query",
+            "description": "Timezone adjustment",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "enum": [
+                -1,
+                0,
+                1
+              ],
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Weather forecast data in the requested format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForecastResponse"
+                },
+                "examples": {
+                  "astroForecast": {
+                    "summary": "ASTRO product forecast example",
+                    "value": {
+                      "product": "astro",
+                      "init": "2023010100",
+                      "dataseries": [
+                        {
+                          "timepoint": 3,
+                          "cloudcover": 2,
+                          "seeing": 4,
+                          "transparency": 3,
+                          "lifted_index": 2,
+                          "rh2m": 8,
+                          "wind10m": {
+                            "direction": "NE",
+                            "speed": 2
+                          },
+                          "temp2m": 15,
+                          "prec_type": "none"
+                        }
+                      ]
+                    }
+                  },
+                  "civilForecast": {
+                    "summary": "CIVIL product forecast example",
+                    "value": {
+                      "product": "civil",
+                      "init": "2023010100",
+                      "dataseries": [
+                        {
+                          "timepoint": 3,
+                          "cloudcover": 3,
+                          "lifted_index": 2,
+                          "prec_type": "none",
+                          "prec_amount": 0,
+                          "temp2m": 18,
+                          "rh2m": 65,
+                          "wind10m": {
+                            "direction": "SE",
+                            "speed": 3
+                          },
+                          "weather": "pcloudyday"
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string",
+                  "format": "xml"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters provided"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ForecastResponse": {
+        "type": "object",
+        "properties": {
+          "product": {
+            "type": "string",
+            "description": "Product type",
+            "enum": [
+              "astro",
+              "civil",
+              "civillight",
+              "meteo",
+              "two"
+            ]
+          },
+          "init": {
+            "type": "string",
+            "description": "Initialization time of the forecast model (format: YYYYMMDDHH)"
+          },
+          "dataseries": {
+            "type": "array",
+            "description": "Array of forecast data points",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/AstroDataPoint"
+                },
+                {
+                  "$ref": "#/components/schemas/CivilDataPoint"
+                },
+                {
+                  "$ref": "#/components/schemas/MeteoDataPoint"
+                },
+                {
+                  "$ref": "#/components/schemas/TwoDataPoint"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "AstroDataPoint": {
+        "type": "object",
+        "description": "ASTRO product data point",
+        "properties": {
+          "timepoint": {
+            "type": "integer",
+            "description": "Hours from initialization time"
+          },
+          "cloudcover": {
+            "type": "integer",
+            "description": "Cloud cover (1-9, where 1=0-6%, 9=94-100%)",
+            "minimum": 1,
+            "maximum": 9
+          },
+          "seeing": {
+            "type": "integer",
+            "description": "Astronomical seeing (1-8, where 1=<0.5\", 8=>2.5\")",
+            "minimum": 1,
+            "maximum": 8
+          },
+          "transparency": {
+            "type": "integer",
+            "description": "Atmospheric transparency (1-8, where 1=<0.3, 8=>1 mag per air mass)",
+            "minimum": 1,
+            "maximum": 8
+          },
+          "lifted_index": {
+            "type": "integer",
+            "description": "Atmospheric instability index",
+            "enum": [
+              -10,
+              -6,
+              -4,
+              -1,
+              2,
+              6,
+              10,
+              15
+            ]
+          },
+          "rh2m": {
+            "type": "integer",
+            "description": "2m relative humidity (-4 to 16, where -4=0-5%, 16=100%)",
+            "minimum": -4,
+            "maximum": 16
+          },
+          "wind10m": {
+            "$ref": "#/components/schemas/Wind10m"
+          },
+          "temp2m": {
+            "type": "integer",
+            "description": "2m temperature in Celsius",
+            "minimum": -76,
+            "maximum": 60
+          },
+          "prec_type": {
+            "type": "string",
+            "description": "Precipitation type",
+            "enum": [
+              "snow",
+              "rain",
+              "none"
+            ]
+          }
+        }
+      },
+      "CivilDataPoint": {
+        "type": "object",
+        "description": "CIVIL product data point",
+        "properties": {
+          "timepoint": {
+            "type": "integer",
+            "description": "Hours from initialization time"
+          },
+          "cloudcover": {
+            "type": "integer",
+            "description": "Cloud cover (1-9, where 1=0-6%, 9=94-100%)",
+            "minimum": 1,
+            "maximum": 9
+          },
+          "lifted_index": {
+            "type": "integer",
+            "description": "Atmospheric instability index",
+            "enum": [
+              -10,
+              -6,
+              -4,
+              -1,
+              2,
+              6,
+              10,
+              15
+            ]
+          },
+          "prec_type": {
+            "type": "string",
+            "description": "Precipitation type",
+            "enum": [
+              "snow",
+              "rain",
+              "frzr",
+              "icep",
+              "none"
+            ]
+          },
+          "prec_amount": {
+            "type": "integer",
+            "description": "Precipitation amount (0-9, where 0=none, 9=>75mm/hr)",
+            "minimum": 0,
+            "maximum": 9
+          },
+          "temp2m": {
+            "type": "integer",
+            "description": "2m temperature in Celsius",
+            "minimum": -76,
+            "maximum": 60
+          },
+          "rh2m": {
+            "type": "integer",
+            "description": "2m relative humidity percentage",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "wind10m": {
+            "$ref": "#/components/schemas/Wind10m"
+          },
+          "weather": {
+            "type": "string",
+            "description": "Weather type identifier",
+            "enum": [
+              "clearday",
+              "clearnight",
+              "pcloudyday",
+              "pcloudynight",
+              "mcloudyday",
+              "mcloudynight",
+              "cloudyday",
+              "cloudynight",
+              "humidday",
+              "humidnight",
+              "lightrainday",
+              "lightrainnight",
+              "oshowerday",
+              "oshowernight",
+              "ishowerday",
+              "ishowernight",
+              "lightsnowday",
+              "lightsnownight",
+              "rainday",
+              "rainnight",
+              "snowday",
+              "snownight",
+              "rainsnowday",
+              "rainsnownight",
+              "tsday",
+              "tsnight",
+              "tsrainday",
+              "tsrainnight"
+            ]
+          }
+        }
+      },
+      "MeteoDataPoint": {
+        "type": "object",
+        "description": "METEO product data point with atmospheric profile data",
+        "properties": {
+          "timepoint": {
+            "type": "integer",
+            "description": "Hours from initialization time"
+          },
+          "cloudcover": {
+            "type": "integer",
+            "description": "Total cloud cover (1-9)",
+            "minimum": 1,
+            "maximum": 9
+          },
+          "highcloud": {
+            "type": "integer",
+            "description": "High cloud cover (1-9)",
+            "minimum": 1,
+            "maximum": 9
+          },
+          "midcloud": {
+            "type": "integer",
+            "description": "Mid cloud cover (1-9)",
+            "minimum": 1,
+            "maximum": 9
+          },
+          "lowcloud": {
+            "type": "integer",
+            "description": "Low cloud cover (1-9)",
+            "minimum": 1,
+            "maximum": 9
+          },
+          "lifted_index": {
+            "type": "integer",
+            "description": "Atmospheric instability index",
+            "enum": [
+              -10,
+              -6,
+              -4,
+              -1,
+              2,
+              6,
+              10,
+              15
+            ]
+          },
+          "temp2m": {
+            "type": "integer",
+            "description": "2m temperature in Celsius",
+            "minimum": -76,
+            "maximum": 60
+          },
+          "rh2m": {
+            "type": "integer",
+            "description": "2m relative humidity (-4 to 16)",
+            "minimum": -4,
+            "maximum": 16
+          },
+          "msl_pressure": {
+            "type": "integer",
+            "description": "Mean sea level pressure"
+          },
+          "prec_type": {
+            "type": "string",
+            "description": "Precipitation type",
+            "enum": [
+              "snow",
+              "rain",
+              "frzr",
+              "icep",
+              "none"
+            ]
+          },
+          "prec_amount": {
+            "type": "integer",
+            "description": "Precipitation amount (0-9)",
+            "minimum": 0,
+            "maximum": 9
+          },
+          "snow_depth": {
+            "type": "integer",
+            "description": "Snow depth"
+          },
+          "wind_profile": {
+            "type": "array",
+            "description": "Wind profile from 950hPa to 200hPa",
+            "items": {
+              "type": "object",
+              "properties": {
+                "layer": {
+                  "type": "string",
+                  "description": "Pressure level"
+                },
+                "direction": {
+                  "type": "string",
+                  "description": "Wind direction",
+                  "enum": [
+                    "N",
+                    "NE",
+                    "E",
+                    "SE",
+                    "S",
+                    "SW",
+                    "W",
+                    "NW"
+                  ]
+                },
+                "speed": {
+                  "type": "integer",
+                  "description": "Wind speed (1-8)",
+                  "minimum": 1,
+                  "maximum": 8
+                }
+              }
+            }
+          },
+          "rh_profile": {
+            "type": "array",
+            "description": "Relative humidity profile",
+            "items": {
+              "type": "object",
+              "properties": {
+                "layer": {
+                  "type": "string",
+                  "description": "Pressure level"
+                },
+                "rh": {
+                  "type": "integer",
+                  "description": "Relative humidity (-4 to 16)",
+                  "minimum": -4,
+                  "maximum": 16
+                }
+              }
+            }
+          }
+        }
+      },
+      "TwoDataPoint": {
+        "type": "object",
+        "description": "Two-Week-Overview product data point",
+        "properties": {
+          "date": {
+            "type": "string",
+            "description": "Forecast date (YYYYMMDD)"
+          },
+          "weather": {
+            "type": "string",
+            "description": "Weather type",
+            "enum": [
+              "clear",
+              "mcloudy",
+              "cloudy",
+              "rain",
+              "snow",
+              "ts",
+              "tsrain"
+            ]
+          },
+          "temp2m": {
+            "type": "object",
+            "properties": {
+              "max": {
+                "type": "integer",
+                "description": "Maximum 2m temperature in Celsius",
+                "minimum": -76,
+                "maximum": 60
+              },
+              "min": {
+                "type": "integer",
+                "description": "Minimum 2m temperature in Celsius",
+                "minimum": -76,
+                "maximum": 60
+              }
+            }
+          },
+          "cloudcover": {
+            "type": "integer",
+            "description": "Cloud cover (1-9)",
+            "minimum": 1,
+            "maximum": 9
+          },
+          "lifted_index": {
+            "type": "integer",
+            "description": "Atmospheric instability index",
+            "enum": [
+              -10,
+              -6,
+              -4,
+              -1,
+              2,
+              6,
+              10,
+              15
+            ]
+          },
+          "prec_type": {
+            "type": "string",
+            "description": "Precipitation type",
+            "enum": [
+              "snow",
+              "rain",
+              "frzr",
+              "icep",
+              "none"
+            ]
+          },
+          "rh2m": {
+            "type": "integer",
+            "description": "2m relative humidity (-4 to 16)",
+            "minimum": -4,
+            "maximum": 16
+          },
+          "wind10m": {
+            "$ref": "#/components/schemas/Wind10m"
+          }
+        }
+      },
+      "Wind10m": {
+        "type": "object",
+        "description": "10m wind information",
+        "properties": {
+          "direction": {
+            "type": "string",
+            "description": "Wind direction",
+            "enum": [
+              "N",
+              "NE",
+              "E",
+              "SE",
+              "S",
+              "SW",
+              "W",
+              "NW"
+            ]
+          },
+          "speed": {
+            "type": "integer",
+            "description": "Wind speed category (1-8, where 1=calm, 8=hurricane)",
+            "minimum": 1,
+            "maximum": 8
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Graphical API",
+      "description": "Endpoints that return forecast diagrams as PNG images"
+    },
+    {
+      "name": "Machine-Readable API",
+      "description": "Endpoints that return structured forecast data in XML or JSON format"
+    }
+  ]
+}

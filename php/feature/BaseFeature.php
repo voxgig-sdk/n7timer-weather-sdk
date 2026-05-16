@@ -1,0 +1,37 @@
+<?php
+declare(strict_types=1);
+
+// N7timerWeather SDK base feature
+
+class N7timerWeatherBaseFeature
+{
+    public string $version;
+    public string $name;
+    public bool $active;
+
+    public function __construct()
+    {
+        $this->version = '0.0.1';
+        $this->name = 'base';
+        $this->active = true;
+    }
+
+    public function get_version(): string { return $this->version; }
+    public function get_name(): string { return $this->name; }
+    public function get_active(): bool { return $this->active; }
+
+    public function init(N7timerWeatherContext $ctx, array $options): void {}
+    public function PostConstruct(N7timerWeatherContext $ctx): void {}
+    public function PostConstructEntity(N7timerWeatherContext $ctx): void {}
+    public function SetData(N7timerWeatherContext $ctx): void {}
+    public function GetData(N7timerWeatherContext $ctx): void {}
+    public function GetMatch(N7timerWeatherContext $ctx): void {}
+    public function SetMatch(N7timerWeatherContext $ctx): void {}
+    public function PrePoint(N7timerWeatherContext $ctx): void {}
+    public function PreSpec(N7timerWeatherContext $ctx): void {}
+    public function PreRequest(N7timerWeatherContext $ctx): void {}
+    public function PreResponse(N7timerWeatherContext $ctx): void {}
+    public function PreResult(N7timerWeatherContext $ctx): void {}
+    public function PreDone(N7timerWeatherContext $ctx): void {}
+    public function PreUnexpected(N7timerWeatherContext $ctx): void {}
+}

@@ -1,0 +1,30 @@
+{
+  "existing": {
+    "apipl": {
+      "APIPL00": {
+        "dataseries": [],
+        "init": "s1f",
+        "product": "s20"
+      },
+      "APIPL01": {
+        "dataseries": [],
+        "init": "s3d",
+        "product": "s3e"
+      },
+      "APIPL02": {
+        "dataseries": [],
+        "init": "s5b",
+        "product": "s5c"
+      }
+    }
+  },
+  "new": {
+    "apipl": {
+      "apipl_ref01": {
+        "dataseries": [],
+        "init": "s79",
+        "product": "s7a"
+      }
+    }
+  }
+}

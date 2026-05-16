@@ -1,0 +1,22 @@
+# BasicApiplFlow
+
+main: kit: flow: BasicApiplFlow:
+{
+  entity: "apipl",
+  kind: "basic",
+  name: "BasicApiplFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "apipl_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicApiplFlow"
+}

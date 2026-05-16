@@ -1,0 +1,126 @@
+# Entity: apipl
+
+main: kit: entity: apipl: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "dataseries"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "init"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "product"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "apipl"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                example: 0
+                kind: "query"
+                name: "ac"
+                orig: "ac"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: "en"
+                kind: "query"
+                name: "lang"
+                orig: "lang"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: 23.09
+                kind: "query"
+                name: "lat"
+                orig: "lat"
+                reqd: true
+                type: "`$NUMBER`"
+              }
+              {
+                example: 113.17
+                kind: "query"
+                name: "lon"
+                orig: "lon"
+                reqd: true
+                type: "`$NUMBER`"
+              }
+              {
+                kind: "query"
+                name: "output"
+                orig: "output"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "product"
+                orig: "product"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                example: 0
+                kind: "query"
+                name: "tzshift"
+                orig: "tzshift"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: "metric"
+                kind: "query"
+                name: "unit"
+                orig: "unit"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/bin/api.pl"
+          parts: [
+            "bin"
+            "api.pl"
+          ]
+          select: {
+            exist: [
+              "ac"
+              "lang"
+              "lat"
+              "lon"
+              "output"
+              "product"
+              "tzshift"
+              "unit"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

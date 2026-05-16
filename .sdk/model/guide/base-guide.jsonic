@@ -1,0 +1,20 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 2
+  metrics: count: path: 2
+  metrics: count: method: 2
+
+  entity: apipl: {
+    path: "/bin/api.pl": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: graphical_api: {
+    path: "/bin/astro.php": {
+      op: load: method: *GET
+    }
+  }
+
+}
