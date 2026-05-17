@@ -3,7 +3,7 @@ package utility
 import (
 	"fmt"
 
-	"github.com/voxgig-sdk/n7timer-weather-sdk/core"
+	"github.com/voxgig-sdk/n7timer-weather-sdk/go/core"
 )
 
 func resultBasicUtil(ctx *core.Context) *core.Result {

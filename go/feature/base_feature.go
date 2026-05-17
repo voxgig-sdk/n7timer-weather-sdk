@@ -1,7 +1,7 @@
 package feature
 
 import (
-	"github.com/voxgig-sdk/n7timer-weather-sdk/core"
+	"github.com/voxgig-sdk/n7timer-weather-sdk/go/core"
 )
 
 type BaseFeature struct {

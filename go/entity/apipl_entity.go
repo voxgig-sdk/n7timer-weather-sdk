@@ -1,9 +1,9 @@
 package entity
 
 import (
-	"github.com/voxgig-sdk/n7timer-weather-sdk/core"
+	"github.com/voxgig-sdk/n7timer-weather-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/n7timer-weather-sdk/go/utility/struct"
 )
 
 type ApiplEntity struct {

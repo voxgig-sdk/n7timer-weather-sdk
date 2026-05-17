@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/n7timer-weather-sdk"
-	"github.com/voxgig-sdk/n7timer-weather-sdk/core"
+	sdk "github.com/voxgig-sdk/n7timer-weather-sdk/go"
+	"github.com/voxgig-sdk/n7timer-weather-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/n7timer-weather-sdk/go/utility/struct"
 )
 
 func TestApiplEntity(t *testing.T) {

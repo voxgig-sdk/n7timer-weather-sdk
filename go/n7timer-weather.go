@@ -1,10 +1,10 @@
 package voxgign7timerweathersdk
 
 import (
-	"github.com/voxgig-sdk/n7timer-weather-sdk/core"
-	"github.com/voxgig-sdk/n7timer-weather-sdk/entity"
-	"github.com/voxgig-sdk/n7timer-weather-sdk/feature"
-	_ "github.com/voxgig-sdk/n7timer-weather-sdk/utility"
+	"github.com/voxgig-sdk/n7timer-weather-sdk/go/core"
+	"github.com/voxgig-sdk/n7timer-weather-sdk/go/entity"
+	"github.com/voxgig-sdk/n7timer-weather-sdk/go/feature"
+	_ "github.com/voxgig-sdk/n7timer-weather-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

@@ -3,7 +3,7 @@ package core
 import (
 	"fmt"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/n7timer-weather-sdk/go/utility/struct"
 )
 
 type N7timerWeatherSDK struct {

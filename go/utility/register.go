@@ -1,6 +1,6 @@
 package utility
 
-import "github.com/voxgig-sdk/n7timer-weather-sdk/core"
+import "github.com/voxgig-sdk/n7timer-weather-sdk/go/core"
 
 func init() {
 	core.UtilityRegistrar = registerAll

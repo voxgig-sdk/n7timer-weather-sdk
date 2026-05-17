@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/n7timer-weather-sdk"
-	"github.com/voxgig-sdk/n7timer-weather-sdk/core"
+	sdk "github.com/voxgig-sdk/n7timer-weather-sdk/go"
+	"github.com/voxgig-sdk/n7timer-weather-sdk/go/core"
 )
 
 func TestGraphicalApiDirect(t *testing.T) {
