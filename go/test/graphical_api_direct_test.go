@@ -106,14 +106,12 @@ func graphical_apiDirectSetup(mockres any) *graphical_apiDirectSetupResult {
 	env := envOverride(map[string]any{
 		"N_TIMERWEATHER_TEST_GRAPHICAL_API_ENTID": map[string]any{},
 		"N_TIMERWEATHER_TEST_LIVE":    "FALSE",
-		"N_TIMERWEATHER_APIKEY":       "NONE",
 	})
 
 	live := env["N_TIMERWEATHER_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["N_TIMERWEATHER_APIKEY"],
 		}
 		client := sdk.NewN7timerWeatherSDK(mergedOpts)
 

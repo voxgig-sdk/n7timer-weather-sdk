@@ -74,14 +74,12 @@ function graphical_api_direct_setup($mockres)
     $env = Runner::env_override([
         "N_TIMERWEATHER_TEST_GRAPHICAL_API_ENTID" => [],
         "N_TIMERWEATHER_TEST_LIVE" => "FALSE",
-        "N_TIMERWEATHER_APIKEY" => "NONE",
     ]);
 
     $live = $env["N_TIMERWEATHER_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["N_TIMERWEATHER_APIKEY"],
         ];
         $client = new N7timerWeatherSDK($merged_opts);
         return [

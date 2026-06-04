@@ -20,7 +20,18 @@
           }
         ],
         "title": "7Timer Weather API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "tagline": "Free global numerical weather forecasts from high-resolution NWP models, no API key required",
+        "homepage": "http://www.7timer.info",
+        "docs_url": "http://www.7timer.info/doc.php",
+        "license_short": "Free for non-commercial use; notify maintainers when used",
+        "license_md": "- Weather data is free to use and redistribute for non-commercial purposes\n- Commercial use is not permitted under the site's stated terms\n- Developers are asked to notify the 7Timer maintainers when they use the data\n- No API key or registration is required to call the endpoints",
+        "about_md": "[7Timer!](http://www.7timer.info) is a free global numerical weather forecast service that produces predictions by post-processing output from high-resolution NWP models. It exposes simple HTTP endpoints so any application can pull forecasts for an arbitrary latitude/longitude on Earth.\n\nThe service offers two API styles:\n\n- A **graphical API** (`/bin/astro.php`, `/bin/civil.php`, etc.) that returns ready-to-embed PNG forecast charts.\n- A **machine-readable API** (`/bin/api.pl`) that returns the same forecast data as XML or JSON.\n\nFive forecast products are available: `astro` (astronomical seeing, cloud cover, transparency), `civil` (general weather), `civillight` (a lighter civil variant), `meteo` (detailed meteorological data), and `two` (two-day high-resolution forecast). Common query parameters include `lon`, `lat`, `product`, `output`, `ac` (altitude correction: 0, 2 or 7), `lang`, `unit` (metric or British), and `tzshift` for local timezone offsets.\n\nNo authentication is needed and the endpoints are open over plain HTTP. Because the service is volunteer-run, callers are asked to be considerate with request rates and to notify the maintainers about non-trivial use.",
+        "entity_desc": {
+          "apipl": "The machine-readable forecast endpoint at `/bin/api.pl`, returning XML or JSON forecast data for a given `lon`/`lat` and `product`.",
+          "graphical_api": "The image-producing endpoints under `/bin/` (e.g. `/bin/astro.php`, `/bin/civil.php`, `/bin/meteo.php`) that return PNG forecast charts for embedding."
+        },
+        "auth": false
       },
       "config": {
         "auth": {
@@ -28,7 +39,15 @@
         },
         "headers": {
           "content-type": "application/json"
-        }
+        },
+        "docs_order": [
+          "ts",
+          "py",
+          "php",
+          "go",
+          "rb",
+          "lua"
+        ]
       },
       "entity": {
         "apipl": {

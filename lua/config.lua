@@ -14,9 +14,6 @@ local function make_config()
     },
     options = {
       base = "http://www.7timer.info",
-      auth = {
-        prefix = "Bearer",
-      },
       headers = {
         ["content-type"] = "application/json",
       },

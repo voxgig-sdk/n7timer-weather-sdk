@@ -61,14 +61,12 @@ def _apipl_direct_setup(mockres):
     env = runner.env_override({
         "N_TIMERWEATHER_TEST_APIPL_ENTID": {},
         "N_TIMERWEATHER_TEST_LIVE": "FALSE",
-        "N_TIMERWEATHER_APIKEY": "NONE",
     })
 
     live = env.get("N_TIMERWEATHER_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("N_TIMERWEATHER_APIKEY"),
         }
         client = N7timerWeatherSDK(merged_opts)
         return {

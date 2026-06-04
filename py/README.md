@@ -23,12 +23,9 @@ loading a specific record.
 ### 1. Create a client
 
 ```python
-import os
 from n7timerweather_sdk import N7timerWeatherSDK
 
-client = N7timerWeatherSDK({
-    "apikey": os.environ.get("N7TIMER-WEATHER_APIKEY"),
-})
+client = N7timerWeatherSDK({})
 ```
 
 ### 2. List apipls
@@ -121,7 +118,6 @@ Create a `.env.local` file at the project root:
 
 ```
 N7TIMER-WEATHER_TEST_LIVE=TRUE
-N7TIMER-WEATHER_APIKEY=<your-key>
 ```
 
 Then run:
@@ -145,7 +141,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `str` | API key for authentication. |
 | `base` | `str` | Base URL of the API server. |
 | `prefix` | `str` | URL path prefix prepended to all requests. |
 | `suffix` | `str` | URL path suffix appended to all requests. |

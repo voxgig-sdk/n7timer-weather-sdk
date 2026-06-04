@@ -113,7 +113,6 @@ function basicSetup(extra?: any) {
     'N_TIMER_WEATHER_TEST_GRAPHICAL_API_ENTID': idmap,
     'N_TIMER_WEATHER_TEST_LIVE': 'FALSE',
     'N_TIMER_WEATHER_TEST_EXPLAIN': 'FALSE',
-    'N_TIMER_WEATHER_APIKEY': 'NONE',
   })
 
   idmap = env['N_TIMER_WEATHER_TEST_GRAPHICAL_API_ENTID']
@@ -123,7 +122,6 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new N7timerWeatherSDK(merge([
       {
-        apikey: env.N_TIMER_WEATHER_APIKEY,
       },
       extra
     ]))
