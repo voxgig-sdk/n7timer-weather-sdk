@@ -91,6 +91,7 @@ function graphical_api_basic_setup(extra)
     ["N_TIMERWEATHER_TEST_GRAPHICAL_API_ENTID"] = idmap,
     ["N_TIMERWEATHER_TEST_LIVE"] = "FALSE",
     ["N_TIMERWEATHER_TEST_EXPLAIN"] = "FALSE",
+    ["N_TIMERWEATHER_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -102,6 +103,7 @@ function graphical_api_basic_setup(extra)
   if env["N_TIMERWEATHER_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
+        apikey = env["N_TIMERWEATHER_APIKEY"],
       },
       extra or {},
     })

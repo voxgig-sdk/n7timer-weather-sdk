@@ -1,6 +1,11 @@
 # N7timerWeather Python SDK
 
-The Python SDK for the N7timerWeather API. Provides an entity-oriented interface following Pythonic conventions.
+
+
+The Python SDK for the N7timerWeather API — an entity-oriented client following Pythonic conventions.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -23,15 +28,18 @@ loading a specific record.
 ### 1. Create a client
 
 ```python
+import os
 from n7timerweather_sdk import N7timerWeatherSDK
 
-client = N7timerWeatherSDK({})
+client = N7timerWeatherSDK({
+    "apikey": os.environ.get("N7TIMER-WEATHER_APIKEY"),
+})
 ```
 
 ### 2. List apipls
 
 ```python
-result, err = client.Apipl(None).list(None, None)
+result, err = client.Apipl().list()
 if err:
     raise Exception(err)
 
@@ -83,11 +91,9 @@ print(fetchdef["headers"])
 Create a mock client for unit testing — no server required:
 
 ```python
-client = N7timerWeatherSDK.test(None, None)
+client = N7timerWeatherSDK.test()
 
-result, err = client.N7timerWeather(None).load(
-    {"id": "test01"}, None
-)
+result, err = client.N7timerWeather().load({"id": "test01"})
 # result contains mock response data
 ```
 
@@ -118,6 +124,7 @@ Create a `.env.local` file at the project root:
 
 ```
 N7TIMER-WEATHER_TEST_LIVE=TRUE
+N7TIMER-WEATHER_APIKEY=<your-key>
 ```
 
 Then run:
@@ -141,6 +148,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `str` | API key for authentication. |
 | `base` | `str` | Base URL of the API server. |
 | `prefix` | `str` | URL path prefix prepended to all requests. |
 | `suffix` | `str` | URL path suffix appended to all requests. |

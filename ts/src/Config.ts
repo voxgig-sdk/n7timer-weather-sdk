@@ -38,6 +38,10 @@ class Config {
   options = {
     base: 'http://www.7timer.info',
 
+    auth: {
+      prefix: 'Bearer',
+    },
+
     headers: {
       "content-type": "application/json"
     },
@@ -58,104 +62,106 @@ class Config {
     "apipl": {
       "fields": [
         {
+          "active": true,
           "name": "dataseries",
           "req": false,
           "type": "`$ARRAY`",
-          "active": true,
           "index$": 0
         },
         {
+          "active": true,
           "name": "init",
           "req": false,
           "type": "`$STRING`",
-          "active": true,
           "index$": 1
         },
         {
+          "active": true,
           "name": "product",
           "req": false,
           "type": "`$STRING`",
-          "active": true,
           "index$": 2
         }
       ],
       "name": "apipl",
       "op": {
         "list": {
+          "input": "data",
           "name": "list",
           "points": [
             {
+              "active": true,
               "args": {
                 "query": [
                   {
+                    "active": true,
                     "example": 0,
                     "kind": "query",
                     "name": "ac",
                     "orig": "ac",
                     "reqd": false,
-                    "type": "`$INTEGER`",
-                    "active": true
+                    "type": "`$INTEGER`"
                   },
                   {
+                    "active": true,
                     "example": "en",
                     "kind": "query",
                     "name": "lang",
                     "orig": "lang",
                     "reqd": false,
-                    "type": "`$STRING`",
-                    "active": true
+                    "type": "`$STRING`"
                   },
                   {
+                    "active": true,
                     "example": 23.09,
                     "kind": "query",
                     "name": "lat",
                     "orig": "lat",
                     "reqd": true,
-                    "type": "`$NUMBER`",
-                    "active": true
+                    "type": "`$NUMBER`"
                   },
                   {
+                    "active": true,
                     "example": 113.17,
                     "kind": "query",
                     "name": "lon",
                     "orig": "lon",
                     "reqd": true,
-                    "type": "`$NUMBER`",
-                    "active": true
+                    "type": "`$NUMBER`"
                   },
                   {
+                    "active": true,
                     "kind": "query",
                     "name": "output",
                     "orig": "output",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "active": true
+                    "type": "`$STRING`"
                   },
                   {
+                    "active": true,
                     "kind": "query",
                     "name": "product",
                     "orig": "product",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "active": true
+                    "type": "`$STRING`"
                   },
                   {
+                    "active": true,
                     "example": 0,
                     "kind": "query",
                     "name": "tzshift",
                     "orig": "tzshift",
                     "reqd": false,
-                    "type": "`$INTEGER`",
-                    "active": true
+                    "type": "`$INTEGER`"
                   },
                   {
+                    "active": true,
                     "example": "metric",
                     "kind": "query",
                     "name": "unit",
                     "orig": "unit",
                     "reqd": false,
-                    "type": "`$STRING`",
-                    "active": true
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -181,11 +187,9 @@ class Config {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "active": true,
               "index$": 0
             }
           ],
-          "input": "data",
           "key$": "list"
         }
       },
@@ -198,73 +202,75 @@ class Config {
       "name": "graphical_api",
       "op": {
         "load": {
+          "input": "data",
           "name": "load",
           "points": [
             {
+              "active": true,
               "args": {
                 "query": [
                   {
+                    "active": true,
                     "example": 0,
                     "kind": "query",
                     "name": "ac",
                     "orig": "ac",
                     "reqd": false,
-                    "type": "`$INTEGER`",
-                    "active": true
+                    "type": "`$INTEGER`"
                   },
                   {
+                    "active": true,
                     "example": "en",
                     "kind": "query",
                     "name": "lang",
                     "orig": "lang",
                     "reqd": false,
-                    "type": "`$STRING`",
-                    "active": true
+                    "type": "`$STRING`"
                   },
                   {
+                    "active": true,
                     "example": 23.09,
                     "kind": "query",
                     "name": "lat",
                     "orig": "lat",
                     "reqd": true,
-                    "type": "`$NUMBER`",
-                    "active": true
+                    "type": "`$NUMBER`"
                   },
                   {
+                    "active": true,
                     "example": 113.17,
                     "kind": "query",
                     "name": "lon",
                     "orig": "lon",
                     "reqd": true,
-                    "type": "`$NUMBER`",
-                    "active": true
+                    "type": "`$NUMBER`"
                   },
                   {
+                    "active": true,
                     "example": "internal",
                     "kind": "query",
                     "name": "output",
                     "orig": "output",
                     "reqd": false,
-                    "type": "`$STRING`",
-                    "active": true
+                    "type": "`$STRING`"
                   },
                   {
+                    "active": true,
                     "example": 0,
                     "kind": "query",
                     "name": "tzshift",
                     "orig": "tzshift",
                     "reqd": false,
-                    "type": "`$INTEGER`",
-                    "active": true
+                    "type": "`$INTEGER`"
                   },
                   {
+                    "active": true,
                     "example": "metric",
                     "kind": "query",
                     "name": "unit",
                     "orig": "unit",
                     "reqd": false,
-                    "type": "`$STRING`",
-                    "active": true
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -289,11 +295,9 @@ class Config {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "active": true,
               "index$": 0
             }
           ],
-          "input": "data",
           "key$": "load"
         }
       },

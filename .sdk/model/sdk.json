@@ -1,44 +1,13 @@
 {
-  "name": "n7timer-weather",
-  "origin": "voxgig-sdk",
   "def": "7timer-weather_0.1.0.json",
   "main": {
+    "def": {
+      "desc": ""
+    },
     "kit": {
-      "info": {
-        "contact": {
-          "url": "https://www.7timer.info"
-        },
-        "description": "The 7Timer Weather API provides global numerical weather forecasts derived from high-resolution models. Users can access weather data in graphical or machine-readable formats without needing an API key, enabling programmatic access to various meteorological elements.",
-        "license": {
-          "name": "7Timer License",
-          "url": "https://www.7timer.info/doc.php?lang=en"
-        },
-        "servers": [
-          {
-            "description": "7Timer Production Server",
-            "url": "http://www.7timer.info"
-          }
-        ],
-        "title": "7Timer Weather API",
-        "version": "1.0.0",
-        "tagline": "Free global numerical weather forecasts from high-resolution NWP models, no API key required",
-        "homepage": "http://www.7timer.info",
-        "docs_url": "http://www.7timer.info/doc.php",
-        "license_short": "Free for non-commercial use; notify maintainers when used",
-        "license_md": "- Weather data is free to use and redistribute for non-commercial purposes\n- Commercial use is not permitted under the site's stated terms\n- Developers are asked to notify the 7Timer maintainers when they use the data\n- No API key or registration is required to call the endpoints",
-        "about_md": "[7Timer!](http://www.7timer.info) is a free global numerical weather forecast service that produces predictions by post-processing output from high-resolution NWP models. It exposes simple HTTP endpoints so any application can pull forecasts for an arbitrary latitude/longitude on Earth.\n\nThe service offers two API styles:\n\n- A **graphical API** (`/bin/astro.php`, `/bin/civil.php`, etc.) that returns ready-to-embed PNG forecast charts.\n- A **machine-readable API** (`/bin/api.pl`) that returns the same forecast data as XML or JSON.\n\nFive forecast products are available: `astro` (astronomical seeing, cloud cover, transparency), `civil` (general weather), `civillight` (a lighter civil variant), `meteo` (detailed meteorological data), and `two` (two-day high-resolution forecast). Common query parameters include `lon`, `lat`, `product`, `output`, `ac` (altitude correction: 0, 2 or 7), `lang`, `unit` (metric or British), and `tzshift` for local timezone offsets.\n\nNo authentication is needed and the endpoints are open over plain HTTP. Because the service is volunteer-run, callers are asked to be considerate with request rates and to notify the maintainers about non-trivial use.",
-        "entity_desc": {
-          "apipl": "The machine-readable forecast endpoint at `/bin/api.pl`, returning XML or JSON forecast data for a given `lon`/`lat` and `product`.",
-          "graphical_api": "The image-producing endpoints under `/bin/` (e.g. `/bin/astro.php`, `/bin/civil.php`, `/bin/meteo.php`) that return PNG forecast charts for embedding."
-        },
-        "auth": false
-      },
       "config": {
         "auth": {
           "prefix": "Bearer"
-        },
-        "headers": {
-          "content-type": "application/json"
         },
         "docs_order": [
           "ts",
@@ -47,110 +16,116 @@
           "go",
           "rb",
           "lua"
-        ]
+        ],
+        "headers": {
+          "content-type": "application/json"
+        }
       },
       "entity": {
         "apipl": {
+          "active": true,
           "alias": {
             "field": {}
           },
           "fields": [
             {
+              "active": true,
               "name": "dataseries",
               "req": false,
-              "type": "`$ARRAY`",
-              "active": true
+              "type": "`$ARRAY`"
             },
             {
+              "active": true,
               "name": "init",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "product",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             }
           ],
           "name": "apipl",
           "op": {
             "list": {
+              "input": "data",
               "name": "list",
               "points": [
                 {
+                  "active": true,
                   "args": {
                     "query": [
                       {
+                        "active": true,
                         "example": 0,
                         "kind": "query",
                         "name": "ac",
                         "orig": "ac",
                         "reqd": false,
-                        "type": "`$INTEGER`",
-                        "active": true
+                        "type": "`$INTEGER`"
                       },
                       {
+                        "active": true,
                         "example": "en",
                         "kind": "query",
                         "name": "lang",
                         "orig": "lang",
                         "reqd": false,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       },
                       {
+                        "active": true,
                         "example": 23.09,
                         "kind": "query",
                         "name": "lat",
                         "orig": "lat",
                         "reqd": true,
-                        "type": "`$NUMBER`",
-                        "active": true
+                        "type": "`$NUMBER`"
                       },
                       {
+                        "active": true,
                         "example": 113.17,
                         "kind": "query",
                         "name": "lon",
                         "orig": "lon",
                         "reqd": true,
-                        "type": "`$NUMBER`",
-                        "active": true
+                        "type": "`$NUMBER`"
                       },
                       {
+                        "active": true,
                         "kind": "query",
                         "name": "output",
                         "orig": "output",
                         "reqd": true,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       },
                       {
+                        "active": true,
                         "kind": "query",
                         "name": "product",
                         "orig": "product",
                         "reqd": true,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       },
                       {
+                        "active": true,
                         "example": 0,
                         "kind": "query",
                         "name": "tzshift",
                         "orig": "tzshift",
                         "reqd": false,
-                        "type": "`$INTEGER`",
-                        "active": true
+                        "type": "`$INTEGER`"
                       },
                       {
+                        "active": true,
                         "example": "metric",
                         "kind": "query",
                         "name": "unit",
                         "orig": "unit",
                         "reqd": false,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       }
                     ]
                   },
@@ -175,92 +150,93 @@
                   "transform": {
                     "req": "`reqdata`",
                     "res": "`body`"
-                  },
-                  "active": true
+                  }
                 }
-              ],
-              "input": "data"
+              ]
             }
           },
-          "active": true,
           "relations": {
             "ancestors": []
           }
         },
         "graphical_api": {
+          "active": true,
           "alias": {
             "field": {}
           },
+          "fields": [],
           "name": "graphical_api",
           "op": {
             "load": {
+              "input": "data",
               "name": "load",
               "points": [
                 {
+                  "active": true,
                   "args": {
                     "query": [
                       {
+                        "active": true,
                         "example": 0,
                         "kind": "query",
                         "name": "ac",
                         "orig": "ac",
                         "reqd": false,
-                        "type": "`$INTEGER`",
-                        "active": true
+                        "type": "`$INTEGER`"
                       },
                       {
+                        "active": true,
                         "example": "en",
                         "kind": "query",
                         "name": "lang",
                         "orig": "lang",
                         "reqd": false,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       },
                       {
+                        "active": true,
                         "example": 23.09,
                         "kind": "query",
                         "name": "lat",
                         "orig": "lat",
                         "reqd": true,
-                        "type": "`$NUMBER`",
-                        "active": true
+                        "type": "`$NUMBER`"
                       },
                       {
+                        "active": true,
                         "example": 113.17,
                         "kind": "query",
                         "name": "lon",
                         "orig": "lon",
                         "reqd": true,
-                        "type": "`$NUMBER`",
-                        "active": true
+                        "type": "`$NUMBER`"
                       },
                       {
+                        "active": true,
                         "example": "internal",
                         "kind": "query",
                         "name": "output",
                         "orig": "output",
                         "reqd": false,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       },
                       {
+                        "active": true,
                         "example": 0,
                         "kind": "query",
                         "name": "tzshift",
                         "orig": "tzshift",
                         "reqd": false,
-                        "type": "`$INTEGER`",
-                        "active": true
+                        "type": "`$INTEGER`"
                       },
                       {
+                        "active": true,
                         "example": "metric",
                         "kind": "query",
                         "name": "unit",
                         "orig": "unit",
                         "reqd": false,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       }
                     ]
                   },
@@ -284,15 +260,11 @@
                   "transform": {
                     "req": "`reqdata`",
                     "res": "`body`"
-                  },
-                  "active": true
+                  }
                 }
-              ],
-              "input": "data"
+              ]
             }
           },
-          "active": true,
-          "fields": [],
           "relations": {
             "ancestors": []
           }
@@ -300,9 +272,6 @@
       },
       "feature": {
         "test": {
-          "name": "test",
-          "title": "In-memory mock transport for testing without a live server",
-          "version": "0.0.1",
           "active": true,
           "config": {
             "options": {
@@ -310,6 +279,14 @@
             }
           },
           "hook": {
+            "GetData": {
+              "active": true,
+              "await": false
+            },
+            "GetMatch": {
+              "active": true,
+              "await": false
+            },
             "PostConstruct": {
               "active": true,
               "await": false
@@ -318,25 +295,11 @@
               "active": true,
               "await": false
             },
-            "SetData": {
-              "active": true,
-              "await": false
-            },
-            "GetData": {
-              "active": true,
-              "await": false
-            },
-            "SetMatch": {
-              "active": true
-            },
-            "GetMatch": {
-              "active": true,
+            "PostOperation": {
+              "active": false,
               "await": false
             },
             "PrePoint": {
-              "active": true
-            },
-            "PreSpec": {
               "active": true,
               "await": false
             },
@@ -352,20 +315,32 @@
               "active": true,
               "await": false
             },
+            "PreSpec": {
+              "active": true,
+              "await": false
+            },
             "PreTarget": {
               "active": false,
               "await": false
             },
-            "PostOperation": {
-              "active": false,
+            "SetData": {
+              "active": true,
+              "await": false
+            },
+            "SetMatch": {
+              "active": true,
               "await": false
             }
           },
+          "name": "test",
           "target": {
-            "ts": {
+            "go": {
               "deps": {}
             },
-            "go": {
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
               "deps": {}
             },
             "lua": {
@@ -380,23 +355,30 @@
             "rb": {
               "deps": {}
             },
-            "go-cli": {
-              "deps": {}
-            },
-            "go-mcp": {
+            "ts": {
               "deps": {}
             }
-          }
+          },
+          "title": "In-memory mock transport for testing without a live server",
+          "version": "0.0.1"
         }
       },
       "flow": {
         "BasicApiplFlow": {
+          "active": true,
           "entity": "apipl",
+          "key$": "BasicApiplFlow",
           "kind": "basic",
           "name": "BasicApiplFlow",
+          "param": {},
           "step": [
             {
+              "active": true,
+              "data": {},
+              "input": {},
+              "match": {},
               "op": "list",
+              "spec": [],
               "valid": [
                 {
                   "apply": "ItemExists",
@@ -404,30 +386,29 @@
                     "ref": "apipl_ref01"
                   }
                 }
-              ],
-              "active": true,
-              "match": {},
-              "data": {},
-              "input": {},
-              "spec": []
+              ]
             }
-          ],
-          "key$": "BasicApiplFlow",
-          "active": true,
-          "param": {}
+          ]
         },
         "BasicGraphicalApiFlow": {
+          "active": true,
           "entity": "graphical_api",
+          "key$": "BasicGraphicalApiFlow",
           "kind": "basic",
           "name": "BasicGraphicalApiFlow",
+          "param": {},
           "step": [
             {
+              "active": true,
+              "data": {},
               "input": {
                 "ref": "graphical_api_ref01",
                 "srcdatavar": "graphical_api_ref01_data",
                 "suffix": "_dt0"
               },
+              "match": {},
               "op": "load",
+              "spec": [],
               "valid": [
                 {
                   "apply": "TextFieldMark",
@@ -435,28 +416,56 @@
                     "mark": "Mark01-graphical_api_ref01"
                   }
                 }
-              ],
-              "active": true,
-              "match": {},
-              "data": {},
-              "spec": []
+              ]
             }
-          ],
-          "key$": "BasicGraphicalApiFlow",
-          "active": true,
-          "param": {}
+          ]
         }
       },
+      "info": {
+        "contact": {
+          "url": "https://www.7timer.info"
+        },
+        "description": "The 7Timer Weather API provides global numerical weather forecasts derived from high-resolution models. Users can access weather data in graphical or machine-readable formats without needing an API key, enabling programmatic access to various meteorological elements.",
+        "license": {
+          "name": "7Timer License",
+          "url": "https://www.7timer.info/doc.php?lang=en"
+        },
+        "servers": [
+          {
+            "description": "7Timer Production Server",
+            "url": "http://www.7timer.info"
+          }
+        ],
+        "title": "7Timer Weather API",
+        "version": "1.0.0"
+      },
+      "option": {},
       "target": {
-        "go-cli": {
-          "title": "Go CLI",
-          "ext": "go",
+        "go": {
+          "active": true,
           "comment": {
             "line": "//"
           },
+          "deps": {},
+          "ext": "go",
           "module": {
             "name": "n7timer-weather"
           },
+          "name": "go",
+          "srcfeature": false,
+          "title": "Golang"
+        },
+        "go-cli": {
+          "active": true,
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "go",
+          "module": {
+            "name": "n7timer-weather"
+          },
+          "name": "go-cli",
           "phase": {
             "entity": {
               "active": false
@@ -471,19 +480,19 @@
               "active": false
             }
           },
-          "deps": {},
-          "name": "go-cli",
-          "active": true
+          "title": "Go CLI"
         },
         "go-mcp": {
-          "title": "Go MCP server",
-          "ext": "go",
+          "active": true,
           "comment": {
             "line": "//"
           },
+          "deps": {},
+          "ext": "go",
           "module": {
             "name": "n7timer-weather"
           },
+          "name": "go-mcp",
           "phase": {
             "entity": {
               "active": false
@@ -498,138 +507,120 @@
               "active": false
             }
           },
-          "deps": {},
-          "name": "go-mcp",
-          "active": true
-        },
-        "ts": {
-          "title": "TypeScript",
-          "ext": "ts",
-          "comment": {
-            "line": "//"
-          },
-          "module": {
-            "name": "n7timer-weather"
-          },
-          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
-          "deps": {
-            "dotenv": {
-              "active": true,
-              "version": "^17.4.2",
-              "kind": "dev"
-            },
-            "typescript": {
-              "active": true,
-              "version": "^5.9.3",
-              "kind": "dev"
-            },
-            "@types/node": {
-              "active": true,
-              "version": "^25.6.0",
-              "kind": "dev"
-            }
-          },
-          "name": "ts",
-          "active": true
-        },
-        "go": {
-          "title": "Golang",
-          "ext": "go",
-          "comment": {
-            "line": "//"
-          },
-          "module": {
-            "name": "n7timer-weather"
-          },
-          "srcfeature": false,
-          "deps": {},
-          "name": "go",
-          "active": true
+          "title": "Go MCP server"
         },
         "lua": {
-          "title": "Lua",
-          "ext": "lua",
+          "active": true,
           "comment": {
             "line": "--"
           },
-          "module": {
-            "name": "n7timer-weather"
-          },
-          "srcfeature": false,
           "deps": {
             "dkjson": {
               "active": true,
-              "version": "2.5",
-              "kind": "prod"
+              "kind": "prod",
+              "version": "2.5"
             }
           },
+          "ext": "lua",
+          "module": {
+            "name": "n7timer-weather"
+          },
           "name": "lua",
-          "active": true
+          "srcfeature": false,
+          "title": "Lua"
         },
         "php": {
-          "title": "PHP",
-          "ext": "php",
+          "active": true,
           "comment": {
             "line": "//"
           },
+          "deps": {},
+          "ext": "php",
           "module": {
             "name": "n7timer-weather"
           },
-          "srcfeature": false,
-          "deps": {},
           "name": "php",
-          "active": true
+          "srcfeature": false,
+          "title": "PHP"
         },
         "py": {
-          "title": "Python",
-          "ext": "py",
+          "active": true,
           "comment": {
             "line": "#"
           },
-          "module": {
-            "name": "n7timer-weather"
-          },
-          "srcfeature": false,
           "deps": {
             "requests": {
               "active": true,
-              "version": "2.33",
-              "kind": "prod"
+              "kind": "prod",
+              "version": "2.33"
             }
           },
-          "name": "py",
-          "active": true
-        },
-        "rb": {
-          "title": "Ruby",
-          "ext": "rb",
-          "comment": {
-            "line": "#"
-          },
+          "ext": "py",
           "module": {
             "name": "n7timer-weather"
           },
+          "name": "py",
           "srcfeature": false,
+          "title": "Python"
+        },
+        "rb": {
+          "active": true,
+          "comment": {
+            "line": "#"
+          },
           "deps": {
-            "voxgig-struct": {
-              "active": true,
-              "version": "0.0.10",
-              "kind": "prod"
-            },
             "json": {
               "active": true,
-              "version": "0",
-              "kind": "prod"
+              "kind": "prod",
+              "version": "0"
+            },
+            "voxgig-struct": {
+              "active": true,
+              "kind": "prod",
+              "version": "0.0.10"
             }
           },
+          "ext": "rb",
+          "module": {
+            "name": "n7timer-weather"
+          },
           "name": "rb",
-          "active": true
+          "srcfeature": false,
+          "title": "Ruby"
+        },
+        "ts": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "//"
+          },
+          "deps": {
+            "@types/node": {
+              "active": true,
+              "kind": "dev",
+              "version": "^25.6.0"
+            },
+            "dotenv": {
+              "active": true,
+              "kind": "dev",
+              "version": "^17.4.2"
+            },
+            "typescript": {
+              "active": true,
+              "kind": "dev",
+              "version": "^5.9.3"
+            }
+          },
+          "ext": "ts",
+          "module": {
+            "name": "n7timer-weather"
+          },
+          "name": "ts",
+          "title": "TypeScript"
         }
-      },
-      "option": {}
-    },
-    "def": {
-      "desc": ""
+      }
     }
-  }
+  },
+  "name": "n7timer-weather",
+  "origin": "voxgig-sdk"
 }
