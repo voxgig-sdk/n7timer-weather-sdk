@@ -10,7 +10,7 @@ The Lua SDK for the N7timerWeather API — an entity-oriented client using Lua c
 
 ## Install
 ```bash
-luarocks install n7timer-weather-sdk
+luarocks install voxgig-sdk-n7timer-weather
 ```
 
 If the module is not yet published, add the source directory to

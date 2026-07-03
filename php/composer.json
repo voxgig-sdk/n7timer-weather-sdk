@@ -1,8 +1,17 @@
 {
   "name": "voxgig-sdk/n7timer-weather",
-  "description": "N7timerWeather SDK for PHP",
+  "description": "Unofficial generated PHP SDK for the 7Timer Weather public API. Not affiliated with or endorsed by the upstream API provider.",
   "type": "library",
+  "keywords": ["voxgig", "sdk", "generated-sdk", "openapi", "api-client", "n7timer-weather"],
+  "homepage": "https://github.com/voxgig-sdk/n7timer-weather-sdk",
   "license": "MIT",
+  "authors": [
+    { "name": "Voxgig", "homepage": "https://voxgig.com" }
+  ],
+  "support": {
+    "issues": "https://github.com/voxgig-sdk/n7timer-weather-sdk/issues",
+    "source": "https://github.com/voxgig-sdk/n7timer-weather-sdk"
+  },
   "minimum-stability": "stable",
   "require": {
     "php": ">=8.2"

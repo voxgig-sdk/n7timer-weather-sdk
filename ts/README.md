@@ -10,7 +10,7 @@ The TypeScript SDK for the N7timerWeather API — a type-safe, entity-oriented c
 
 ## Install
 ```bash
-npm install n7timer-weather
+npm install @voxgig-sdk/n7timer-weather
 ```
 ## Tutorial: your first API call
 

@@ -10,7 +10,7 @@ The Python SDK for the N7timerWeather API — an entity-oriented client followin
 
 ## Install
 ```bash
-pip install n7timer-weather-sdk
+pip install voxgig-sdk-n7timer-weather
 ```
 
 Or install from source:

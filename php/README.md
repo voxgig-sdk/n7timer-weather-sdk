@@ -10,7 +10,7 @@ The PHP SDK for the N7timerWeather API — an entity-oriented client using PHP c
 
 ## Install
 ```bash
-composer require voxgig/n7timer-weather-sdk
+composer require voxgig-sdk/n7timer-weather
 ```
 
 

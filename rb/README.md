@@ -10,13 +10,13 @@ The Ruby SDK for the N7timerWeather API — an entity-oriented client using idio
 
 ## Install
 ```bash
-gem install n7timer-weather-sdk
+gem install voxgig-sdk-n7timer-weather
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "n7timer-weather-sdk"
+gem "voxgig-sdk-n7timer-weather"
 ```
 
 Then run:
