@@ -38,10 +38,6 @@ class Config {
   options = {
     base: 'http://www.7timer.info',
 
-    auth: {
-      prefix: 'Bearer',
-    },
-
     headers: {
       "content-type": "application/json"
     },

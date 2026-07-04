@@ -42,8 +42,7 @@ class GraphicalApiEntityTest < Minitest::Test
     # LOAD
     graphical_api_ref01_ent = client.GraphicalApi(nil)
     graphical_api_ref01_match_dt0 = {}
-    graphical_api_ref01_data_dt0_loaded, err = graphical_api_ref01_ent.load(graphical_api_ref01_match_dt0, nil)
-    assert_nil err
+    graphical_api_ref01_data_dt0_loaded = graphical_api_ref01_ent.load(graphical_api_ref01_match_dt0, nil)
     assert !graphical_api_ref01_data_dt0_loaded.nil?
 
   end
@@ -82,7 +81,6 @@ def graphical_api_basic_setup(extra)
     "N_TIMERWEATHER_TEST_GRAPHICAL_API_ENTID" => idmap,
     "N_TIMERWEATHER_TEST_LIVE" => "FALSE",
     "N_TIMERWEATHER_TEST_EXPLAIN" => "FALSE",
-    "N_TIMERWEATHER_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -94,7 +92,6 @@ def graphical_api_basic_setup(extra)
   if env["N_TIMERWEATHER_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["N_TIMERWEATHER_APIKEY"],
       },
       extra || {},
     ])

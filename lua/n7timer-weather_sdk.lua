@@ -244,12 +244,38 @@ end
 
 
 
+-- Idiomatic facade: client:apipl():list() / client:apipl():load({ id = ... })
+function N7timerWeatherSDK:apipl(data)
+  local EntityMod = require("entity.apipl_entity")
+  if data == nil then
+    if self._apipl == nil then
+      self._apipl = EntityMod.new(self, nil)
+    end
+    return self._apipl
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:apipl() instead.
 function N7timerWeatherSDK:Apipl(data)
   local EntityMod = require("entity.apipl_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:graphical_api():list() / client:graphical_api():load({ id = ... })
+function N7timerWeatherSDK:graphical_api(data)
+  local EntityMod = require("entity.graphical_api_entity")
+  if data == nil then
+    if self._graphical_api == nil then
+      self._graphical_api = EntityMod.new(self, nil)
+    end
+    return self._graphical_api
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:graphical_api() instead.
 function N7timerWeatherSDK:GraphicalApi(data)
   local EntityMod = require("entity.graphical_api_entity")
   return EntityMod.new(self, data)

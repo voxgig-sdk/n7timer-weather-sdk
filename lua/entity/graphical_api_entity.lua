@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch GraphicalApiLoadMatch
+---@param ctrl? table
+---@return GraphicalApi
+---@return string? err
 function GraphicalApiEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

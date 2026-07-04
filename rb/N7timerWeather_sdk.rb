@@ -13,6 +13,9 @@ require_relative 'config'
 require_relative 'feature/base_feature'
 require_relative 'features'
 
+# Load typed models (Struct value objects).
+require_relative 'N7timerWeather_types'
+
 
 class N7timerWeatherSDK
   attr_accessor :mode, :features, :options
@@ -131,7 +134,7 @@ class N7timerWeatherSDK
     end
 
     _, err = utility.prepare_auth.call(ctx)
-    return nil, err if err
+    raise err if err
 
     utility.make_fetch_def.call(ctx)
   end
@@ -139,8 +142,14 @@ class N7timerWeatherSDK
   def direct(fetchargs = {})
     utility = @_utility
 
-    fetchdef, err = prepare(fetchargs)
-    return { "ok" => false, "err" => err }, nil if err
+    # direct() is the raw-HTTP escape hatch: it always returns a result hash
+    # ({ "ok" => ..., ... }) and never raises. prepare() raises on error, so
+    # trap that and surface it in the hash.
+    begin
+      fetchdef = prepare(fetchargs)
+    rescue N7timerWeatherError => err
+      return { "ok" => false, "err" => err }
+    end
 
     fetchargs ||= {}
     ctrl = N7timerWeatherHelpers.to_map(VoxgigStruct.getprop(fetchargs, "ctrl")) || {}
@@ -153,13 +162,13 @@ class N7timerWeatherSDK
     url = fetchdef["url"] || ""
     fetched, fetch_err = utility.fetcher.call(ctx, url, fetchdef)
 
-    return { "ok" => false, "err" => fetch_err }, nil if fetch_err
+    return { "ok" => false, "err" => fetch_err } if fetch_err
 
     if fetched.nil?
       return {
         "ok" => false,
         "err" => ctx.make_error("direct_no_response", "response: undefined"),
-      }, nil
+      }
     end
 
     if fetched.is_a?(Hash)
@@ -189,22 +198,36 @@ class N7timerWeatherSDK
         "status" => status,
         "headers" => headers,
         "data" => json_data,
-      }, nil
+      }
     end
 
     return {
       "ok" => false,
       "err" => ctx.make_error("direct_invalid", "invalid response type"),
-    }, nil
+    }
   end
 
 
+  # Idiomatic facade: client.apipl.list / client.apipl.load({ "id" => ... })
+  def apipl
+    require_relative 'entity/apipl_entity'
+    @apipl ||= ApiplEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.apipl instead.
   def Apipl(data = nil)
     require_relative 'entity/apipl_entity'
     ApiplEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.graphical_api.list / client.graphical_api.load({ "id" => ... })
+  def graphical_api
+    require_relative 'entity/graphical_api_entity'
+    @graphical_api ||= GraphicalApiEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.graphical_api instead.
   def GraphicalApi(data = nil)
     require_relative 'entity/graphical_api_entity'
     GraphicalApiEntity.new(self, data)

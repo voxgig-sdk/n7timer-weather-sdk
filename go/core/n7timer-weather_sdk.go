@@ -245,11 +245,17 @@ func (sdk *N7timerWeatherSDK) Direct(fetchargs map[string]any) (map[string]any, 
 }
 
 
+// Apipl returns a Apipl entity bound to this client.
+// Idiomatic usage: client.Apipl(nil).List(nil, nil) or
+// client.Apipl(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *N7timerWeatherSDK) Apipl(data map[string]any) N7timerWeatherEntity {
 	return NewApiplEntityFunc(sdk, data)
 }
 
 
+// GraphicalApi returns a GraphicalApi entity bound to this client.
+// Idiomatic usage: client.GraphicalApi(nil).List(nil, nil) or
+// client.GraphicalApi(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *N7timerWeatherSDK) GraphicalApi(data map[string]any) N7timerWeatherEntity {
 	return NewGraphicalApiEntityFunc(sdk, data)
 }

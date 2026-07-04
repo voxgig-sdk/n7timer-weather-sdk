@@ -119,7 +119,6 @@ func apiplBasicSetup(extra map[string]any) *entityTestSetup {
 		"N_TIMERWEATHER_TEST_APIPL_ENTID": idmap,
 		"N_TIMERWEATHER_TEST_LIVE":      "FALSE",
 		"N_TIMERWEATHER_TEST_EXPLAIN":   "FALSE",
-		"N_TIMERWEATHER_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["N_TIMERWEATHER_TEST_APIPL_ENTID"])
@@ -130,7 +129,6 @@ func apiplBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["N_TIMERWEATHER_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
-				"apikey": env["N_TIMERWEATHER_APIKEY"],
 			},
 			extra,
 		})

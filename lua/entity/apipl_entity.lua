@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch ApiplListMatch
+---@param ctrl? table
+---@return Apipl[]
+---@return string? err
 function ApiplEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

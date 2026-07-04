@@ -45,6 +45,7 @@ class GraphicalApiEntity
     end
   end
 
+  # @return [GraphicalApi, Hash] the current GraphicalApi data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class GraphicalApiEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of GraphicalApi fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single GraphicalApi.
+  #
+  # @param reqmatch [GraphicalApiLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [GraphicalApi, Hash] the loaded GraphicalApi; raises N7timerWeatherError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

@@ -45,6 +45,7 @@ class ApiplEntity
     end
   end
 
+  # @return [Apipl, Hash] the current Apipl data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class ApiplEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Apipl fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class ApiplEntity
   
 
   
+  # List Apipl items matching the given filter.
+  #
+  # @param reqmatch [ApiplListMatch, Hash, nil] match filter (any subset of Apipl fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Apipl>, Array] the matching Apipl items; raises N7timerWeatherError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

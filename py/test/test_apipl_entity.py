@@ -50,8 +50,7 @@ class TestApiplEntity:
         apipl_ref01_ent = client.Apipl(None)
         apipl_ref01_match = {}
 
-        apipl_ref01_list_result, err = apipl_ref01_ent.list(apipl_ref01_match, None)
-        assert err is None
+        apipl_ref01_list_result = apipl_ref01_ent.list(apipl_ref01_match, None)
         assert isinstance(apipl_ref01_list_result, list)
 
 
@@ -92,7 +91,6 @@ def _apipl_basic_setup(extra):
         "N_TIMERWEATHER_TEST_APIPL_ENTID": idmap,
         "N_TIMERWEATHER_TEST_LIVE": "FALSE",
         "N_TIMERWEATHER_TEST_EXPLAIN": "FALSE",
-        "N_TIMERWEATHER_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +101,6 @@ def _apipl_basic_setup(extra):
     if env.get("N_TIMERWEATHER_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("N_TIMERWEATHER_APIKEY"),
             },
             extra or {},
         ])

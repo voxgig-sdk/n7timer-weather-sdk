@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  GraphicalApi,
+  GraphicalApiLoadMatch,
+} from '../N7timerWeatherTypes'
 
 // TODO: needs Entity superclass
-class GraphicalApiEntity extends N7timerWeatherEntityBase {
+class GraphicalApiEntity extends N7timerWeatherEntityBase<GraphicalApi> {
 
   constructor(client: N7timerWeatherSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class GraphicalApiEntity extends N7timerWeatherEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: GraphicalApiLoadMatch, ctrl?: Control): Promise<GraphicalApi> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class GraphicalApiEntity extends N7timerWeatherEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<GraphicalApi> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

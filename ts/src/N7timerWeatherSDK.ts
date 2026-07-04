@@ -3,6 +3,8 @@
 import { ApiplEntity } from './entity/ApiplEntity'
 import { GraphicalApiEntity } from './entity/GraphicalApiEntity'
 
+export type * from './N7timerWeatherTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -203,12 +205,28 @@ class N7timerWeatherSDK {
 
 
 
+  _apipl?: ApiplEntity
+
+  // Idiomatic facade: `client.apipl.list()` / `client.apipl.load({ id })`.
+  get apipl(): ApiplEntity {
+    return (this._apipl ??= new ApiplEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.apipl` instead. */
   Apipl(data?: any) {
     const self = this
     return new ApiplEntity(self,data)
   }
 
 
+  _graphical_api?: GraphicalApiEntity
+
+  // Idiomatic facade: `client.graphical_api.list()` / `client.graphical_api.load({ id })`.
+  get graphical_api(): GraphicalApiEntity {
+    return (this._graphical_api ??= new GraphicalApiEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.graphical_api` instead. */
   GraphicalApi(data?: any) {
     const self = this
     return new GraphicalApiEntity(self,data)

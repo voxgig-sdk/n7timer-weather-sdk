@@ -9,12 +9,9 @@ The Lua SDK for the N7timerWeather API — an entity-oriented client using Lua c
 
 
 ## Install
-```bash
-luarocks install voxgig-sdk-n7timer-weather
-```
-
-If the module is not yet published, add the source directory to
-your `LUA_PATH`:
+This package is not yet published to LuaRocks. Install it from the
+GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/n7timer-weather-sdk/releases)),
+or add the source directory to your `LUA_PATH`:
 
 ```bash
 export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
@@ -31,15 +28,13 @@ loading a specific record.
 ```lua
 local sdk = require("n7timer-weather_sdk")
 
-local client = sdk.new({
-  apikey = os.getenv("N7TIMER-WEATHER_APIKEY"),
-})
+local client = sdk.new()
 ```
 
 ### 2. List apipls
 
 ```lua
-local result, err = client:Apipl():list()
+local result, err = client:apipl():list()
 if err then error(err) end
 
 if type(result) == "table" then
@@ -93,7 +88,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:N7timerWeather():load({ id = "test01" })
+local result, err = client:apipl():load({ id = "test01" })
 -- result contains mock response data
 ```
 
@@ -126,8 +121,7 @@ local client = sdk.new({
 Create a `.env.local` file at the project root:
 
 ```
-N7TIMER-WEATHER_TEST_LIVE=TRUE
-N7TIMER-WEATHER_APIKEY=<your-key>
+N7TIMER_WEATHER_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -150,7 +144,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -239,7 +232,7 @@ API path: `/bin/astro.php`
 
 ### Apipl
 
-Create an instance: `const apipl = client.Apipl()`
+Create an instance: `const apipl = client.apipl`
 
 #### Operations
 
@@ -258,13 +251,13 @@ Create an instance: `const apipl = client.Apipl()`
 #### Example: List
 
 ```ts
-const apipls = await client.Apipl().list()
+const apipls = await client.apipl.list()
 ```
 
 
 ### GraphicalApi
 
-Create an instance: `const graphical_api = client.GraphicalApi()`
+Create an instance: `const graphical_api = client.graphical_api`
 
 #### Operations
 
@@ -275,7 +268,7 @@ Create an instance: `const graphical_api = client.GraphicalApi()`
 #### Example: Load
 
 ```ts
-const graphical_api = await client.GraphicalApi().load({ id: 'graphical_api_id' })
+const graphical_api = await client.graphical_api.load({ id: 'graphical_api_id' })
 ```
 
 
@@ -350,11 +343,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local moon = client:Moon(nil)
-moon:load({ planet_id = "earth", id = "luna" }, nil)
+local apipl = client:apipl()
+apipl:load({ id = "example_id" })
 
--- moon:data_get() now returns the loaded moon data
--- moon:match_get() returns the last match criteria
+-- apipl:data_get() now returns the loaded apipl data
+-- apipl:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

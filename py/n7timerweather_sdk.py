@@ -144,16 +144,23 @@ class N7timerWeatherSDK:
 
         _, err = utility.prepare_auth(ctx)
         if err is not None:
-            return None, err
+            raise err
 
-        return utility.make_fetch_def(ctx)
+        fetchdef, err = utility.make_fetch_def(ctx)
+        if err is not None:
+            raise err
+
+        return fetchdef
 
     def direct(self, fetchargs=None):
         utility = self._utility
 
-        fetchdef, err = self.prepare(fetchargs)
-        if err is not None:
-            return {"ok": False, "err": err}, None
+        try:
+            fetchdef = self.prepare(fetchargs)
+        except Exception as err:
+            # direct() is the raw-HTTP escape hatch: it never raises, it
+            # returns a result object callers branch on via result["ok"].
+            return {"ok": False, "err": err}
 
         if fetchargs is None:
             fetchargs = {}
@@ -170,13 +177,13 @@ class N7timerWeatherSDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}, None
+            return {"ok": False, "err": fetch_err}
 
         if fetched is None:
             return {
                 "ok": False,
                 "err": ctx.make_error("direct_no_response", "response: undefined"),
-            }, None
+            }
 
         if isinstance(fetched, dict):
             status = helpers.to_int(vs.getprop(fetched, "status"))
@@ -205,20 +212,42 @@ class N7timerWeatherSDK:
                 "status": status,
                 "headers": headers,
                 "data": json_data,
-            }, None
+            }
 
         return {
             "ok": False,
             "err": ctx.make_error("direct_invalid", "invalid response type"),
-        }, None
+        }
 
+
+    @property
+    def apipl(self):
+        """Idiomatic facade: client.apipl.list() / client.apipl.load({"id": ...})."""
+        from entity.apipl_entity import ApiplEntity
+        cached = getattr(self, "_apipl", None)
+        if cached is None:
+            cached = ApiplEntity(self, None)
+            self._apipl = cached
+        return cached
 
     def Apipl(self, data=None):
+        # Deprecated: use client.apipl instead.
         from entity.apipl_entity import ApiplEntity
         return ApiplEntity(self, data)
 
 
+    @property
+    def graphical_api(self):
+        """Idiomatic facade: client.graphical_api.list() / client.graphical_api.load({"id": ...})."""
+        from entity.graphical_api_entity import GraphicalApiEntity
+        cached = getattr(self, "_graphical_api", None)
+        if cached is None:
+            cached = GraphicalApiEntity(self, None)
+            self._graphical_api = cached
+        return cached
+
     def GraphicalApi(self, data=None):
+        # Deprecated: use client.graphical_api instead.
         from entity.graphical_api_entity import GraphicalApiEntity
         return GraphicalApiEntity(self, data)
 

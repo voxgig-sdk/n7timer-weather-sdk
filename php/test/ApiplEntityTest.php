@@ -50,8 +50,7 @@ class ApiplEntityTest extends TestCase
         $apipl_ref01_ent = $client->Apipl(null);
         $apipl_ref01_match = [];
 
-        [$apipl_ref01_list_result, $err] = $apipl_ref01_ent->list($apipl_ref01_match, null);
-        $this->assertNull($err);
+        $apipl_ref01_list_result = $apipl_ref01_ent->list($apipl_ref01_match, null);
         $this->assertIsArray($apipl_ref01_list_result);
 
     }
@@ -86,7 +85,6 @@ function apipl_basic_setup($extra)
         "N_TIMERWEATHER_TEST_APIPL_ENTID" => $idmap,
         "N_TIMERWEATHER_TEST_LIVE" => "FALSE",
         "N_TIMERWEATHER_TEST_EXPLAIN" => "FALSE",
-        "N_TIMERWEATHER_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -98,7 +96,6 @@ function apipl_basic_setup($extra)
     if ($env["N_TIMERWEATHER_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["N_TIMERWEATHER_APIKEY"],
             ],
             $extra ?? [],
         ]);

@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -122,7 +121,7 @@ Alias for `N7timerWeatherSDK.test()`.
 ## ApiplEntity
 
 ```ts
-const apipl = client.Apipl()
+const apipl = client.apipl
 ```
 
 ### Fields
@@ -140,7 +139,7 @@ const apipl = client.Apipl()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Apipl().list()
+const results = await client.apipl.list()
 ```
 
 ### Common Methods
@@ -174,7 +173,7 @@ Return a copy of the entity options.
 ## GraphicalApiEntity
 
 ```ts
-const graphical_api = client.GraphicalApi()
+const graphical_api = client.graphical_api
 ```
 
 ### Operations
@@ -184,7 +183,7 @@ const graphical_api = client.GraphicalApi()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.GraphicalApi().load({ id: 'graphical_api_id' })
+const result = await client.graphical_api.load({ id: 'graphical_api_id' })
 ```
 
 ### Common Methods

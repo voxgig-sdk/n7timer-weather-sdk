@@ -9,9 +9,12 @@ The TypeScript SDK for the N7timerWeather API — a type-safe, entity-oriented c
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/n7timer-weather
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/n7timer-weather-sdk/releases](https://github.com/voxgig-sdk/n7timer-weather-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,15 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { N7timerWeatherSDK } from 'n7timer-weather'
+import { N7timerWeatherSDK } from '@voxgig-sdk/n7timer-weather'
 
-const client = new N7timerWeatherSDK({
-  apikey: process.env.N7TIMER-WEATHER_APIKEY,
-})
+const client = new N7timerWeatherSDK()
 ```
 
 ### 2. List apipls
 
 ```ts
-const result = await client.Apipl().list()
+const result = await client.apipl.list()
 
 if (result.ok) {
   for (const item of result.data) {
@@ -81,7 +82,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = N7timerWeatherSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.apipl.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -89,7 +90,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new N7timerWeatherSDK({ apikey: '...' })
+const client = new N7timerWeatherSDK()
 const testClient = client.tester()
 ```
 
@@ -98,7 +99,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.apipl
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -125,7 +126,6 @@ const logger = {
 }
 
 const client = new N7timerWeatherSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -135,8 +135,7 @@ const client = new N7timerWeatherSDK({
 Create a `.env.local` file at the project root:
 
 ```
-N7TIMER-WEATHER_TEST_LIVE=TRUE
-N7TIMER-WEATHER_APIKEY=<your-key>
+N7TIMER_WEATHER_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -154,7 +153,6 @@ cd ts && npm test
 
 ```ts
 new N7timerWeatherSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -165,7 +163,6 @@ new N7timerWeatherSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -280,7 +277,7 @@ API path: `/bin/astro.php`
 
 ### Apipl
 
-Create an instance: `const apipl = client.Apipl()`
+Create an instance: `const apipl = client.apipl`
 
 #### Operations
 
@@ -299,13 +296,13 @@ Create an instance: `const apipl = client.Apipl()`
 #### Example: List
 
 ```ts
-const apipls = await client.Apipl().list()
+const apipls = await client.apipl.list()
 ```
 
 
 ### GraphicalApi
 
-Create an instance: `const graphical_api = client.GraphicalApi()`
+Create an instance: `const graphical_api = client.graphical_api`
 
 #### Operations
 
@@ -316,7 +313,7 @@ Create an instance: `const graphical_api = client.GraphicalApi()`
 #### Example: Load
 
 ```ts
-const graphical_api = await client.GraphicalApi().load({ id: 'graphical_api_id' })
+const graphical_api = await client.graphical_api.load({ id: 'graphical_api_id' })
 ```
 
 
@@ -377,7 +374,7 @@ n7timer-weather/
 Import the SDK from the package root:
 
 ```ts
-import { N7timerWeatherSDK } from 'n7timer-weather'
+import { N7timerWeatherSDK } from '@voxgig-sdk/n7timer-weather'
 ```
 
 ### Entity state
@@ -387,11 +384,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const apipl = client.apipl
+await apipl.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// apipl.data() now returns the loaded apipl data
+// apipl.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration
