@@ -84,7 +84,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## ApiplEntity
 
 ```python
-apipl = client.apipl
+apipl = client.Apipl()
 ```
 
 ### Fields
@@ -102,7 +102,9 @@ apipl = client.apipl
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.apipl.list({})
+results = client.Apipl().list({})
+for apipl in results:
+    print(apipl)
 ```
 
 ### Common Methods
@@ -137,7 +139,7 @@ Return the entity name.
 ## GraphicalApiEntity
 
 ```python
-graphical_api = client.graphical_api
+graphical_api = client.GraphicalApi()
 ```
 
 ### Operations
@@ -147,7 +149,7 @@ graphical_api = client.graphical_api
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.graphical_api.load({"id": "graphical_api_id"})
+result = client.GraphicalApi().load({"id": "graphical_api_id"})
 ```
 
 ### Common Methods

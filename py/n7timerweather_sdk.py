@@ -220,41 +220,21 @@ class N7timerWeatherSDK:
         }
 
 
-    @property
-    def apipl(self):
-        """Idiomatic facade: client.apipl.list() / client.apipl.load({"id": ...})."""
-        from entity.apipl_entity import ApiplEntity
-        cached = getattr(self, "_apipl", None)
-        if cached is None:
-            cached = ApiplEntity(self, None)
-            self._apipl = cached
-        return cached
-
-    def Apipl(self, data=None):
-        # Deprecated: use client.apipl instead.
+    def Apipl(self, data=None) -> "ApiplEntity":
+        """Entity factory: client.Apipl().list({}) / client.Apipl().load({"id": ...})."""
         from entity.apipl_entity import ApiplEntity
         return ApiplEntity(self, data)
 
 
-    @property
-    def graphical_api(self):
-        """Idiomatic facade: client.graphical_api.list() / client.graphical_api.load({"id": ...})."""
-        from entity.graphical_api_entity import GraphicalApiEntity
-        cached = getattr(self, "_graphical_api", None)
-        if cached is None:
-            cached = GraphicalApiEntity(self, None)
-            self._graphical_api = cached
-        return cached
-
-    def GraphicalApi(self, data=None):
-        # Deprecated: use client.graphical_api instead.
+    def GraphicalApi(self, data=None) -> "GraphicalApiEntity":
+        """Entity factory: client.GraphicalApi().list({}) / client.GraphicalApi().load({"id": ...})."""
         from entity.graphical_api_entity import GraphicalApiEntity
         return GraphicalApiEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "N7timerWeatherSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -274,3 +254,10 @@ class N7timerWeatherSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.apipl_entity import ApiplEntity
+    from entity.graphical_api_entity import GraphicalApiEntity

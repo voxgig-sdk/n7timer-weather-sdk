@@ -90,7 +90,7 @@ same parameters as `direct()`. Raises on error.
 ## ApiplEntity
 
 ```ruby
-apipl = client.apipl
+apipl = client.Apipl
 ```
 
 ### Fields
@@ -108,7 +108,7 @@ apipl = client.apipl
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.apipl.list(nil)
+results = client.Apipl.list(nil)
 ```
 
 ### Common Methods
@@ -144,7 +144,7 @@ Return the entity name.
 ## GraphicalApiEntity
 
 ```ruby
-graphical_api = client.graphical_api
+graphical_api = client.GraphicalApi
 ```
 
 ### Operations
@@ -154,7 +154,7 @@ graphical_api = client.graphical_api
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.graphical_api.load({ "id" => "graphical_api_id" })
+result = client.GraphicalApi.load({ "id" => "graphical_api_id" })
 ```
 
 ### Common Methods

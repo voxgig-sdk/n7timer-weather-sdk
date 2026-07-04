@@ -208,26 +208,14 @@ class N7timerWeatherSDK
   end
 
 
-  # Idiomatic facade: client.apipl.list / client.apipl.load({ "id" => ... })
-  def apipl
-    require_relative 'entity/apipl_entity'
-    @apipl ||= ApiplEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.apipl instead.
+  # Canonical facade: client.Apipl.list / client.Apipl.load({ "id" => ... })
   def Apipl(data = nil)
     require_relative 'entity/apipl_entity'
     ApiplEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.graphical_api.list / client.graphical_api.load({ "id" => ... })
-  def graphical_api
-    require_relative 'entity/graphical_api_entity'
-    @graphical_api ||= GraphicalApiEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.graphical_api instead.
+  # Canonical facade: client.GraphicalApi.list / client.GraphicalApi.load({ "id" => ... })
   def GraphicalApi(data = nil)
     require_relative 'entity/graphical_api_entity'
     GraphicalApiEntity.new(self, data)

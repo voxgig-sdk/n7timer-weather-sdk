@@ -29,18 +29,16 @@ require_once 'n7timerweather_sdk.php';
 $client = new N7timerWeatherSDK();
 ```
 
-### 2. List apipls
+### 2. List apipl records
 
 ```php
 try {
-    $result = $client->apipl()->list();
-    if (is_array($result)) {
-        foreach ($result as $item) {
-            $d = $item->data_get();
-            echo $d["id"] . " " . $d["name"] . "\n";
-        }
+    // list() returns an array of Apipl records — iterate directly.
+    $apipls = $client->Apipl()->list();
+    foreach ($apipls as $item) {
+        echo $item["id"] . " " . $item["name"] . "\n";
     }
-} catch (\Exception $err) {
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -86,13 +84,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = N7timerWeatherSDK::test();
+$client = N7timerWeatherSDK::test([
+    "entity" => ["apipl" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->apipl()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$apipl = $client->Apipl()->load(["id" => "test01"]);
+print_r($apipl);
 ```
 
 ### Use a custom fetch function
@@ -171,7 +173,7 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `get_utility` | `(): Utility` | Copy of the SDK utility object. |
 | `prepare` | `(array $fetchargs): array` | Build an HTTP request definition without sending. |
 | `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
-| `Apipl` | `($data): ApiplEntity` | Create a Apipl entity instance. |
+| `Apipl` | `($data): ApiplEntity` | Create an Apipl entity instance. |
 | `GraphicalApi` | `($data): GraphicalApiEntity` | Create a GraphicalApi entity instance. |
 
 ### Entity interface
@@ -240,7 +242,7 @@ API path: `/bin/astro.php`
 
 ### Apipl
 
-Create an instance: `const apipl = client.apipl`
+Create an instance: `$apipl = $client->Apipl();`
 
 #### Operations
 
@@ -258,14 +260,15 @@ Create an instance: `const apipl = client.apipl`
 
 #### Example: List
 
-```ts
-const apipls = await client.apipl.list()
+```php
+// list() returns an array of Apipl records (throws on error).
+$apipls = $client->Apipl()->list();
 ```
 
 
 ### GraphicalApi
 
-Create an instance: `const graphical_api = client.graphical_api`
+Create an instance: `$graphical_api = $client->GraphicalApi();`
 
 #### Operations
 
@@ -275,8 +278,9 @@ Create an instance: `const graphical_api = client.graphical_api`
 
 #### Example: Load
 
-```ts
-const graphical_api = await client.graphical_api.load({ id: 'graphical_api_id' })
+```php
+// load() returns the bare GraphicalApi record (throws on error).
+$graphical_api = $client->GraphicalApi()->load(["id" => "graphical_api_id"]);
 ```
 
 
@@ -351,7 +355,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$apipl = $client->apipl();
+$apipl = $client->Apipl();
 $apipl->load(["id" => "example_id"]);
 
 // $apipl->dataGet() now returns the loaded apipl data

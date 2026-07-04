@@ -89,7 +89,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## ApiplEntity
 
 ```php
-$apipl = $client->apipl();
+$apipl = $client->Apipl();
 ```
 
 ### Fields
@@ -107,7 +107,7 @@ $apipl = $client->apipl();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->apipl()->list([]);
+$results = $client->Apipl()->list([]);
 ```
 
 ### Common Methods
@@ -143,7 +143,7 @@ Return the entity name.
 ## GraphicalApiEntity
 
 ```php
-$graphical_api = $client->graphical_api();
+$graphical_api = $client->GraphicalApi();
 ```
 
 ### Operations
@@ -153,7 +153,7 @@ $graphical_api = $client->graphical_api();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->graphical_api()->load(["id" => "graphical_api_id"]);
+$result = $client->GraphicalApi()->load(["id" => "graphical_api_id"]);
 ```
 
 ### Common Methods

@@ -233,10 +233,10 @@ class N7timerWeatherSDK
 
     private $_apipl = null;
 
-    // Idiomatic facade: $client->apipl()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Apipl() (PHP method
-    // names are case-insensitive).
-    public function apipl($data = null)
+    // Canonical facade: $client->Apipl()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->apipl()
+    // resolves here too.
+    public function Apipl($data = null)
     {
         require_once __DIR__ . '/entity/apipl_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class N7timerWeatherSDK
 
     private $_graphical_api = null;
 
-    // Idiomatic facade: $client->graphical_api()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias GraphicalApi() (PHP method
-    // names are case-insensitive).
-    public function graphical_api($data = null)
+    // Canonical facade: $client->GraphicalApi()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->graphical_api()
+    // resolves here too.
+    public function GraphicalApi($data = null)
     {
         require_once __DIR__ . '/entity/graphical_api_entity.php';
         if ($data === null) {

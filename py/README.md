@@ -31,14 +31,16 @@ from n7timerweather_sdk import N7timerWeatherSDK
 client = N7timerWeatherSDK()
 ```
 
-### 2. List apipls
+### 2. List apipl records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.apipl.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    apipls = client.Apipl().list({})
+    for apipl in apipls:
+        print(apipl)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -86,8 +88,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = N7timerWeatherSDK.test()
 
-result = client.apipl.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+apipl = client.Apipl().load({"id": "test01"})
+# apipl contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -163,7 +166,7 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
-| `Apipl` | `(data) -> ApiplEntity` | Create a Apipl entity instance. |
+| `Apipl` | `(data) -> ApiplEntity` | Create an Apipl entity instance. |
 | `GraphicalApi` | `(data) -> GraphicalApiEntity` | Create a GraphicalApi entity instance. |
 
 ### Entity interface
@@ -232,7 +235,7 @@ API path: `/bin/astro.php`
 
 ### Apipl
 
-Create an instance: `const apipl = client.apipl`
+Create an instance: `apipl = client.Apipl()`
 
 #### Operations
 
@@ -250,14 +253,14 @@ Create an instance: `const apipl = client.apipl`
 
 #### Example: List
 
-```ts
-const apipls = await client.apipl.list()
+```python
+apipls = client.Apipl().list({})
 ```
 
 
 ### GraphicalApi
 
-Create an instance: `const graphical_api = client.graphical_api`
+Create an instance: `graphical_api = client.GraphicalApi()`
 
 #### Operations
 
@@ -267,8 +270,8 @@ Create an instance: `const graphical_api = client.graphical_api`
 
 #### Example: Load
 
-```ts
-const graphical_api = await client.graphical_api.load({ id: 'graphical_api_id' })
+```python
+graphical_api = client.GraphicalApi().load({"id": "graphical_api_id"})
 ```
 
 
@@ -342,7 +345,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-apipl = client.apipl
+apipl = client.Apipl()
 apipl.load({"id": "example_id"})
 
 # apipl.data_get() now returns the loaded apipl data

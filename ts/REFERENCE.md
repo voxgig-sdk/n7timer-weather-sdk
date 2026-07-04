@@ -121,7 +121,7 @@ Alias for `N7timerWeatherSDK.test()`.
 ## ApiplEntity
 
 ```ts
-const apipl = client.apipl
+const apipl = client.Apipl()
 ```
 
 ### Fields
@@ -139,7 +139,7 @@ const apipl = client.apipl
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.apipl.list()
+const results = await client.Apipl().list()
 ```
 
 ### Common Methods
@@ -173,7 +173,7 @@ Return a copy of the entity options.
 ## GraphicalApiEntity
 
 ```ts
-const graphical_api = client.graphical_api
+const graphical_api = client.GraphicalApi()
 ```
 
 ### Operations
@@ -183,7 +183,7 @@ const graphical_api = client.graphical_api
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.graphical_api.load({ id: 'graphical_api_id' })
+const result = await client.GraphicalApi().load({ id: 'graphical_api_id' })
 ```
 
 ### Common Methods

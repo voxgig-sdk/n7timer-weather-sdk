@@ -28,16 +28,14 @@ require_relative "N7timerWeather_sdk"
 client = N7timerWeatherSDK.new
 ```
 
-### 2. List apipls
+### 2. List apipl records
 
 ```ruby
 begin
-  result = client.apipl.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of Apipl records — iterate directly.
+  apipls = client.Apipl.list
+  apipls.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -85,13 +83,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = N7timerWeatherSDK.test
+client = N7timerWeatherSDK.test({
+  "entity" => { "apipl" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.apipl.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+apipl = client.Apipl.load({ "id" => "test01" })
+puts apipl
 ```
 
 ### Use a custom fetch function
@@ -167,7 +169,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
-| `Apipl` | `(data) -> ApiplEntity` | Create a Apipl entity instance. |
+| `Apipl` | `(data) -> ApiplEntity` | Create an Apipl entity instance. |
 | `GraphicalApi` | `(data) -> GraphicalApiEntity` | Create a GraphicalApi entity instance. |
 
 ### Entity interface
@@ -235,7 +237,7 @@ API path: `/bin/astro.php`
 
 ### Apipl
 
-Create an instance: `const apipl = client.apipl`
+Create an instance: `apipl = client.Apipl`
 
 #### Operations
 
@@ -253,14 +255,15 @@ Create an instance: `const apipl = client.apipl`
 
 #### Example: List
 
-```ts
-const apipls = await client.apipl.list()
+```ruby
+# list returns an Array of Apipl records (raises on error).
+apipls = client.Apipl.list
 ```
 
 
 ### GraphicalApi
 
-Create an instance: `const graphical_api = client.graphical_api`
+Create an instance: `graphical_api = client.GraphicalApi`
 
 #### Operations
 
@@ -270,8 +273,9 @@ Create an instance: `const graphical_api = client.graphical_api`
 
 #### Example: Load
 
-```ts
-const graphical_api = await client.graphical_api.load({ id: 'graphical_api_id' })
+```ruby
+# load returns the bare GraphicalApi record (raises on error).
+graphical_api = client.GraphicalApi.load({ "id" => "graphical_api_id" })
 ```
 
 
@@ -346,7 +350,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-apipl = client.apipl
+apipl = client.Apipl
 apipl.load({ "id" => "example_id" })
 
 # apipl.data_get now returns the loaded apipl data

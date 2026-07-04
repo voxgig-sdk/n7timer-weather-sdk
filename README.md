@@ -26,9 +26,11 @@ import { N7timerWeatherSDK } from '@voxgig-sdk/n7timer-weather'
 
 const client = new N7timerWeatherSDK()
 
-// List all apipls
-const apipls = await client.apipl.list()
-console.log(apipls.data)
+// List all apipls (returns Apipl[])
+const apipls = await client.Apipl().list()
+for (const apipl of apipls) {
+  console.log(apipl)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -84,9 +86,10 @@ from n7timerweather_sdk import N7timerWeatherSDK
 
 client = N7timerWeatherSDK()
 
-# List all apipls
-apipls = client.apipl.list()
-print(apipls)
+# List all apipls (returns a list, raises on error)
+apipls = client.Apipl().list({})
+for apipl in apipls:
+    print(apipl)
 ```
 
 ### PHP
@@ -97,8 +100,8 @@ require_once 'n7timerweather_sdk.php';
 
 $client = new N7timerWeatherSDK();
 
-// List all apipls (throws on error)
-$apipls = $client->apipl()->list();
+// List all apipls (returns an array; throws on error)
+$apipls = $client->Apipl()->list();
 print_r($apipls);
 ```
 
@@ -121,8 +124,8 @@ require_relative "N7timerWeather_sdk"
 
 client = N7timerWeatherSDK.new
 
-# List all apipls
-apipls = client.apipl.list
+# List all apipls (returns an Array; raises on error)
+apipls = client.Apipl.list
 puts apipls
 ```
 
@@ -134,7 +137,7 @@ local sdk = require("n7timer-weather_sdk")
 local client = sdk.new()
 
 -- List all apipls
-local apipls, err = client:apipl():list()
+local apipls, err = client:Apipl():list()
 print(apipls)
 ```
 
@@ -147,22 +150,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = N7timerWeatherSDK.test()
-const result = await client.apipl.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const apipl = await client.Apipl().load({ id: 'test01' })
+// apipl is a bare Apipl populated with mock data
+console.log(apipl)
 ```
 
 ### Python
 
 ```python
 client = N7timerWeatherSDK.test()
-result = client.apipl.load({"id": "test01"})
+apipl = client.Apipl().load({"id": "test01"})
+print(apipl)
 ```
 
 ### PHP
 
 ```php
-$client = N7timerWeatherSDK::test();
-$result = $client->apipl()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = N7timerWeatherSDK::test([
+    "entity" => ["apipl" => ["test01" => ["id" => "test01"]]],
+]);
+$apipl = $client->Apipl()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -177,15 +185,18 @@ result, err := client.Apipl(nil).Load(
 ### Ruby
 
 ```ruby
-client = N7timerWeatherSDK.test
-result = client.apipl.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = N7timerWeatherSDK.test({
+  "entity" => { "apipl" => { "test01" => { "id" => "test01" } } },
+})
+apipl = client.Apipl.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:apipl():load({ id = "test01" })
+local result, err = client:Apipl():load({ id = "test01" })
 ```
 
 ## How it works
@@ -233,6 +244,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

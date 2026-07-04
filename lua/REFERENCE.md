@@ -87,7 +87,7 @@ same parameters as `direct()`.
 ## ApiplEntity
 
 ```lua
-local apipl = client:apipl(nil)
+local apipl = client:Apipl(nil)
 ```
 
 ### Fields
@@ -105,7 +105,7 @@ local apipl = client:apipl(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:apipl():list()
+local results, err = client:Apipl():list()
 ```
 
 ### Common Methods
@@ -141,7 +141,7 @@ Return the entity name.
 ## GraphicalApiEntity
 
 ```lua
-local graphical_api = client:graphical_api(nil)
+local graphical_api = client:GraphicalApi(nil)
 ```
 
 ### Operations
@@ -151,7 +151,7 @@ local graphical_api = client:graphical_api(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:graphical_api():load({ id = "graphical_api_id" })
+local result, err = client:GraphicalApi():load({ id = "graphical_api_id" })
 ```
 
 ### Common Methods
