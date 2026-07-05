@@ -8,7 +8,7 @@ Complete API reference for the N7timerWeather Python SDK.
 ### Constructor
 
 ```python
-from n7timer-weather_sdk import N7timerWeatherSDK
+from n7timerweather_sdk import N7timerWeatherSDK
 
 client = N7timerWeatherSDK(options)
 ```
@@ -91,18 +91,18 @@ apipl = client.Apipl()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `dataseries` | ``$ARRAY`` | No |  |
-| `init` | ``$STRING`` | No |  |
-| `product` | ``$STRING`` | No |  |
+| `dataseries` | `list` | No |  |
+| `init` | `str` | No |  |
+| `product` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Apipl().list({})
+results = client.Apipl().list()
 for apipl in results:
     print(apipl)
 ```
@@ -149,7 +149,7 @@ graphical_api = client.GraphicalApi()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.GraphicalApi().load({"id": "graphical_api_id"})
+result = client.GraphicalApi().load()
 ```
 
 ### Common Methods

@@ -11,10 +11,15 @@ export interface Apipl {
   product?: string
 }
 
-export type ApiplListMatch = Partial<Apipl>
+export interface ApiplListMatch {
+  dataseries?: any[]
+  init?: string
+  product?: string
+}
 
 export interface GraphicalApi {
 }
 
-export type GraphicalApiLoadMatch = Partial<GraphicalApi>
+export interface GraphicalApiLoadMatch {
+}
 

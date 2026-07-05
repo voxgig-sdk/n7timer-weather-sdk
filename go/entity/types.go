@@ -15,8 +15,7 @@ type Apipl struct {
 	Product *string `json:"product,omitempty"`
 }
 
-// ApiplListMatch mirrors the apipl fields as an all-optional match
-// filter (Go analog of Partial<Apipl>).
+// ApiplListMatch is the typed request payload for Apipl.ListTyped.
 type ApiplListMatch struct {
 	Dataseries *[]any `json:"dataseries,omitempty"`
 	Init *string `json:"init,omitempty"`
@@ -27,8 +26,7 @@ type ApiplListMatch struct {
 type GraphicalApi struct {
 }
 
-// GraphicalApiLoadMatch mirrors the graphical_api fields as an all-optional match
-// filter (Go analog of Partial<GraphicalApi>).
+// GraphicalApiLoadMatch is the typed request payload for GraphicalApi.LoadTyped.
 type GraphicalApiLoadMatch struct {
 }
 

@@ -94,9 +94,9 @@ local apipl = client:Apipl(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `dataseries` | ``$ARRAY`` | No |  |
-| `init` | ``$STRING`` | No |  |
-| `product` | ``$STRING`` | No |  |
+| `dataseries` | `table` | No |  |
+| `init` | `string` | No |  |
+| `product` | `string` | No |  |
 
 ### Operations
 
@@ -151,7 +151,7 @@ local graphical_api = client:GraphicalApi(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:GraphicalApi():load({ id = "graphical_api_id" })
+local result, err = client:GraphicalApi():load()
 ```
 
 ### Common Methods

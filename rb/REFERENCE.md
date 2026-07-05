@@ -8,7 +8,7 @@ Complete API reference for the N7timerWeather Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'n7timer-weather_sdk'
+require_relative 'N7timerWeather_sdk'
 
 client = N7timerWeatherSDK.new(options)
 ```
@@ -97,18 +97,18 @@ apipl = client.Apipl
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `dataseries` | ``$ARRAY`` | No |  |
-| `init` | ``$STRING`` | No |  |
-| `product` | ``$STRING`` | No |  |
+| `dataseries` | `Array` | No |  |
+| `init` | `String` | No |  |
+| `product` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Apipl.list(nil)
+results = client.Apipl.list
 ```
 
 ### Common Methods
@@ -154,7 +154,7 @@ graphical_api = client.GraphicalApi
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.GraphicalApi.load({ "id" => "graphical_api_id" })
+result = client.GraphicalApi.load()
 ```
 
 ### Common Methods

@@ -25,7 +25,7 @@ Apipl = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Apipl#list (any subset of Apipl fields).
+# Request payload for Apipl#list.
 #
 # @!attribute [rw] dataseries
 #   @return [Array, nil]
@@ -46,7 +46,7 @@ ApiplListMatch = Struct.new(
 class GraphicalApi
 end
 
-# Match filter for GraphicalApi#load (any subset of GraphicalApi fields).
+# Request payload for GraphicalApi#load.
 class GraphicalApiLoadMatch
 end
 

@@ -128,9 +128,9 @@ const apipl = client.Apipl()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `dataseries` | ``$ARRAY`` | No |  |
-| `init` | ``$STRING`` | No |  |
-| `product` | ``$STRING`` | No |  |
+| `dataseries` | `any[]` | No |  |
+| `init` | `string` | No |  |
+| `product` | `string` | No |  |
 
 ### Operations
 
@@ -183,7 +183,7 @@ const graphical_api = client.GraphicalApi()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.GraphicalApi().load({ id: 'graphical_api_id' })
+const result = await client.GraphicalApi().load()
 ```
 
 ### Common Methods

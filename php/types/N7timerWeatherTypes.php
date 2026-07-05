@@ -20,7 +20,7 @@ class Apipl
     public ?string $product = null;
 }
 
-/** Match filter for Apipl#list (any subset of Apipl fields). */
+/** Request payload for Apipl#list. */
 class ApiplListMatch
 {
     public ?array $dataseries = null;
@@ -33,7 +33,7 @@ class GraphicalApi
 {
 }
 
-/** Match filter for GraphicalApi#load (any subset of GraphicalApi fields). */
+/** Request payload for GraphicalApi#load. */
 class GraphicalApiLoadMatch
 {
 }

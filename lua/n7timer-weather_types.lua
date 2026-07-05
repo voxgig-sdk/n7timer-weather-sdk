@@ -12,6 +12,9 @@
 ---@field product? string
 
 ---@class ApiplListMatch
+---@field dataseries? table
+---@field init? string
+---@field product? string
 
 ---@class GraphicalApi
 

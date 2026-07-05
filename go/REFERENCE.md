@@ -101,9 +101,9 @@ apipl := client.Apipl(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `dataseries` | ``$ARRAY`` | No |  |
-| `init` | ``$STRING`` | No |  |
-| `product` | ``$STRING`` | No |  |
+| `dataseries` | `[]any` | No |  |
+| `init` | `string` | No |  |
+| `product` | `string` | No |  |
 
 ### Operations
 
@@ -152,7 +152,7 @@ graphical_api := client.GraphicalApi(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.GraphicalApi(nil).Load(map[string]any{"id": "graphical_api_id"}, nil)
+result, err := client.GraphicalApi(nil).Load(nil, nil)
 ```
 
 ### Common Methods

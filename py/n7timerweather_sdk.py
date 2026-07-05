@@ -221,13 +221,13 @@ class N7timerWeatherSDK:
 
 
     def Apipl(self, data=None) -> "ApiplEntity":
-        """Entity factory: client.Apipl().list({}) / client.Apipl().load({"id": ...})."""
+        """Entity factory: client.Apipl().list() / client.Apipl().load({"id": ...})."""
         from entity.apipl_entity import ApiplEntity
         return ApiplEntity(self, data)
 
 
     def GraphicalApi(self, data=None) -> "GraphicalApiEntity":
-        """Entity factory: client.GraphicalApi().list({}) / client.GraphicalApi().load({"id": ...})."""
+        """Entity factory: client.GraphicalApi().list() / client.GraphicalApi().load({"id": ...})."""
         from entity.graphical_api_entity import GraphicalApiEntity
         return GraphicalApiEntity(self, data)
 

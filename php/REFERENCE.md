@@ -8,7 +8,7 @@ Complete API reference for the N7timerWeather PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/n7timer-weather_sdk.php';
+require_once __DIR__ . '/n7timerweather_sdk.php';
 
 $client = new N7timerWeatherSDK($options);
 ```
@@ -49,11 +49,11 @@ Create a new `ApiplEntity` instance. Pass `null` for no initial data.
 
 Create a new `GraphicalApiEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): N7timerWeatherUtility`
 
 Return a copy of the SDK utility object.
 
@@ -96,35 +96,35 @@ $apipl = $client->Apipl();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `dataseries` | ``$ARRAY`` | No |  |
-| `init` | ``$STRING`` | No |  |
-| `product` | ``$STRING`` | No |  |
+| `dataseries` | `array` | No |  |
+| `init` | `string` | No |  |
+| `product` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Apipl()->list([]);
+$results = $client->Apipl()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -133,7 +133,7 @@ Set the entity match criteria.
 Create a new `ApiplEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -153,24 +153,24 @@ $graphical_api = $client->GraphicalApi();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->GraphicalApi()->load(["id" => "graphical_api_id"]);
+$result = $client->GraphicalApi()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -179,7 +179,7 @@ Set the entity match criteria.
 Create a new `GraphicalApiEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
