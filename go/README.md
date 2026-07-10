@@ -316,7 +316,7 @@ fmt.Println(apipls) // the array of records
 
 ### GraphicalApi
 
-Create an instance: `graphical_api := client.GraphicalApi(nil)`
+Create an instance: `graphicalApi := client.GraphicalApi(nil)`
 
 #### Operations
 
@@ -327,11 +327,11 @@ Create an instance: `graphical_api := client.GraphicalApi(nil)`
 #### Example: Load
 
 ```go
-graphical_api, err := client.GraphicalApi(nil).Load(nil, nil)
+graphicalApi, err := client.GraphicalApi(nil).Load(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(graphical_api) // the loaded record
+fmt.Println(graphicalApi) // the loaded record
 ```
 
 

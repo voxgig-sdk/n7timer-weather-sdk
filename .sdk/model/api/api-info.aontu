@@ -19,9 +19,9 @@ main: {
           url: "http://www.7timer.info"
         }
       ]
+      summary: "The 7Timer Weather API provides global numerical weather forecasts derived from high-resolution models."
       title: "7Timer Weather API"
       version: "1.0.0"
+      website: "https://www.7timer.info/doc.php?lang=en"
     }
   }
-}
-

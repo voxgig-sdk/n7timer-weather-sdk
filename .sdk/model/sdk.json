@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -431,14 +428,17 @@
           "name": "7Timer License",
           "url": "https://www.7timer.info/doc.php?lang=en"
         },
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "description": "7Timer Production Server",
             "url": "http://www.7timer.info"
           }
         ],
+        "summary": "The 7Timer Weather API provides global numerical weather forecasts derived from high-resolution models.",
         "title": "7Timer Weather API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://www.7timer.info/doc.php?lang=en"
       },
       "option": {},
       "target": {
@@ -491,6 +491,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -541,6 +544,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

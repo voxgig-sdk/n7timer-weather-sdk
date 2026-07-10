@@ -95,6 +95,7 @@ same parameters as `Direct()`.
 
 ```go
 apipl := client.Apipl(nil)
+fmt.Println(apipl.GetName()) // "apipl"
 ```
 
 ### Fields
@@ -113,6 +114,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Apipl(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -142,7 +147,8 @@ Return the entity name.
 ## GraphicalApiEntity
 
 ```go
-graphical_api := client.GraphicalApi(nil)
+graphicalApi := client.GraphicalApi(nil)
+fmt.Println(graphicalApi.GetName()) // "graphical_api"
 ```
 
 ### Operations
@@ -153,6 +159,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.GraphicalApi(nil).Load(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
