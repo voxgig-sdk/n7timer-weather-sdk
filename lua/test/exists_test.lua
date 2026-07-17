@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- N7timerWeather SDK exists test
 
 local sdk = require("n7timer-weather_sdk")
 
