@@ -16,11 +16,11 @@
 import pytest
 
 from n7timerweather_sdk import N7timerWeatherSDK
-from core.error import N7timerWeatherError
-from core.result import N7timerWeatherResult
-from core.response import N7timerWeatherResponse
-from core.spec import N7timerWeatherSpec
-from feature.base_feature import N7timerWeatherBaseFeature
+from n7timerweather_sdk.core.error import N7timerWeatherError
+from n7timerweather_sdk.core.result import N7timerWeatherResult
+from n7timerweather_sdk.core.response import N7timerWeatherResponse
+from n7timerweather_sdk.core.spec import N7timerWeatherSpec
+from n7timerweather_sdk.feature.base_feature import N7timerWeatherBaseFeature
 
 
 def _client():

@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# N7timerWeather SDK exists test
 
 import pytest
 from n7timerweather_sdk import N7timerWeatherSDK

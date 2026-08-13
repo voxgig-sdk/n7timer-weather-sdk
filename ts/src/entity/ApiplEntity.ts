@@ -37,7 +37,7 @@ class ApiplEntity extends N7timerWeatherEntityBase<Apipl> {
 
 
 
-  async list(this: any, reqmatch?: ApiplListMatch, ctrl?: Control): Promise<Apipl[]> {
+  async list(this: any, reqmatch?: ApiplListMatch, ctrl?: Control): Promise<ApiplEntity[]> {
 
     const utility = this._utility
 

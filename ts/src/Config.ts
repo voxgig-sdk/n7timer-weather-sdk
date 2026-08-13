@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'N7timerWeather',
   }
 
 
@@ -161,6 +161,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/bin/api.pl",
               "parts": [
@@ -181,7 +182,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.dataseries`"
               },
               "index$": 0
             }
@@ -270,6 +271,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/bin/astro.php",
               "parts": [

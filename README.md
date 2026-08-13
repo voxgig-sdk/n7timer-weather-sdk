@@ -38,9 +38,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = N7timerWeatherSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = N7timerWeatherSDK.test({
+  entity: {
+    apipl: {
+      test01: { id: 'test01' },
+    },
+  },
+})
 const apipls = await client.Apipl().list()
-// apipls is an array of bare Apipl records populated with mock data
+// apipls is an array of Apipl entities, populated with mock data
+// — call apipls[0].data() for the record itself
 console.log(apipls)
 ```
 
@@ -110,7 +119,7 @@ import { N7timerWeatherSDK } from '@voxgig-sdk/n7timer-weather'
 
 const client = new N7timerWeatherSDK()
 
-// List all apipls (returns Apipl[])
+// List all apipls (returns ApiplEntity[] — .data() for the record)
 const apipls = await client.Apipl().list()
 for (const apipl of apipls) {
   console.log(apipl)
@@ -344,6 +353,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://www.7timer.info](https://www.7timer.info)
 

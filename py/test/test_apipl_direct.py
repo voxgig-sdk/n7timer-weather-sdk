@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from n7timerweather_sdk.utility.voxgig_struct import voxgig_struct as vs
 from n7timerweather_sdk import N7timerWeatherSDK
-from core import helpers
+from n7timerweather_sdk.core import helpers
 from test import runner
 
 
@@ -58,11 +58,11 @@ def _apipl_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "N_TIMERWEATHER_TEST_APIPL_ENTID": {},
-        "N_TIMERWEATHER_TEST_LIVE": "FALSE",
+        "N7TIMER_WEATHER_TEST_APIPL_ENTID": {},
+        "N7TIMER_WEATHER_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("N_TIMERWEATHER_TEST_LIVE") == "TRUE"
+    live = env.get("N7TIMER_WEATHER_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {

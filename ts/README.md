@@ -35,7 +35,9 @@ const client = new N7timerWeatherSDK()
 
 ### 2. List apipl records
 
-`list()` resolves to an array of Apipl objects — iterate it directly:
+`list()` resolves to an array of Apipl ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
 const apipls = await client.Apipl().list()
@@ -120,7 +122,8 @@ Create a mock client for unit testing — no server required:
 const client = N7timerWeatherSDK.test()
 
 const apipl = await client.Apipl().list()
-// apipl is a bare entity populated with mock response data
+// apipl is the entity, populated with mock response data
+// — call apipl.data() for the record itself
 console.log(apipl)
 ```
 

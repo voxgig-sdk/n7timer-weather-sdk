@@ -23,8 +23,8 @@ module N7timerWeatherTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("N7TIMERWEATHER_TEST_LIVE")
-    override = getenv("N7TIMERWEATHER_TEST_OVERRIDE")
+    live = getenv("N7TIMER_WEATHER_TEST_LIVE")
+    override = getenv("N7TIMER_WEATHER_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module N7timerWeatherTestRunner
       end
     end
 
-    explain = getenv("N7TIMERWEATHER_TEST_EXPLAIN")
-    m["N7TIMERWEATHER_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("N7TIMER_WEATHER_TEST_EXPLAIN")
+    m["N7TIMER_WEATHER_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

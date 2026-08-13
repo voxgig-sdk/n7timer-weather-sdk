@@ -221,9 +221,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local apipl, err = client:Apipl():load()
+    local graphical_api, err = client:GraphicalApi():load()
     if err then error(err) end
-    -- apipl is the loaded record
+    -- graphical_api is the loaded record
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.

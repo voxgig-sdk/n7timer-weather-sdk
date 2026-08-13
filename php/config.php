@@ -135,6 +135,7 @@ class N7timerWeatherConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/bin/api.pl',
                   'parts' => [
@@ -155,7 +156,7 @@ class N7timerWeatherConfig
                   ],
                   'transform' => [
                     'req' => '`reqdata`',
-                    'res' => '`body`',
+                    'res' => '`body.dataseries`',
                   ],
                   'index$' => 0,
                 ],
@@ -244,6 +245,7 @@ class N7timerWeatherConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/bin/astro.php',
                   'parts' => [

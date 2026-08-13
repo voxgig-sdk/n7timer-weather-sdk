@@ -8,6 +8,7 @@ guide: {
   entity: apipl: {
     path: "/bin/api.pl": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.dataseries`")|top
     }
   }
 

@@ -44,7 +44,7 @@ func TestGraphicalApiEntity(t *testing.T) {
 		// The basic flow consumes synthetic IDs from the fixture. In live mode
 		// without an *_ENTID env override, those IDs hit the live API and 4xx.
 		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set N_TIMERWEATHER_TEST_GRAPHICAL_API_ENTID JSON to run live")
+			t.Skip("live entity test uses synthetic IDs from fixture — set N7TIMER_WEATHER_TEST_GRAPHICAL_API_ENTID JSON to run live")
 			return
 		}
 		client := setup.client
@@ -110,21 +110,21 @@ func graphical_apiBasicSetup(extra map[string]any) *entityTestSetup {
 	// Detect ENTID env override before envOverride consumes it. When live
 	// mode is on without a real override, the basic test runs against synthetic
 	// IDs from the fixture and 4xx's. Surface this so the test can skip.
-	entidEnvRaw := os.Getenv("N_TIMERWEATHER_TEST_GRAPHICAL_API_ENTID")
+	entidEnvRaw := os.Getenv("N7TIMER_WEATHER_TEST_GRAPHICAL_API_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 
 	env := envOverride(map[string]any{
-		"N_TIMERWEATHER_TEST_GRAPHICAL_API_ENTID": idmap,
-		"N_TIMERWEATHER_TEST_LIVE":      "FALSE",
-		"N_TIMERWEATHER_TEST_EXPLAIN":   "FALSE",
+		"N7TIMER_WEATHER_TEST_GRAPHICAL_API_ENTID": idmap,
+		"N7TIMER_WEATHER_TEST_LIVE":      "FALSE",
+		"N7TIMER_WEATHER_TEST_EXPLAIN":   "FALSE",
 	})
 
-	idmapResolved := core.ToMapAny(env["N_TIMERWEATHER_TEST_GRAPHICAL_API_ENTID"])
+	idmapResolved := core.ToMapAny(env["N7TIMER_WEATHER_TEST_GRAPHICAL_API_ENTID"])
 	if idmapResolved == nil {
 		idmapResolved = core.ToMapAny(idmap)
 	}
 
-	if env["N_TIMERWEATHER_TEST_LIVE"] == "TRUE" {
+	if env["N7TIMER_WEATHER_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
 			},
@@ -133,13 +133,13 @@ func graphical_apiBasicSetup(extra map[string]any) *entityTestSetup {
 		client = sdk.NewN7timerWeatherSDK(core.ToMapAny(mergedOpts))
 	}
 
-	live := env["N_TIMERWEATHER_TEST_LIVE"] == "TRUE"
+	live := env["N7TIMER_WEATHER_TEST_LIVE"] == "TRUE"
 	return &entityTestSetup{
 		client:        client,
 		data:          entityData,
 		idmap:         idmapResolved,
 		env:           env,
-		explain:       env["N_TIMERWEATHER_TEST_EXPLAIN"] == "TRUE",
+		explain:       env["N7TIMER_WEATHER_TEST_EXPLAIN"] == "TRUE",
 		live:          live,
 		syntheticOnly: live && !idmapOverridden,
 		now:           time.Now().UnixMilli(),

@@ -43,8 +43,8 @@ class N7timerWeatherTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('N7TIMERWEATHER_TEST_LIVE');
-        $override = self::getenv('N7TIMERWEATHER_TEST_OVERRIDE');
+        $live = self::getenv('N7TIMER_WEATHER_TEST_LIVE');
+        $override = self::getenv('N7TIMER_WEATHER_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class N7timerWeatherTestRunner
             }
         }
 
-        $explain = self::getenv('N7TIMERWEATHER_TEST_EXPLAIN');
+        $explain = self::getenv('N7TIMER_WEATHER_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['N7TIMERWEATHER_TEST_EXPLAIN'] = $explain;
+            $m['N7TIMER_WEATHER_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

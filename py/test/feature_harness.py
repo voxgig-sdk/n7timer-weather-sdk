@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import N7timerWeatherControl
-from core.error import N7timerWeatherError
-from core.result import N7timerWeatherResult
-from core.spec import N7timerWeatherSpec
+from n7timerweather_sdk.config import make_config
+from n7timerweather_sdk.features import _make_feature
+from n7timerweather_sdk.core.control import N7timerWeatherControl
+from n7timerweather_sdk.core.error import N7timerWeatherError
+from n7timerweather_sdk.core.result import N7timerWeatherResult
+from n7timerweather_sdk.core.spec import N7timerWeatherSpec
 
 
 # True when this SDK was generated with the named feature.

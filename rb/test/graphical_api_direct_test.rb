@@ -66,11 +66,11 @@ def graphical_api_direct_setup(mockres)
   calls = []
 
   env = Runner.env_override({
-    "N_TIMERWEATHER_TEST_GRAPHICAL_API_ENTID" => {},
-    "N_TIMERWEATHER_TEST_LIVE" => "FALSE",
+    "N7TIMER_WEATHER_TEST_GRAPHICAL_API_ENTID" => {},
+    "N7TIMER_WEATHER_TEST_LIVE" => "FALSE",
   })
 
-  live = env["N_TIMERWEATHER_TEST_LIVE"] == "TRUE"
+  live = env["N7TIMER_WEATHER_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {

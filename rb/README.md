@@ -119,7 +119,8 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = N7timerWeatherSDK.test
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 apipl = client.Apipl.list()
 puts apipl
 ```
@@ -299,7 +300,7 @@ Create an instance: `graphical_api = client.GraphicalApi`
 #### Example: Load
 
 ```ruby
-# load returns the bare GraphicalApi record (raises on error).
+# load returns the ENTITY — call data_get for the GraphicalApi record (raises on error).
 graphical_api = client.GraphicalApi.load()
 ```
 

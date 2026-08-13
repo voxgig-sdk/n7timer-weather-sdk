@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ N7timerWeatherUtility.registrar = ->(u) {
   u.prepare_params = N7timerWeatherUtilities::PrepareParams
   u.prepare_path = N7timerWeatherUtilities::PreparePath
   u.prepare_query = N7timerWeatherUtilities::PrepareQuery
+  u.graphql_body = N7timerWeatherUtilities::GraphqlBody
+  u.graphql_errors = N7timerWeatherUtilities::GraphqlErrors
   u.result_basic = N7timerWeatherUtilities::ResultBasic
   u.result_body = N7timerWeatherUtilities::ResultBody
   u.result_headers = N7timerWeatherUtilities::ResultHeaders

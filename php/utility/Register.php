@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ N7timerWeatherUtility::setRegistrar(function (N7timerWeatherUtility $u): void {
     $u->prepare_params = [N7timerWeatherPrepareParams::class, 'call'];
     $u->prepare_path = [N7timerWeatherPreparePath::class, 'call'];
     $u->prepare_query = [N7timerWeatherPrepareQuery::class, 'call'];
+    $u->graphql_body = [N7timerWeatherGraphql::class, 'body'];
+    $u->graphql_errors = [N7timerWeatherGraphql::class, 'errors'];
     $u->result_basic = [N7timerWeatherResultBasic::class, 'call'];
     $u->result_body = [N7timerWeatherResultBody::class, 'call'];
     $u->result_headers = [N7timerWeatherResultHeaders::class, 'call'];
