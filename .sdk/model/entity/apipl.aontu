@@ -9,6 +9,11 @@ main: kit: entity: apipl: {
       name: "dataseries"
       req: false
       type: "`$ARRAY`"
+      union: {
+        branches: 4
+        count: 1
+        depth: 1
+      }
     }
     {
       name: "init"

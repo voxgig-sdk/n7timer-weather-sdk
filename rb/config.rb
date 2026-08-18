@@ -1,6 +1,20 @@
 # N7timerWeather SDK configuration
 
 module N7timerWeatherConfig
+  # Return the process-wide config, built once on first use. The SDK reads
+  # the config on every request and never writes to it, so one instance is
+  # shared by every client rather than rebuilt per client.
+  #
+  # The returned hash is shared: treat it as read-only. Callers that need to
+  # mutate should use make_config, which always returns a fresh copy.
+  def self.shared_config
+    @shared_config ||= make_config
+  end
+
+
+  # Build a fresh, fully materialised config hash. Every call rebuilds the
+  # whole structure, so prefer shared_config unless you need a private copy
+  # you intend to mutate.
   def self.make_config
     {
       "main" => {
@@ -27,25 +41,21 @@ module N7timerWeatherConfig
         "apipl" => {
           "fields" => [
             {
-              "active" => true,
               "name" => "dataseries",
-              "req" => false,
               "type" => "`$ARRAY`",
-              "index$" => 0,
+              "union" => {
+                "branches" => 4,
+                "count" => 1,
+                "depth" => 1,
+              },
             },
             {
-              "active" => true,
               "name" => "init",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 1,
             },
             {
-              "active" => true,
               "name" => "product",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 2,
             },
           ],
           "name" => "apipl",
@@ -55,29 +65,23 @@ module N7timerWeatherConfig
               "name" => "list",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "query" => [
                       {
-                        "active" => true,
                         "example" => 0,
                         "kind" => "query",
                         "name" => "ac",
                         "orig" => "ac",
-                        "reqd" => false,
                         "type" => "`$INTEGER`",
                       },
                       {
-                        "active" => true,
                         "example" => "en",
                         "kind" => "query",
                         "name" => "lang",
                         "orig" => "lang",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => 23.09,
                         "kind" => "query",
                         "name" => "lat",
@@ -86,7 +90,6 @@ module N7timerWeatherConfig
                         "type" => "`$NUMBER`",
                       },
                       {
-                        "active" => true,
                         "example" => 113.17,
                         "kind" => "query",
                         "name" => "lon",
@@ -95,7 +98,6 @@ module N7timerWeatherConfig
                         "type" => "`$NUMBER`",
                       },
                       {
-                        "active" => true,
                         "kind" => "query",
                         "name" => "output",
                         "orig" => "output",
@@ -103,7 +105,6 @@ module N7timerWeatherConfig
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "kind" => "query",
                         "name" => "product",
                         "orig" => "product",
@@ -111,21 +112,17 @@ module N7timerWeatherConfig
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => 0,
                         "kind" => "query",
                         "name" => "tzshift",
                         "orig" => "tzshift",
-                        "reqd" => false,
                         "type" => "`$INTEGER`",
                       },
                       {
-                        "active" => true,
                         "example" => "metric",
                         "kind" => "query",
                         "name" => "unit",
                         "orig" => "unit",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                     ],
@@ -153,10 +150,8 @@ module N7timerWeatherConfig
                     "req" => "`reqdata`",
                     "res" => "`body.dataseries`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "list",
             },
           },
           "relations" => {
@@ -172,29 +167,23 @@ module N7timerWeatherConfig
               "name" => "load",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "query" => [
                       {
-                        "active" => true,
                         "example" => 0,
                         "kind" => "query",
                         "name" => "ac",
                         "orig" => "ac",
-                        "reqd" => false,
                         "type" => "`$INTEGER`",
                       },
                       {
-                        "active" => true,
                         "example" => "en",
                         "kind" => "query",
                         "name" => "lang",
                         "orig" => "lang",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => 23.09,
                         "kind" => "query",
                         "name" => "lat",
@@ -203,7 +192,6 @@ module N7timerWeatherConfig
                         "type" => "`$NUMBER`",
                       },
                       {
-                        "active" => true,
                         "example" => 113.17,
                         "kind" => "query",
                         "name" => "lon",
@@ -212,30 +200,24 @@ module N7timerWeatherConfig
                         "type" => "`$NUMBER`",
                       },
                       {
-                        "active" => true,
                         "example" => "internal",
                         "kind" => "query",
                         "name" => "output",
                         "orig" => "output",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => 0,
                         "kind" => "query",
                         "name" => "tzshift",
                         "orig" => "tzshift",
-                        "reqd" => false,
                         "type" => "`$INTEGER`",
                       },
                       {
-                        "active" => true,
                         "example" => "metric",
                         "kind" => "query",
                         "name" => "unit",
                         "orig" => "unit",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                     ],
@@ -262,10 +244,8 @@ module N7timerWeatherConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "load",
             },
           },
           "relations" => {

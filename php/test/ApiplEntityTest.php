@@ -40,7 +40,7 @@ class ApiplEntityTest extends TestCase
         $this->assertCount(3, $seen);
 
         // Inbound: streaming active -> yields each item from the feature.
-        $cfg = N7timerWeatherConfig::make_config();
+        $cfg = N7timerWeatherConfig::shared_config();
         if (isset($cfg["feature"]) && is_array($cfg["feature"]) && isset($cfg["feature"]["streaming"])) {
             $sdk = N7timerWeatherSDK::test($seed, ["feature" => ["streaming" => ["active" => true]]]);
             $got = [];

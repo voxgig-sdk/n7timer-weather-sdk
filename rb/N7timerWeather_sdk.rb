@@ -28,7 +28,7 @@ class N7timerWeatherSDK
     utility = N7timerWeatherUtility.new
     @_utility = utility
 
-    config = N7timerWeatherConfig.make_config
+    config = N7timerWeatherConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

@@ -36,7 +36,7 @@ class Config {
 
 
   options = {
-    base: 'http://www.7timer.info',
+    base: "http://www.7timer.info",
 
     headers: {
       "content-type": "application/json"
@@ -58,25 +58,21 @@ class Config {
     "apipl": {
       "fields": [
         {
-          "active": true,
           "name": "dataseries",
-          "req": false,
           "type": "`$ARRAY`",
-          "index$": 0
+          "union": {
+            "branches": 4,
+            "count": 1,
+            "depth": 1
+          }
         },
         {
-          "active": true,
           "name": "init",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "product",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         }
       ],
       "name": "apipl",
@@ -86,29 +82,23 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "query": [
                   {
-                    "active": true,
                     "example": 0,
                     "kind": "query",
                     "name": "ac",
                     "orig": "ac",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "example": "en",
                     "kind": "query",
                     "name": "lang",
                     "orig": "lang",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": 23.09,
                     "kind": "query",
                     "name": "lat",
@@ -117,7 +107,6 @@ class Config {
                     "type": "`$NUMBER`"
                   },
                   {
-                    "active": true,
                     "example": 113.17,
                     "kind": "query",
                     "name": "lon",
@@ -126,7 +115,6 @@ class Config {
                     "type": "`$NUMBER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "output",
                     "orig": "output",
@@ -134,7 +122,6 @@ class Config {
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "product",
                     "orig": "product",
@@ -142,21 +129,17 @@ class Config {
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": 0,
                     "kind": "query",
                     "name": "tzshift",
                     "orig": "tzshift",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "example": "metric",
                     "kind": "query",
                     "name": "unit",
                     "orig": "unit",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -183,11 +166,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.dataseries`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         }
       },
       "relations": {
@@ -203,29 +184,23 @@ class Config {
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "query": [
                   {
-                    "active": true,
                     "example": 0,
                     "kind": "query",
                     "name": "ac",
                     "orig": "ac",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "example": "en",
                     "kind": "query",
                     "name": "lang",
                     "orig": "lang",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": 23.09,
                     "kind": "query",
                     "name": "lat",
@@ -234,7 +209,6 @@ class Config {
                     "type": "`$NUMBER`"
                   },
                   {
-                    "active": true,
                     "example": 113.17,
                     "kind": "query",
                     "name": "lon",
@@ -243,30 +217,24 @@ class Config {
                     "type": "`$NUMBER`"
                   },
                   {
-                    "active": true,
                     "example": "internal",
                     "kind": "query",
                     "name": "output",
                     "orig": "output",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": 0,
                     "kind": "query",
                     "name": "tzshift",
                     "orig": "tzshift",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "example": "metric",
                     "kind": "query",
                     "name": "unit",
                     "orig": "unit",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -292,11 +260,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {

@@ -5,6 +5,29 @@ declare(strict_types=1);
 
 class N7timerWeatherConfig
 {
+    /** @var array<string,mixed>|null */
+    private static ?array $shared_config = null;
+
+    /**
+     * Return the process-wide config, built once on first use. The SDK reads
+     * the config on every request and never writes to it, so one instance is
+     * shared by every client rather than rebuilt per client.
+     *
+     * PHP arrays are copy-on-write, so callers that do mutate the result get
+     * their own copy and cannot disturb the shared one.
+     */
+    public static function shared_config(): array
+    {
+        if (self::$shared_config === null) {
+            self::$shared_config = self::make_config();
+        }
+        return self::$shared_config;
+    }
+
+    /**
+     * Build a fresh, fully materialised config array. Every call rebuilds the
+     * whole structure, so prefer shared_config unless you need a private copy.
+     */
     public static function make_config(): array
     {
         return [
@@ -32,25 +55,21 @@ class N7timerWeatherConfig
         'apipl' => [
           'fields' => [
             [
-              'active' => true,
               'name' => 'dataseries',
-              'req' => false,
               'type' => '`$ARRAY`',
-              'index$' => 0,
+              'union' => [
+                'branches' => 4,
+                'count' => 1,
+                'depth' => 1,
+              ],
             ],
             [
-              'active' => true,
               'name' => 'init',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 1,
             ],
             [
-              'active' => true,
               'name' => 'product',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 2,
             ],
           ],
           'name' => 'apipl',
@@ -60,29 +79,23 @@ class N7timerWeatherConfig
               'name' => 'list',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'query' => [
                       [
-                        'active' => true,
                         'example' => 0,
                         'kind' => 'query',
                         'name' => 'ac',
                         'orig' => 'ac',
-                        'reqd' => false,
                         'type' => '`$INTEGER`',
                       ],
                       [
-                        'active' => true,
                         'example' => 'en',
                         'kind' => 'query',
                         'name' => 'lang',
                         'orig' => 'lang',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'example' => 23.09,
                         'kind' => 'query',
                         'name' => 'lat',
@@ -91,7 +104,6 @@ class N7timerWeatherConfig
                         'type' => '`$NUMBER`',
                       ],
                       [
-                        'active' => true,
                         'example' => 113.17,
                         'kind' => 'query',
                         'name' => 'lon',
@@ -100,7 +112,6 @@ class N7timerWeatherConfig
                         'type' => '`$NUMBER`',
                       ],
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'output',
                         'orig' => 'output',
@@ -108,7 +119,6 @@ class N7timerWeatherConfig
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'product',
                         'orig' => 'product',
@@ -116,21 +126,17 @@ class N7timerWeatherConfig
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'example' => 0,
                         'kind' => 'query',
                         'name' => 'tzshift',
                         'orig' => 'tzshift',
-                        'reqd' => false,
                         'type' => '`$INTEGER`',
                       ],
                       [
-                        'active' => true,
                         'example' => 'metric',
                         'kind' => 'query',
                         'name' => 'unit',
                         'orig' => 'unit',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                     ],
@@ -158,10 +164,8 @@ class N7timerWeatherConfig
                     'req' => '`reqdata`',
                     'res' => '`body.dataseries`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'list',
             ],
           ],
           'relations' => [
@@ -177,29 +181,23 @@ class N7timerWeatherConfig
               'name' => 'load',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'query' => [
                       [
-                        'active' => true,
                         'example' => 0,
                         'kind' => 'query',
                         'name' => 'ac',
                         'orig' => 'ac',
-                        'reqd' => false,
                         'type' => '`$INTEGER`',
                       ],
                       [
-                        'active' => true,
                         'example' => 'en',
                         'kind' => 'query',
                         'name' => 'lang',
                         'orig' => 'lang',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'example' => 23.09,
                         'kind' => 'query',
                         'name' => 'lat',
@@ -208,7 +206,6 @@ class N7timerWeatherConfig
                         'type' => '`$NUMBER`',
                       ],
                       [
-                        'active' => true,
                         'example' => 113.17,
                         'kind' => 'query',
                         'name' => 'lon',
@@ -217,30 +214,24 @@ class N7timerWeatherConfig
                         'type' => '`$NUMBER`',
                       ],
                       [
-                        'active' => true,
                         'example' => 'internal',
                         'kind' => 'query',
                         'name' => 'output',
                         'orig' => 'output',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'example' => 0,
                         'kind' => 'query',
                         'name' => 'tzshift',
                         'orig' => 'tzshift',
-                        'reqd' => false,
                         'type' => '`$INTEGER`',
                       ],
                       [
-                        'active' => true,
                         'example' => 'metric',
                         'kind' => 'query',
                         'name' => 'unit',
                         'orig' => 'unit',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                     ],
@@ -267,10 +258,8 @@ class N7timerWeatherConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'load',
             ],
           ],
           'relations' => [

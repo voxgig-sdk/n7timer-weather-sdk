@@ -42,8 +42,8 @@ class TestApiplEntity:
         assert len(seen) == 3
 
         # Inbound: streaming active -> yields each item from the feature.
-        from n7timerweather_sdk.config import make_config
-        cfg = make_config()
+        from n7timerweather_sdk.config import shared_config
+        cfg = shared_config()
         if isinstance(cfg.get("feature"), dict) and "streaming" in cfg["feature"]:
             sdk = N7timerWeatherSDK.test(
                 seed, {"feature": {"streaming": {"active": True}}})

@@ -40,7 +40,7 @@ class N7timerWeatherSDK
         $utility = new N7timerWeatherUtility();
         $this->_utility = $utility;
 
-        $config = N7timerWeatherConfig::make_config();
+        $config = N7timerWeatherConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

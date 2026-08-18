@@ -1,5 +1,8 @@
 -- N7timerWeather SDK configuration
 
+-- Build a fresh, fully materialised config table. Every call rebuilds the
+-- whole structure, so prefer require("config_shared") unless you need a
+-- private copy you intend to mutate.
 local function make_config()
   return {
     main = {
@@ -26,25 +29,21 @@ local function make_config()
       ["apipl"] = {
         ["fields"] = {
           {
-            ["active"] = true,
             ["name"] = "dataseries",
-            ["req"] = false,
             ["type"] = "`$ARRAY`",
-            ["index$"] = 0,
+            ["union"] = {
+              ["branches"] = 4,
+              ["count"] = 1,
+              ["depth"] = 1,
+            },
           },
           {
-            ["active"] = true,
             ["name"] = "init",
-            ["req"] = false,
             ["type"] = "`$STRING`",
-            ["index$"] = 1,
           },
           {
-            ["active"] = true,
             ["name"] = "product",
-            ["req"] = false,
             ["type"] = "`$STRING`",
-            ["index$"] = 2,
           },
         },
         ["name"] = "apipl",
@@ -54,29 +53,23 @@ local function make_config()
             ["name"] = "list",
             ["points"] = {
               {
-                ["active"] = true,
                 ["args"] = {
                   ["query"] = {
                     {
-                      ["active"] = true,
                       ["example"] = 0,
                       ["kind"] = "query",
                       ["name"] = "ac",
                       ["orig"] = "ac",
-                      ["reqd"] = false,
                       ["type"] = "`$INTEGER`",
                     },
                     {
-                      ["active"] = true,
                       ["example"] = "en",
                       ["kind"] = "query",
                       ["name"] = "lang",
                       ["orig"] = "lang",
-                      ["reqd"] = false,
                       ["type"] = "`$STRING`",
                     },
                     {
-                      ["active"] = true,
                       ["example"] = 23.09,
                       ["kind"] = "query",
                       ["name"] = "lat",
@@ -85,7 +78,6 @@ local function make_config()
                       ["type"] = "`$NUMBER`",
                     },
                     {
-                      ["active"] = true,
                       ["example"] = 113.17,
                       ["kind"] = "query",
                       ["name"] = "lon",
@@ -94,7 +86,6 @@ local function make_config()
                       ["type"] = "`$NUMBER`",
                     },
                     {
-                      ["active"] = true,
                       ["kind"] = "query",
                       ["name"] = "output",
                       ["orig"] = "output",
@@ -102,7 +93,6 @@ local function make_config()
                       ["type"] = "`$STRING`",
                     },
                     {
-                      ["active"] = true,
                       ["kind"] = "query",
                       ["name"] = "product",
                       ["orig"] = "product",
@@ -110,21 +100,17 @@ local function make_config()
                       ["type"] = "`$STRING`",
                     },
                     {
-                      ["active"] = true,
                       ["example"] = 0,
                       ["kind"] = "query",
                       ["name"] = "tzshift",
                       ["orig"] = "tzshift",
-                      ["reqd"] = false,
                       ["type"] = "`$INTEGER`",
                     },
                     {
-                      ["active"] = true,
                       ["example"] = "metric",
                       ["kind"] = "query",
                       ["name"] = "unit",
                       ["orig"] = "unit",
-                      ["reqd"] = false,
                       ["type"] = "`$STRING`",
                     },
                   },
@@ -152,10 +138,8 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.dataseries`",
                 },
-                ["index$"] = 0,
               },
             },
-            ["key$"] = "list",
           },
         },
         ["relations"] = {
@@ -171,29 +155,23 @@ local function make_config()
             ["name"] = "load",
             ["points"] = {
               {
-                ["active"] = true,
                 ["args"] = {
                   ["query"] = {
                     {
-                      ["active"] = true,
                       ["example"] = 0,
                       ["kind"] = "query",
                       ["name"] = "ac",
                       ["orig"] = "ac",
-                      ["reqd"] = false,
                       ["type"] = "`$INTEGER`",
                     },
                     {
-                      ["active"] = true,
                       ["example"] = "en",
                       ["kind"] = "query",
                       ["name"] = "lang",
                       ["orig"] = "lang",
-                      ["reqd"] = false,
                       ["type"] = "`$STRING`",
                     },
                     {
-                      ["active"] = true,
                       ["example"] = 23.09,
                       ["kind"] = "query",
                       ["name"] = "lat",
@@ -202,7 +180,6 @@ local function make_config()
                       ["type"] = "`$NUMBER`",
                     },
                     {
-                      ["active"] = true,
                       ["example"] = 113.17,
                       ["kind"] = "query",
                       ["name"] = "lon",
@@ -211,30 +188,24 @@ local function make_config()
                       ["type"] = "`$NUMBER`",
                     },
                     {
-                      ["active"] = true,
                       ["example"] = "internal",
                       ["kind"] = "query",
                       ["name"] = "output",
                       ["orig"] = "output",
-                      ["reqd"] = false,
                       ["type"] = "`$STRING`",
                     },
                     {
-                      ["active"] = true,
                       ["example"] = 0,
                       ["kind"] = "query",
                       ["name"] = "tzshift",
                       ["orig"] = "tzshift",
-                      ["reqd"] = false,
                       ["type"] = "`$INTEGER`",
                     },
                     {
-                      ["active"] = true,
                       ["example"] = "metric",
                       ["kind"] = "query",
                       ["name"] = "unit",
                       ["orig"] = "unit",
-                      ["reqd"] = false,
                       ["type"] = "`$STRING`",
                     },
                   },
@@ -261,10 +232,8 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
-                ["index$"] = 0,
               },
             },
-            ["key$"] = "load",
           },
         },
         ["relations"] = {

@@ -1,7 +1,30 @@
 # N7timerWeather SDK configuration
 
 
+_shared_config = None
+
+
+def shared_config():
+    """Return the process-wide config, built once on first use.
+
+    The SDK reads the config on every request and never writes to it, so one
+    instance is shared by every client rather than rebuilt per client.
+
+    The returned dict is shared: treat it as read-only. Callers that need to
+    mutate should use make_config, which always returns a fresh copy.
+    """
+    global _shared_config
+    if _shared_config is None:
+        _shared_config = make_config()
+    return _shared_config
+
+
 def make_config():
+    """Build a fresh, fully materialised config dict.
+
+    Every call rebuilds the whole structure, so prefer shared_config unless
+    you need a private copy you intend to mutate.
+    """
     return {
         "main": {
             "name": "N7timerWeather",
@@ -27,25 +50,21 @@ def make_config():
       "apipl": {
         "fields": [
           {
-            "active": True,
             "name": "dataseries",
-            "req": False,
             "type": "`$ARRAY`",
-            "index$": 0,
+            "union": {
+              "branches": 4,
+              "count": 1,
+              "depth": 1,
+            },
           },
           {
-            "active": True,
             "name": "init",
-            "req": False,
             "type": "`$STRING`",
-            "index$": 1,
           },
           {
-            "active": True,
             "name": "product",
-            "req": False,
             "type": "`$STRING`",
-            "index$": 2,
           },
         ],
         "name": "apipl",
@@ -55,29 +74,23 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "active": True,
                 "args": {
                   "query": [
                     {
-                      "active": True,
                       "example": 0,
                       "kind": "query",
                       "name": "ac",
                       "orig": "ac",
-                      "reqd": False,
                       "type": "`$INTEGER`",
                     },
                     {
-                      "active": True,
                       "example": "en",
                       "kind": "query",
                       "name": "lang",
                       "orig": "lang",
-                      "reqd": False,
                       "type": "`$STRING`",
                     },
                     {
-                      "active": True,
                       "example": 23.09,
                       "kind": "query",
                       "name": "lat",
@@ -86,7 +99,6 @@ def make_config():
                       "type": "`$NUMBER`",
                     },
                     {
-                      "active": True,
                       "example": 113.17,
                       "kind": "query",
                       "name": "lon",
@@ -95,7 +107,6 @@ def make_config():
                       "type": "`$NUMBER`",
                     },
                     {
-                      "active": True,
                       "kind": "query",
                       "name": "output",
                       "orig": "output",
@@ -103,7 +114,6 @@ def make_config():
                       "type": "`$STRING`",
                     },
                     {
-                      "active": True,
                       "kind": "query",
                       "name": "product",
                       "orig": "product",
@@ -111,21 +121,17 @@ def make_config():
                       "type": "`$STRING`",
                     },
                     {
-                      "active": True,
                       "example": 0,
                       "kind": "query",
                       "name": "tzshift",
                       "orig": "tzshift",
-                      "reqd": False,
                       "type": "`$INTEGER`",
                     },
                     {
-                      "active": True,
                       "example": "metric",
                       "kind": "query",
                       "name": "unit",
                       "orig": "unit",
-                      "reqd": False,
                       "type": "`$STRING`",
                     },
                   ],
@@ -153,10 +159,8 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.dataseries`",
                 },
-                "index$": 0,
               },
             ],
-            "key$": "list",
           },
         },
         "relations": {
@@ -172,29 +176,23 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "active": True,
                 "args": {
                   "query": [
                     {
-                      "active": True,
                       "example": 0,
                       "kind": "query",
                       "name": "ac",
                       "orig": "ac",
-                      "reqd": False,
                       "type": "`$INTEGER`",
                     },
                     {
-                      "active": True,
                       "example": "en",
                       "kind": "query",
                       "name": "lang",
                       "orig": "lang",
-                      "reqd": False,
                       "type": "`$STRING`",
                     },
                     {
-                      "active": True,
                       "example": 23.09,
                       "kind": "query",
                       "name": "lat",
@@ -203,7 +201,6 @@ def make_config():
                       "type": "`$NUMBER`",
                     },
                     {
-                      "active": True,
                       "example": 113.17,
                       "kind": "query",
                       "name": "lon",
@@ -212,30 +209,24 @@ def make_config():
                       "type": "`$NUMBER`",
                     },
                     {
-                      "active": True,
                       "example": "internal",
                       "kind": "query",
                       "name": "output",
                       "orig": "output",
-                      "reqd": False,
                       "type": "`$STRING`",
                     },
                     {
-                      "active": True,
                       "example": 0,
                       "kind": "query",
                       "name": "tzshift",
                       "orig": "tzshift",
-                      "reqd": False,
                       "type": "`$INTEGER`",
                     },
                     {
-                      "active": True,
                       "example": "metric",
                       "kind": "query",
                       "name": "unit",
                       "orig": "unit",
-                      "reqd": False,
                       "type": "`$STRING`",
                     },
                   ],
@@ -262,10 +253,8 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "index$": 0,
               },
             ],
-            "key$": "load",
           },
         },
         "relations": {

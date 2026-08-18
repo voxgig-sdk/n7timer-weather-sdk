@@ -15,7 +15,7 @@ require_relative "../N7timerWeather_sdk"
 module N7timerWeatherFeatureHarness
   # True when this SDK was generated with the named feature.
   def self.has_feature?(name)
-    f = N7timerWeatherConfig.make_config["feature"]
+    f = N7timerWeatherConfig.shared_config["feature"]
     f.is_a?(Hash) && !f[name].nil?
   end
 

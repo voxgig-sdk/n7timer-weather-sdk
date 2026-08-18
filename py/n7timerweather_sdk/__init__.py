@@ -23,8 +23,8 @@ class N7timerWeatherSDK:
         utility = N7timerWeatherUtility()
         self._utility = utility
 
-        from n7timerweather_sdk.config import make_config
-        config = make_config()
+        from n7timerweather_sdk.config import shared_config
+        config = shared_config()
 
         self._rootctx = utility.make_context({
             "client": self,
