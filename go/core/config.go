@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "N7timerWeather",
+			"slug": "n7timer-weather",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -34,6 +37,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "dataseries",
+						"short": "Array of forecast data points",
 						"type": "`$ARRAY`",
 						"union": map[string]any{
 							"branches": 4,
@@ -43,10 +47,12 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "init",
+						"short": "Initialization time of the forecast model (format: YYYYMMDDHH)",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "product",
+						"short": "Product type",
 						"type": "`$STRING`",
 					},
 				},

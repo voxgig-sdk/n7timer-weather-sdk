@@ -94,9 +94,9 @@ local apipl = client:Apipl(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `dataseries` | `table` | No |  |
-| `init` | `string` | No |  |
-| `product` | `string` | No |  |
+| `dataseries` | `table` | No | Array of forecast data points |
+| `init` | `string` | No | Initialization time of the forecast model (format: YYYYMMDDHH) |
+| `product` | `string` | No | Product type |
 
 ### Operations
 

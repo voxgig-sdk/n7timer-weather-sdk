@@ -239,9 +239,9 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `dataseries` |  |
-| `init` |  |
-| `product` |  |
+| `dataseries` | Array of forecast data points |
+| `init` | Initialization time of the forecast model (format: YYYYMMDDHH) |
+| `product` | Product type |
 
 Operations: List.
 
@@ -275,9 +275,9 @@ Create an instance: `apipl = client.Apipl`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `dataseries` | `Array` |  |
-| `init` | `String` |  |
-| `product` | `String` |  |
+| `dataseries` | `Array` | Array of forecast data points |
+| `init` | `String` | Initialization time of the forecast model (format: YYYYMMDDHH) |
+| `product` | `String` | Product type |
 
 #### Example: List
 

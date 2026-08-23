@@ -96,9 +96,9 @@ $apipl = $client->Apipl();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `dataseries` | `array` | No |  |
-| `init` | `string` | No |  |
-| `product` | `string` | No |  |
+| `dataseries` | `array` | No | Array of forecast data points |
+| `init` | `string` | No | Initialization time of the forecast model (format: YYYYMMDDHH) |
+| `product` | `string` | No | Product type |
 
 ### Operations
 

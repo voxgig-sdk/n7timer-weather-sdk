@@ -8,6 +8,7 @@ main: kit: entity: apipl: {
     {
       name: "dataseries"
       req: false
+      short: "Array of forecast data points"
       type: "`$ARRAY`"
       union: {
         branches: 4
@@ -18,11 +19,13 @@ main: kit: entity: apipl: {
     {
       name: "init"
       req: false
+      short: "Initialization time of the forecast model (format: YYYYMMDDHH)"
       type: "`$STRING`"
     }
     {
       name: "product"
       req: false
+      short: "Product type"
       type: "`$STRING`"
     }
   ]

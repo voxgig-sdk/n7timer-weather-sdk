@@ -33,6 +33,9 @@ class N7timerWeatherConfig
         return [
             "main" => [
                 "name" => "N7timerWeather",
+                "slug" => "n7timer-weather",
+                "version" => "0.0.1",
+                "target" => "php",
             ],
             "feature" => [
                 "test" => [
@@ -56,6 +59,7 @@ class N7timerWeatherConfig
           'fields' => [
             [
               'name' => 'dataseries',
+              'short' => 'Array of forecast data points',
               'type' => '`$ARRAY`',
               'union' => [
                 'branches' => 4,
@@ -65,10 +69,12 @@ class N7timerWeatherConfig
             ],
             [
               'name' => 'init',
+              'short' => 'Initialization time of the forecast model (format: YYYYMMDDHH)',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'product',
+              'short' => 'Product type',
               'type' => '`$STRING`',
             ],
           ],

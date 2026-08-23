@@ -28,6 +28,9 @@ def make_config():
     return {
         "main": {
             "name": "N7timerWeather",
+            "slug": "n7timer-weather",
+            "version": "0.0.1",
+            "target": "py",
         },
         "feature": {
             "test": {
@@ -51,6 +54,7 @@ def make_config():
         "fields": [
           {
             "name": "dataseries",
+            "short": "Array of forecast data points",
             "type": "`$ARRAY`",
             "union": {
               "branches": 4,
@@ -60,10 +64,12 @@ def make_config():
           },
           {
             "name": "init",
+            "short": "Initialization time of the forecast model (format: YYYYMMDDHH)",
             "type": "`$STRING`",
           },
           {
             "name": "product",
+            "short": "Product type",
             "type": "`$STRING`",
           },
         ],

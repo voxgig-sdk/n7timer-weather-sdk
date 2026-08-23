@@ -97,9 +97,9 @@ apipl = client.Apipl
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `dataseries` | `Array` | No |  |
-| `init` | `String` | No |  |
-| `product` | `String` | No |  |
+| `dataseries` | `Array` | No | Array of forecast data points |
+| `init` | `String` | No | Initialization time of the forecast model (format: YYYYMMDDHH) |
+| `product` | `String` | No | Product type |
 
 ### Operations
 

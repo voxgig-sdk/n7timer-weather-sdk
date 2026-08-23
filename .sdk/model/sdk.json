@@ -36,6 +36,7 @@
               "active": true,
               "name": "dataseries",
               "req": false,
+              "short": "Array of forecast data points",
               "type": "`$ARRAY`",
               "union": {
                 "branches": 4,
@@ -47,12 +48,14 @@
               "active": true,
               "name": "init",
               "req": false,
+              "short": "Initialization time of the forecast model (format: YYYYMMDDHH)",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "product",
               "req": false,
+              "short": "Product type",
               "type": "`$STRING`"
             }
           ],

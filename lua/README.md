@@ -234,9 +234,9 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `dataseries` |  |
-| `init` |  |
-| `product` |  |
+| `dataseries` | Array of forecast data points |
+| `init` | Initialization time of the forecast model (format: YYYYMMDDHH) |
+| `product` | Product type |
 
 Operations: List.
 
@@ -270,9 +270,9 @@ Create an instance: `local apipl = client:Apipl(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `dataseries` | `table` |  |
-| `init` | `string` |  |
-| `product` | `string` |  |
+| `dataseries` | `table` | Array of forecast data points |
+| `init` | `string` | Initialization time of the forecast model (format: YYYYMMDDHH) |
+| `product` | `string` | Product type |
 
 #### Example: List
 

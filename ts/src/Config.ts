@@ -19,9 +19,20 @@ class Config {
     return fi
   }
 
+  // False for a feature added at runtime via options.extend (station's
+  // adopt path) - the constructor uses this to skip makeFeature for names
+  // no generated class backs.
+  hasFeature(this: any, fn: string) {
+    return null != FEATURE_CLASS[fn]
+  }
+
 
   main = {
     name: 'N7timerWeather',
+        slug: "n7timer-weather",
+    version: "0.0.1",
+    target: "ts",
+
   }
 
 
@@ -59,6 +70,7 @@ class Config {
       "fields": [
         {
           "name": "dataseries",
+          "short": "Array of forecast data points",
           "type": "`$ARRAY`",
           "union": {
             "branches": 4,
@@ -68,10 +80,12 @@ class Config {
         },
         {
           "name": "init",
+          "short": "Initialization time of the forecast model (format: YYYYMMDDHH)",
           "type": "`$STRING`"
         },
         {
           "name": "product",
+          "short": "Product type",
           "type": "`$STRING`"
         }
       ],

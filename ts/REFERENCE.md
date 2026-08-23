@@ -128,9 +128,9 @@ const apipl = client.Apipl()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `dataseries` | `any[]` | No |  |
-| `init` | `string` | No |  |
-| `product` | `string` | No |  |
+| `dataseries` | `any[]` | No | Array of forecast data points |
+| `init` | `string` | No | Initialization time of the forecast model (format: YYYYMMDDHH) |
+| `product` | `string` | No | Product type |
 
 ### Operations
 

@@ -245,9 +245,9 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `dataseries` |  |
-| `init` |  |
-| `product` |  |
+| `dataseries` | Array of forecast data points |
+| `init` | Initialization time of the forecast model (format: YYYYMMDDHH) |
+| `product` | Product type |
 
 Operations: List.
 
@@ -281,9 +281,9 @@ Create an instance: `apipl = client.Apipl()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `dataseries` | `list` |  |
-| `init` | `str` |  |
-| `product` | `str` |  |
+| `dataseries` | `list` | Array of forecast data points |
+| `init` | `str` | Initialization time of the forecast model (format: YYYYMMDDHH) |
+| `product` | `str` | Product type |
 
 #### Example: List
 

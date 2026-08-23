@@ -249,9 +249,9 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `dataseries` |  |
-| `init` |  |
-| `product` |  |
+| `dataseries` | Array of forecast data points |
+| `init` | Initialization time of the forecast model (format: YYYYMMDDHH) |
+| `product` | Product type |
 
 Operations: List.
 
@@ -285,9 +285,9 @@ Create an instance: `$apipl = $client->Apipl();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `dataseries` | `array` |  |
-| `init` | `string` |  |
-| `product` | `string` |  |
+| `dataseries` | `array` | Array of forecast data points |
+| `init` | `string` | Initialization time of the forecast model (format: YYYYMMDDHH) |
+| `product` | `string` | Product type |
 
 #### Example: List
 
