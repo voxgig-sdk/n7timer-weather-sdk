@@ -28,6 +28,7 @@ module N7timerWeatherConfig
           "options" => {
             "active" => false,
           },
+          "transport" => "base",
         },
       },
       "options" => {
