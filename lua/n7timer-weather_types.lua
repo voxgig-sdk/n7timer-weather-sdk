@@ -12,13 +12,25 @@
 ---@field product? string
 
 ---@class ApiplListMatch
----@field dataseries? table
----@field init? string
----@field product? string
+---@field ac? number
+---@field lang? string
+---@field lat number
+---@field lon number
+---@field output string
+---@field product string
+---@field tzshift? number
+---@field unit? string
 
 ---@class GraphicalApi
 
 ---@class GraphicalApiLoadMatch
+---@field ac? number
+---@field lang? string
+---@field lat number
+---@field lon number
+---@field output? string
+---@field tzshift? number
+---@field unit? string
 
 local M = {}
 

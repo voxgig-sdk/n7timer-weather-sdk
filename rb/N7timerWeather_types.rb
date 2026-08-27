@@ -27,18 +27,38 @@ Apipl = Struct.new(
 
 # Request payload for Apipl#list.
 #
-# @!attribute [rw] dataseries
-#   @return [Array, nil]
+# @!attribute [rw] ac
+#   @return [Integer, nil]
 #
-# @!attribute [rw] init
+# @!attribute [rw] lang
 #   @return [String, nil]
+#
+# @!attribute [rw] lat
+#   @return [Float]
+#
+# @!attribute [rw] lon
+#   @return [Float]
+#
+# @!attribute [rw] output
+#   @return [String]
 #
 # @!attribute [rw] product
+#   @return [String]
+#
+# @!attribute [rw] tzshift
+#   @return [Integer, nil]
+#
+# @!attribute [rw] unit
 #   @return [String, nil]
 ApiplListMatch = Struct.new(
-  :dataseries,
-  :init,
+  :ac,
+  :lang,
+  :lat,
+  :lon,
+  :output,
   :product,
+  :tzshift,
+  :unit,
   keyword_init: true
 )
 
@@ -47,6 +67,35 @@ class GraphicalApi
 end
 
 # Request payload for GraphicalApi#load.
-class GraphicalApiLoadMatch
-end
+#
+# @!attribute [rw] ac
+#   @return [Integer, nil]
+#
+# @!attribute [rw] lang
+#   @return [String, nil]
+#
+# @!attribute [rw] lat
+#   @return [Float]
+#
+# @!attribute [rw] lon
+#   @return [Float]
+#
+# @!attribute [rw] output
+#   @return [String, nil]
+#
+# @!attribute [rw] tzshift
+#   @return [Integer, nil]
+#
+# @!attribute [rw] unit
+#   @return [String, nil]
+GraphicalApiLoadMatch = Struct.new(
+  :ac,
+  :lang,
+  :lat,
+  :lon,
+  :output,
+  :tzshift,
+  :unit,
+  keyword_init: true
+)
 

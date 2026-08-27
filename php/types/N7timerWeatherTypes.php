@@ -23,9 +23,14 @@ class Apipl
 /** Request payload for Apipl#list. */
 class ApiplListMatch
 {
-    public ?array $dataseries = null;
-    public ?string $init = null;
-    public ?string $product = null;
+    public ?int $ac = null;
+    public ?string $lang = null;
+    public float $lat;
+    public float $lon;
+    public string $output;
+    public string $product;
+    public ?int $tzshift = null;
+    public ?string $unit = null;
 }
 
 /** GraphicalApi entity data model. */
@@ -36,5 +41,12 @@ class GraphicalApi
 /** Request payload for GraphicalApi#load. */
 class GraphicalApiLoadMatch
 {
+    public ?int $ac = null;
+    public ?string $lang = null;
+    public float $lat;
+    public float $lon;
+    public ?string $output = null;
+    public ?int $tzshift = null;
+    public ?string $unit = null;
 }
 

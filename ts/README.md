@@ -40,7 +40,7 @@ resolves to entities, not raw records. Iterate them directly, and call
 `.data()` on one for the record it holds:
 
 ```ts
-const apipls = await client.Apipl().list()
+const apipls = await client.Apipl().list({ lat: 1, lon: 1, output: "example", product: "example" })
 
 for (const apipl of apipls) {
   console.log(apipl)
@@ -333,7 +333,7 @@ Create an instance: `const apipl = client.Apipl()`
 #### Example: List
 
 ```ts
-const apipls = await client.Apipl().list()
+const apipls = await client.Apipl().list({ lat: 1, lon: 1, output: "example", product: "example" })
 ```
 
 
@@ -350,8 +350,31 @@ Create an instance: `const graphical_api = client.GraphicalApi()`
 #### Example: Load
 
 ```ts
-const graphical_api = await client.GraphicalApi().load()
+const graphical_api = await client.GraphicalApi().load({ lat: 1, lon: 1 })
 ```
+
+## Features
+
+This SDK ships 1 optional features. Each is **inactive until you
+switch it on**, so an SDK you have not configured behaves exactly as if none of
+them existed — no retries, no cache, no logging, no measurable overhead.
+
+Activate a feature by name in the client options, alongside the options shown
+above:
+
+| Feature | What it does |
+|---|---|
+| [`test`](#test) | In-memory mock transport for testing without a live server |
+
+### test
+
+In-memory mock transport for testing without a live server.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+
+Set `feature.test.active` to enable it, then override any of the options above.
 
 
 ## Open types

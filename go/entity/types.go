@@ -21,9 +21,14 @@ type Apipl struct {
 
 // ApiplListMatch is the typed request payload for Apipl.ListTyped.
 type ApiplListMatch struct {
-	Dataseries *[]any `json:"dataseries,omitempty"`
-	Init *string `json:"init,omitempty"`
-	Product *string `json:"product,omitempty"`
+	Ac *int `json:"ac,omitempty"`
+	Lang *string `json:"lang,omitempty"`
+	Lat float64 `json:"lat"`
+	Lon float64 `json:"lon"`
+	Output string `json:"output"`
+	Product string `json:"product"`
+	Tzshift *int `json:"tzshift,omitempty"`
+	Unit *string `json:"unit,omitempty"`
 }
 
 // GraphicalApi is the typed data model for the graphical_api entity.
@@ -32,6 +37,13 @@ type GraphicalApi struct {
 
 // GraphicalApiLoadMatch is the typed request payload for GraphicalApi.LoadTyped.
 type GraphicalApiLoadMatch struct {
+	Ac *int `json:"ac,omitempty"`
+	Lang *string `json:"lang,omitempty"`
+	Lat float64 `json:"lat"`
+	Lon float64 `json:"lon"`
+	Output *string `json:"output,omitempty"`
+	Tzshift *int `json:"tzshift,omitempty"`
+	Unit *string `json:"unit,omitempty"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

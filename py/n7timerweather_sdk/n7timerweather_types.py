@@ -22,15 +22,32 @@ class Apipl(TypedDict, total=False):
     product: str
 
 
-class ApiplListMatch(TypedDict, total=False):
-    dataseries: list
-    init: str
+class ApiplListMatchRequired(TypedDict):
+    lat: float
+    lon: float
+    output: str
     product: str
+
+
+class ApiplListMatch(ApiplListMatchRequired, total=False):
+    ac: int
+    lang: str
+    tzshift: int
+    unit: str
 
 
 class GraphicalApi(TypedDict):
     pass
 
 
-class GraphicalApiLoadMatch(TypedDict):
-    pass
+class GraphicalApiLoadMatchRequired(TypedDict):
+    lat: float
+    lon: float
+
+
+class GraphicalApiLoadMatch(GraphicalApiLoadMatchRequired, total=False):
+    ac: int
+    lang: str
+    output: str
+    tzshift: int
+    unit: str

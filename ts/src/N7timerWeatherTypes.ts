@@ -12,14 +12,26 @@ export interface Apipl {
 }
 
 export interface ApiplListMatch {
-  dataseries?: any[]
-  init?: string
-  product?: string
+  ac?: number
+  lang?: string
+  lat: number
+  lon: number
+  output: string
+  product: string
+  tzshift?: number
+  unit?: string
 }
 
 export interface GraphicalApi {
 }
 
 export interface GraphicalApiLoadMatch {
+  ac?: number
+  lang?: string
+  lat: number
+  lon: number
+  output?: string
+  tzshift?: number
+  unit?: string
 }
 
