@@ -151,9 +151,13 @@ class N7timerWeatherConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/bin/api.pl',
-                  'parts' => [
-                    'bin',
-                    'api.pl',
+                  'segments' => [
+                    [
+                      'lit' => 'bin',
+                    ],
+                    [
+                      'lit' => 'api.pl',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -170,6 +174,10 @@ class N7timerWeatherConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.dataseries`',
+                  ],
+                  'parts' => [
+                    'bin',
+                    'api.pl',
                   ],
                 ],
               ],
@@ -246,9 +254,13 @@ class N7timerWeatherConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/bin/astro.php',
-                  'parts' => [
-                    'bin',
-                    'astro.php',
+                  'segments' => [
+                    [
+                      'lit' => 'bin',
+                    ],
+                    [
+                      'lit' => 'astro.php',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -264,6 +276,10 @@ class N7timerWeatherConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'bin',
+                    'astro.php',
                   ],
                 ],
               ],

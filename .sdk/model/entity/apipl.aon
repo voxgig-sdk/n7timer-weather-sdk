@@ -104,9 +104,13 @@ main: kit: entity: apipl: {
           }
           method: "GET"
           orig: "/bin/api.pl"
-          parts: [
-            "bin"
-            "api.pl"
+          segments: [
+            {
+              lit: "bin"
+            }
+            {
+              lit: "api.pl"
+            }
           ]
           select: {
             exist: [

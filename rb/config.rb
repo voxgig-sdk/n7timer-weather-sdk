@@ -137,9 +137,13 @@ module N7timerWeatherConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/bin/api.pl",
-                  "parts" => [
-                    "bin",
-                    "api.pl",
+                  "segments" => [
+                    {
+                      "lit" => "bin",
+                    },
+                    {
+                      "lit" => "api.pl",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -157,6 +161,10 @@ module N7timerWeatherConfig
                     "req" => "`reqdata`",
                     "res" => "`body.dataseries`",
                   },
+                  "parts" => [
+                    "bin",
+                    "api.pl",
+                  ],
                 },
               ],
             },
@@ -232,9 +240,13 @@ module N7timerWeatherConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/bin/astro.php",
-                  "parts" => [
-                    "bin",
-                    "astro.php",
+                  "segments" => [
+                    {
+                      "lit" => "bin",
+                    },
+                    {
+                      "lit" => "astro.php",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -251,6 +263,10 @@ module N7timerWeatherConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "bin",
+                    "astro.php",
+                  ],
                 },
               ],
             },

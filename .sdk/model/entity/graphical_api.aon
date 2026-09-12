@@ -72,9 +72,13 @@ main: kit: entity: graphical_api: {
           }
           method: "GET"
           orig: "/bin/astro.php"
-          parts: [
-            "bin"
-            "astro.php"
+          segments: [
+            {
+              lit: "bin"
+            }
+            {
+              lit: "astro.php"
+            }
           ]
           select: {
             exist: [

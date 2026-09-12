@@ -98,7 +98,7 @@ func TestApiplEntity(t *testing.T) {
 		client := setup.client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
-		apiplRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath("existing.apipl", setup.data)))
+		apiplRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.apipl")))
 		var apiplRef01Data map[string]any
 		if len(apiplRef01DataRaw) > 0 {
 			apiplRef01Data = core.ToMapAny(apiplRef01DataRaw[0][1])
@@ -147,7 +147,7 @@ func apiplBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"apipl01", "apipl02", "apipl03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -175,10 +175,22 @@ func apiplBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["N7TIMER_WEATHER_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewN7timerWeatherSDK(core.ToMapAny(mergedOpts))
 	}

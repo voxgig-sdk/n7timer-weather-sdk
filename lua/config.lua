@@ -125,9 +125,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/bin/api.pl",
-                ["parts"] = {
-                  "bin",
-                  "api.pl",
+                ["segments"] = {
+                  {
+                    ["lit"] = "bin",
+                  },
+                  {
+                    ["lit"] = "api.pl",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -144,6 +148,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.dataseries`",
+                },
+                ["parts"] = {
+                  "bin",
+                  "api.pl",
                 },
               },
             },
@@ -220,9 +228,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/bin/astro.php",
-                ["parts"] = {
-                  "bin",
-                  "astro.php",
+                ["segments"] = {
+                  {
+                    ["lit"] = "bin",
+                  },
+                  {
+                    ["lit"] = "astro.php",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -238,6 +250,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "bin",
+                  "astro.php",
                 },
               },
             },
