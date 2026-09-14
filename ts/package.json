@@ -1,5 +1,5 @@
 {
-  "name": "@voxgig-sdk/n7timer-weather",
+  "name": "@voxgig-sdk/n7timer-weather-sdk",
   "version": "0.0.1",
   "description": "Unofficial generated TypeScript SDK for the 7Timer Weather public API. Not affiliated with or endorsed by the upstream API provider.",
   "keywords": [

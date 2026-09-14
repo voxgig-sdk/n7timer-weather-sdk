@@ -105,7 +105,7 @@ local results, err = client:Apipl():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/n7timer-weather` | publish pending — [install from git tag](https://github.com/voxgig-sdk/n7timer-weather-sdk/releases) |
+| TypeScript | `@voxgig-sdk/n7timer-weather-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/n7timer-weather-sdk/releases) |
 | Python | `voxgig-sdk-n7timer-weather` | publish pending — [install from git tag](https://github.com/voxgig-sdk/n7timer-weather-sdk/releases) |
 | PHP | `voxgig-sdk/n7timer-weather` | publish pending — [install from git tag](https://github.com/voxgig-sdk/n7timer-weather-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/n7timer-weather-sdk/go` | `go get github.com/voxgig-sdk/n7timer-weather-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:Apipl():list()
 ### TypeScript
 
 ```ts
-import { N7timerWeatherSDK } from '@voxgig-sdk/n7timer-weather'
+import { N7timerWeatherSDK } from '@voxgig-sdk/n7timer-weather-sdk'
 
 const client = new N7timerWeatherSDK()
 

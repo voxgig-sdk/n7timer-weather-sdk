@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { N7timerWeatherSDK } from '@voxgig-sdk/n7timer-weather'
+import { N7timerWeatherSDK } from '@voxgig-sdk/n7timer-weather-sdk'
 
 const client = new N7timerWeatherSDK()
 ```
@@ -454,7 +454,7 @@ n7timer-weather/
 Import the SDK from the package root:
 
 ```ts
-import { N7timerWeatherSDK } from '@voxgig-sdk/n7timer-weather'
+import { N7timerWeatherSDK } from '@voxgig-sdk/n7timer-weather-sdk'
 ```
 
 ### Entity state
