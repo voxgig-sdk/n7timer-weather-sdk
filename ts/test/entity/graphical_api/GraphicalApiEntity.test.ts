@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { N7timerWeatherSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('GraphicalApiEntity', async () => {
 
     const live = 'TRUE' === process.env.N7TIMER_WEATHER_TEST_LIVE
     for (const op of ['load']) {
-      if (maybeSkipControl(t, 'entityOp', 'graphical_api.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'graphical_api.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set N7TIMER_WEATHER_TEST_GRAPHICAL_API_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[],"name":"graphical_api","op":{"load":{"input":"data","name":"load","points":[{"active":true,"args":{"query":[{"active":true,"example":0,"kind":"query","name":"ac","orig":"ac","reqd":false,"type":"`$INTEGER`","index$":0},{"active":true,"example":"en","kind":"query","name":"lang","orig":"lang","reqd":false,"type":"`$STRING`","index$":1},{"active":true,"example":23.09,"kind":"query","name":"lat","orig":"lat","reqd":true,"type":"`$NUMBER`","index$":2},{"active":true,"example":113.17,"kind":"query","name":"lon","orig":"lon","reqd":true,"type":"`$NUMBER`","index$":3},{"active":true,"example":"internal","kind":"query","name":"output","orig":"output","reqd":false,"type":"`$STRING`","index$":4},{"active":true,"example":0,"kind":"query","name":"tzshift","orig":"tzshift","reqd":false,"type":"`$INTEGER`","index$":5},{"active":true,"example":"metric","kind":"query","name":"unit","orig":"unit","reqd":false,"type":"`$STRING`","index$":6}]},"contract":{"id":"GET /bin/astro.php","json":"{\"operationId\":\"getGraphicalForecast\",\"parameters\":[{\"description\":\"Longitude coordinate of the location (float number with precision 0.001)\",\"in\":\"query\",\"name\":\"lon\",\"required\":true,\"schema\":{\"example\":113.17,\"format\":\"float\",\"maximum\":180,\"minimum\":-180,\"type\":\"number\"}},{\"description\":\"Latitude coordinate of the location (float number with precision 0.001)\",\"in\":\"query\",\"name\":\"lat\",\"required\":true,\"schema\":{\"example\":23.09,\"format\":\"float\",\"maximum\":90,\"minimum\":-90,\"type\":\"number\"}},{\"description\":\"Altitude Correction (only applicable in ASTRO forecast)\",\"in\":\"query\",\"name\":\"ac\",\"required\":false,\"schema\":{\"default\":0,\"enum\":[0,2,7],\"type\":\"integer\"}},{\"description\":\"Language for the forecast (not applicable in METEO product)\",\"in\":\"query\",\"name\":\"lang\",\"required\":false,\"schema\":{\"default\":\"en\",\"enum\":[\"en\",\"zh-CN\",\"zh-TW\"],\"type\":\"string\"}},{\"description\":\"Unit system for measurements\",\"in\":\"query\",\"name\":\"unit\",\"required\":false,\"schema\":{\"default\":\"metric\",\"enum\":[\"metric\",\"british\"],\"type\":\"string\"}},{\"description\":\"Output format for graphical API\",\"in\":\"query\",\"name\":\"output\",\"required\":false,\"schema\":{\"default\":\"internal\",\"enum\":[\"internal\"],\"type\":\"string\"}},{\"description\":\"Timezone adjustment\",\"in\":\"query\",\"name\":\"tzshift\",\"required\":false,\"schema\":{\"default\":0,\"enum\":[-1,0,1],\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"image/png\":{\"schema\":{\"format\":\"binary\",\"type\":\"string\"}}},\"description\":\"PNG image containing the weather forecast diagram\"},\"400\":{\"description\":\"Invalid parameters provided\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/bin/astro.php","segments":[{"lit":"bin"},{"lit":"astro.php"}],"select":{"exist":["ac","lang","lat","lon","output","tzshift","unit"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"graphical_api","name__orig":"graphical_api","Name":"GraphicalApi","name_":"graphical_api","name-":"graphical-api","NAME":"GRAPHICAL_API","index$":1}, {"active":true,"entity":"graphical_api","key$":"BasicGraphicalApiFlow","kind":"basic","name":"BasicGraphicalApiFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"graphical_api_ref01","srcdatavar":"graphical_api_ref01_data","suffix":"_dt0"},"match":{},"op":"load","spec":[],"valid":[{"apply":"TextFieldMark","def":{"mark":"Mark01-graphical_api_ref01"}}],"index$":0}]}, 'GraphicalApi')
     }
     const client = setup.client
     const struct = setup.struct
@@ -109,13 +108,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['N7TIMER_WEATHER_TEST_GRAPHICAL_API_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'N7TIMER_WEATHER_TEST_GRAPHICAL_API_ENTID': idmap,
     'N7TIMER_WEATHER_TEST_LIVE': 'FALSE',
@@ -126,7 +118,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.N7TIMER_WEATHER_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['N7TIMER_WEATHER_TEST_GRAPHICAL_API_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new N7timerWeatherSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -138,7 +136,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -151,7 +150,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.N7TIMER_WEATHER_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

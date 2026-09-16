@@ -1,12 +1,18 @@
 # N7timerWeather SDK feature factory
 
 from n7timerweather_sdk.feature.base_feature import N7timerWeatherBaseFeature
+from n7timerweather_sdk.feature.ratelimit_feature import N7timerWeatherRatelimitFeature
+from n7timerweather_sdk.feature.retry_feature import N7timerWeatherRetryFeature
 from n7timerweather_sdk.feature.test_feature import N7timerWeatherTestFeature
+from n7timerweather_sdk.feature.timeout_feature import N7timerWeatherTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: N7timerWeatherBaseFeature(),
+    "ratelimit": lambda: N7timerWeatherRatelimitFeature(),
+    "retry": lambda: N7timerWeatherRetryFeature(),
     "test": lambda: N7timerWeatherTestFeature(),
+    "timeout": lambda: N7timerWeatherTimeoutFeature(),
 }
 
 

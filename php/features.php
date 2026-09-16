@@ -4,7 +4,10 @@ declare(strict_types=1);
 // N7timerWeather SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class N7timerWeatherFeatures
@@ -14,8 +17,14 @@ class N7timerWeatherFeatures
         switch ($name) {
             case "base":
                 return new N7timerWeatherBaseFeature();
+            case "ratelimit":
+                return new N7timerWeatherRatelimitFeature();
+            case "retry":
+                return new N7timerWeatherRetryFeature();
             case "test":
                 return new N7timerWeatherTestFeature();
+            case "timeout":
+                return new N7timerWeatherTimeoutFeature();
             default:
                 return new N7timerWeatherBaseFeature();
         }
@@ -31,7 +40,10 @@ class N7timerWeatherFeatures
     {
         switch ($name) {
             case "base":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;

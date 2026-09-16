@@ -16,5 +16,131 @@
     "graphical_api": {
       "graphical_api_ref01": {}
     }
+  },
+  "requests": {
+    "GET /bin/astro.php": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getGraphicalForecast",
+        "parameters": [
+          {
+            "description": "Longitude coordinate of the location (float number with precision 0.001)",
+            "in": "query",
+            "name": "lon",
+            "required": true,
+            "schema": {
+              "example": 113.17,
+              "format": "float",
+              "maximum": 180,
+              "minimum": -180,
+              "type": "number"
+            }
+          },
+          {
+            "description": "Latitude coordinate of the location (float number with precision 0.001)",
+            "in": "query",
+            "name": "lat",
+            "required": true,
+            "schema": {
+              "example": 23.09,
+              "format": "float",
+              "maximum": 90,
+              "minimum": -90,
+              "type": "number"
+            }
+          },
+          {
+            "description": "Altitude Correction (only applicable in ASTRO forecast)",
+            "in": "query",
+            "name": "ac",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "enum": [
+                0,
+                2,
+                7
+              ],
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Language for the forecast (not applicable in METEO product)",
+            "in": "query",
+            "name": "lang",
+            "required": false,
+            "schema": {
+              "default": "en",
+              "enum": [
+                "en",
+                "zh-CN",
+                "zh-TW"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Unit system for measurements",
+            "in": "query",
+            "name": "unit",
+            "required": false,
+            "schema": {
+              "default": "metric",
+              "enum": [
+                "metric",
+                "british"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Output format for graphical API",
+            "in": "query",
+            "name": "output",
+            "required": false,
+            "schema": {
+              "default": "internal",
+              "enum": [
+                "internal"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Timezone adjustment",
+            "in": "query",
+            "name": "tzshift",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "enum": [
+                -1,
+                0,
+                1
+              ],
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "image/png": {
+                "schema": {
+                  "format": "binary",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "PNG image containing the weather forecast diagram"
+          },
+          "400": {
+            "description": "Invalid parameters provided"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    }
   }
 }
