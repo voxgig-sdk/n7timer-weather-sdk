@@ -1,4 +1,4 @@
 # Entity Models
 
-@"apipl.aon"
-@"graphical_api.aon"
+@"./apipl.aon"
+@"./graphical_api.aon"

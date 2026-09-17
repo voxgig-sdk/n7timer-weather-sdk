@@ -105,12 +105,12 @@ local results, err = client:Apipl():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/n7timer-weather-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/n7timer-weather-sdk/releases) |
-| Python | `voxgig-sdk-n7timer-weather` | publish pending — [install from git tag](https://github.com/voxgig-sdk/n7timer-weather-sdk/releases) |
-| PHP | `voxgig-sdk/n7timer-weather` | publish pending — [install from git tag](https://github.com/voxgig-sdk/n7timer-weather-sdk/releases) |
+| TypeScript | `@voxgig-sdk/n7timer-weather-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/n7timer-weather-sdk/tags) |
+| Python | `voxgig-sdk-n7timer-weather` | publish pending — [install from git tag](https://github.com/voxgig-sdk/n7timer-weather-sdk/tags) |
+| PHP | `voxgig-sdk/n7timer-weather` | publish pending — [install from git tag](https://github.com/voxgig-sdk/n7timer-weather-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/n7timer-weather-sdk/go` | `go get github.com/voxgig-sdk/n7timer-weather-sdk/go@latest` |
-| Ruby | `voxgig-sdk-n7timer-weather` | publish pending — [install from git tag](https://github.com/voxgig-sdk/n7timer-weather-sdk/releases) |
-| Lua | `voxgig-sdk-n7timer-weather` | publish pending — [install from git tag](https://github.com/voxgig-sdk/n7timer-weather-sdk/releases) |
+| Ruby | `voxgig-sdk-n7timer-weather` | publish pending — [install from git tag](https://github.com/voxgig-sdk/n7timer-weather-sdk/tags) |
+| Lua | `voxgig-sdk-n7timer-weather` | publish pending — [install from git tag](https://github.com/voxgig-sdk/n7timer-weather-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/n7timer-weather-sdk/go-cli` | `go install github.com/voxgig-sdk/n7timer-weather-sdk/go-cli/cmd/n7timer-weather@latest` |
 | Go MCP server | `github.com/voxgig-sdk/n7timer-weather-sdk/go-mcp` | `go get github.com/voxgig-sdk/n7timer-weather-sdk/go-mcp@latest` |
 

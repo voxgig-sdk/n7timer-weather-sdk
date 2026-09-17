@@ -127,12 +127,12 @@ class Config {
 
     entity: {
       
-      apipl: {
-      },
-
-      graphical_api: {
-      },
-
+        apipl: {
+        },
+  
+        graphical_api: {
+        },
+  
     }
   }
 
