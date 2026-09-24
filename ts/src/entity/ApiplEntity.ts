@@ -19,7 +19,6 @@ import type {
   ApiplListMatch,
 } from '../N7timerWeatherTypes'
 
-// TODO: needs Entity superclass
 class ApiplEntity extends N7timerWeatherEntityBase<Apipl> {
 
   constructor(client: N7timerWeatherSDK, entopts: any) {

@@ -11,19 +11,12 @@ const FEATURE_CLASS = {
     test: TestFeature_1.TestFeature,
     timeout: TimeoutFeature_1.TimeoutFeature,
 };
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS = {};
 exports.FEATURE_PLUGINS = FEATURE_PLUGINS;
 class Config {
     makeFeature(fn) {
         const fc = FEATURE_CLASS[fn];
         const fi = new fc();
-        // TODO: errors etc
         return fi;
     }
     // False for a feature added at runtime via options.extend (station's
@@ -115,23 +108,21 @@ class Config {
             "fields": [
                 {
                     "name": "dataseries",
-                    "short": "Array of forecast data points",
+                    "title": "Dataseries",
                     "type": "`$ARRAY`",
-                    "union": {
-                        "branches": 4,
-                        "count": 1,
-                        "depth": 1
-                    }
+                    "short": "Array of forecast data points"
                 },
                 {
                     "name": "init",
-                    "short": "Initialization time of the forecast model (format: YYYYMMDDHH)",
-                    "type": "`$STRING`"
+                    "title": "Init",
+                    "type": "`$STRING`",
+                    "short": "Initialization time of the forecast model (format: YYYYMMDDHH)"
                 },
                 {
                     "name": "product",
-                    "short": "Product type",
-                    "type": "`$STRING`"
+                    "title": "Product",
+                    "type": "`$STRING`",
+                    "short": "Product type"
                 }
             ],
             "name": "apipl",
@@ -141,68 +132,6 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "example": 0,
-                                        "kind": "query",
-                                        "name": "ac",
-                                        "orig": "ac",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": "en",
-                                        "kind": "query",
-                                        "name": "lang",
-                                        "orig": "lang",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": 23.09,
-                                        "kind": "query",
-                                        "name": "lat",
-                                        "orig": "lat",
-                                        "reqd": true,
-                                        "type": "`$NUMBER`"
-                                    },
-                                    {
-                                        "example": 113.17,
-                                        "kind": "query",
-                                        "name": "lon",
-                                        "orig": "lon",
-                                        "reqd": true,
-                                        "type": "`$NUMBER`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "output",
-                                        "orig": "output",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "product",
-                                        "orig": "product",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": 0,
-                                        "kind": "query",
-                                        "name": "tzshift",
-                                        "orig": "tzshift",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": "metric",
-                                        "kind": "query",
-                                        "name": "unit",
-                                        "orig": "unit",
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/bin/api.pl",
@@ -214,6 +143,77 @@ class Config {
                                     "lit": "api.pl"
                                 }
                             ],
+                            "parts": [
+                                "bin",
+                                "api.pl"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body.dataseries`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "ac",
+                                        "orig": "ac",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 0
+                                    },
+                                    {
+                                        "name": "lang",
+                                        "orig": "lang",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "en"
+                                    },
+                                    {
+                                        "name": "lat",
+                                        "orig": "lat",
+                                        "type": "`$NUMBER`",
+                                        "kind": "query",
+                                        "reqd": true,
+                                        "example": 23.09
+                                    },
+                                    {
+                                        "name": "lon",
+                                        "orig": "lon",
+                                        "type": "`$NUMBER`",
+                                        "kind": "query",
+                                        "reqd": true,
+                                        "example": 113.17
+                                    },
+                                    {
+                                        "name": "output",
+                                        "orig": "output",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "reqd": true
+                                    },
+                                    {
+                                        "name": "product",
+                                        "orig": "product",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "reqd": true
+                                    },
+                                    {
+                                        "name": "tzshift",
+                                        "orig": "tzshift",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 0
+                                    },
+                                    {
+                                        "name": "unit",
+                                        "orig": "unit",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "metric"
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "ac",
@@ -225,15 +225,7 @@ class Config {
                                     "tzshift",
                                     "unit"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body.dataseries`"
-                            },
-                            "parts": [
-                                "bin",
-                                "api.pl"
-                            ]
+                            }
                         }
                     ]
                 }
@@ -251,61 +243,6 @@ class Config {
                     "name": "load",
                     "points": [
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "example": 0,
-                                        "kind": "query",
-                                        "name": "ac",
-                                        "orig": "ac",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": "en",
-                                        "kind": "query",
-                                        "name": "lang",
-                                        "orig": "lang",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": 23.09,
-                                        "kind": "query",
-                                        "name": "lat",
-                                        "orig": "lat",
-                                        "reqd": true,
-                                        "type": "`$NUMBER`"
-                                    },
-                                    {
-                                        "example": 113.17,
-                                        "kind": "query",
-                                        "name": "lon",
-                                        "orig": "lon",
-                                        "reqd": true,
-                                        "type": "`$NUMBER`"
-                                    },
-                                    {
-                                        "example": "internal",
-                                        "kind": "query",
-                                        "name": "output",
-                                        "orig": "output",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": 0,
-                                        "kind": "query",
-                                        "name": "tzshift",
-                                        "orig": "tzshift",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": "metric",
-                                        "kind": "query",
-                                        "name": "unit",
-                                        "orig": "unit",
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/bin/astro.php",
@@ -317,6 +254,70 @@ class Config {
                                     "lit": "astro.php"
                                 }
                             ],
+                            "parts": [
+                                "bin",
+                                "astro.php"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "ac",
+                                        "orig": "ac",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 0
+                                    },
+                                    {
+                                        "name": "lang",
+                                        "orig": "lang",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "en"
+                                    },
+                                    {
+                                        "name": "lat",
+                                        "orig": "lat",
+                                        "type": "`$NUMBER`",
+                                        "kind": "query",
+                                        "reqd": true,
+                                        "example": 23.09
+                                    },
+                                    {
+                                        "name": "lon",
+                                        "orig": "lon",
+                                        "type": "`$NUMBER`",
+                                        "kind": "query",
+                                        "reqd": true,
+                                        "example": 113.17
+                                    },
+                                    {
+                                        "name": "output",
+                                        "orig": "output",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "internal"
+                                    },
+                                    {
+                                        "name": "tzshift",
+                                        "orig": "tzshift",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 0
+                                    },
+                                    {
+                                        "name": "unit",
+                                        "orig": "unit",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "metric"
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "ac",
@@ -327,15 +328,7 @@ class Config {
                                     "tzshift",
                                     "unit"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "bin",
-                                "astro.php"
-                            ]
+                            }
                         }
                     ]
                 }

@@ -1,0 +1,146 @@
+# Entity: apipl
+
+main: kit: entity: apipl: {
+
+  alias: field: {}
+
+  fields: {
+    dataseries: {
+      h: "Dataseries"
+      n: "dataseries"
+      r: false
+      sh: "Array of forecast data points"
+      t: "`$ARRAY`"
+      union: {
+        branches: 4
+        count: 1
+        depth: 1
+      }
+    }
+    init: {
+      h: "Init"
+      n: "init"
+      r: false
+      sh: "Initialization time of the forecast model (format: YYYYMMDDHH)"
+      t: "`$STRING`"
+    }
+    product: {
+      h: "Product"
+      n: "product"
+      r: false
+      sh: "Product type"
+      t: "`$STRING`"
+    }
+  }
+
+  name: "apipl"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /bin/api.pl"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: 0
+                k: "query"
+                n: "ac"
+                or: "ac"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: "en"
+                k: "query"
+                n: "lang"
+                or: "lang"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: 23.09
+                k: "query"
+                n: "lat"
+                or: "lat"
+                r: true
+                t: "`$NUMBER`"
+              }
+              {
+                ex: 113.17
+                k: "query"
+                n: "lon"
+                or: "lon"
+                r: true
+                t: "`$NUMBER`"
+              }
+              {
+                k: "query"
+                n: "output"
+                or: "output"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "product"
+                or: "product"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: 0
+                k: "query"
+                n: "tzshift"
+                or: "tzshift"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: "metric"
+                k: "query"
+                n: "unit"
+                or: "unit"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/bin/api.pl"
+          q: {
+            exist: [
+              "ac"
+              "lang"
+              "lat"
+              "lon"
+              "output"
+              "product"
+              "tzshift"
+              "unit"
+            ]
+          }
+          s: [
+            {
+              lit: "bin"
+            }
+            {
+              lit: "api.pl"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.dataseries`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

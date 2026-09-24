@@ -1,0 +1,28 @@
+# BasicGraphicalApiFlow
+
+main: kit: flow: BasicGraphicalApiFlow:
+{
+  entity: "graphical_api",
+  kind: "basic",
+  name: "BasicGraphicalApiFlow",
+  step: [
+    {
+      i: {
+        ref: "graphical_api_ref01",
+        srcdatavar: "graphical_api_ref01_data",
+        suffix: "_dt0"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-graphical_api_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicGraphicalApiFlow"
+}

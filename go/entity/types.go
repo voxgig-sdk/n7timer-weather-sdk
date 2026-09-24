@@ -1,7 +1,7 @@
 // Typed models for the N7timerWeather SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,9 +14,6 @@ import (
 
 // Apipl is the typed data model for the apipl entity.
 type Apipl struct {
-	Dataseries *[]any `json:"dataseries,omitempty"`
-	Init *string `json:"init,omitempty"`
-	Product *string `json:"product,omitempty"`
 }
 
 // ApiplListMatch is the typed request payload for Apipl.ListTyped.

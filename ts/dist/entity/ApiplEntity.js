@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApiplEntity = void 0;
 const N7timerWeatherEntityBase_1 = require("../N7timerWeatherEntityBase");
-// TODO: needs Entity superclass
 class ApiplEntity extends N7timerWeatherEntityBase_1.N7timerWeatherEntityBase {
     constructor(client, entopts) {
         super(client, entopts);

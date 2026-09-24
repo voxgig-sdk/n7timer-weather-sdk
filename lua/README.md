@@ -43,7 +43,7 @@ local apipls, err = client:Apipl():list()
 if err then error(err) end
 
 for _, item in ipairs(apipls) do
-  print(item["init"])
+  print(item)
 end
 ```
 
