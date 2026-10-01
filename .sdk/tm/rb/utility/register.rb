@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 N7timerWeatherUtility.registrar = ->(u) {
   u.clean = N7timerWeatherUtilities::Clean
+  u.clean_add = N7timerWeatherUtilities::CleanAdd
+  u.clean_explain = N7timerWeatherUtilities::CleanExplain
   u.done = N7timerWeatherUtilities::Done
   u.make_error = N7timerWeatherUtilities::MakeError
   u.feature_add = N7timerWeatherUtilities::FeatureAdd

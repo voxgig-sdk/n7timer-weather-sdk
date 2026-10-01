@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 N7timerWeatherUtility::setRegistrar(function (N7timerWeatherUtility $u): void {
     $u->clean = [N7timerWeatherClean::class, 'call'];
+    $u->clean_add = [N7timerWeatherClean::class, 'add'];
+    $u->clean_explain = [N7timerWeatherDone::class, 'clean_explain'];
     $u->done = [N7timerWeatherDone::class, 'call'];
     $u->make_error = [N7timerWeatherMakeError::class, 'call'];
     $u->feature_add = [N7timerWeatherFeatureAdd::class, 'call'];
