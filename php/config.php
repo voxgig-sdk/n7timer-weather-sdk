@@ -93,6 +93,7 @@ class N7timerWeatherConfig
           ],
           'optspec' => [
             'clearTimer' => '`$FUNCTION`',
+            'now' => '`$FUNCTION`',
             'setTimer' => '`$FUNCTION`',
           ],
           'strict' => false,
@@ -203,6 +204,7 @@ class N7timerWeatherConfig
                         'type' => '`$STRING`',
                         'kind' => 'query',
                         'reqd' => true,
+                        'field' => true,
                       ],
                       [
                         'name' => 'tzshift',
@@ -222,15 +224,21 @@ class N7timerWeatherConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'ac',
-                      'lang',
                       'lat',
                       'lon',
                       'output',
                       'product',
-                      'tzshift',
-                      'unit',
                     ],
+                  ],
+                  'response' => [
+                    'alternatives' => [
+                      [
+                        'kind' => 'raw',
+                        'media' => 'application/xml',
+                      ],
+                    ],
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -326,14 +334,14 @@ class N7timerWeatherConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'ac',
-                      'lang',
                       'lat',
                       'lon',
-                      'output',
-                      'tzshift',
-                      'unit',
                     ],
+                  ],
+                  'response' => [
+                    'binary' => true,
+                    'kind' => 'raw',
+                    'media' => 'image/png',
                   ],
                 ],
               ],

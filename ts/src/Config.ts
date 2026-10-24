@@ -102,6 +102,7 @@ class Config {
       },
       "optspec": {
         "clearTimer": "`$FUNCTION`",
+        "now": "`$FUNCTION`",
         "setTimer": "`$FUNCTION`"
       },
       "strict": false,
@@ -223,7 +224,8 @@ class Config {
                     "orig": "product",
                     "type": "`$STRING`",
                     "kind": "query",
-                    "reqd": true
+                    "reqd": true,
+                    "field": true
                   },
                   {
                     "name": "tzshift",
@@ -243,15 +245,21 @@ class Config {
               },
               "select": {
                 "exist": [
-                  "ac",
-                  "lang",
                   "lat",
                   "lon",
                   "output",
-                  "product",
-                  "tzshift",
-                  "unit"
+                  "product"
                 ]
+              },
+              "response": {
+                "alternatives": [
+                  {
+                    "kind": "raw",
+                    "media": "application/xml"
+                  }
+                ],
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -347,14 +355,14 @@ class Config {
               },
               "select": {
                 "exist": [
-                  "ac",
-                  "lang",
                   "lat",
-                  "lon",
-                  "output",
-                  "tzshift",
-                  "unit"
+                  "lon"
                 ]
+              },
+              "response": {
+                "binary": true,
+                "kind": "raw",
+                "media": "image/png"
               }
             }
           ]

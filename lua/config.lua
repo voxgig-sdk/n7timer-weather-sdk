@@ -67,6 +67,7 @@ local function make_config()
         },
         ["optspec"] = {
           ["clearTimer"] = "`$FUNCTION`",
+          ["now"] = "`$FUNCTION`",
           ["setTimer"] = "`$FUNCTION`",
         },
         ["strict"] = false,
@@ -177,6 +178,7 @@ local function make_config()
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                       ["reqd"] = true,
+                      ["field"] = true,
                     },
                     {
                       ["name"] = "tzshift",
@@ -196,15 +198,21 @@ local function make_config()
                 },
                 ["select"] = {
                   ["exist"] = {
-                    "ac",
-                    "lang",
                     "lat",
                     "lon",
                     "output",
                     "product",
-                    "tzshift",
-                    "unit",
                   },
+                },
+                ["response"] = {
+                  ["alternatives"] = {
+                    {
+                      ["kind"] = "raw",
+                      ["media"] = "application/xml",
+                    },
+                  },
+                  ["kind"] = "json",
+                  ["media"] = "application/json",
                 },
               },
             },
@@ -300,14 +308,14 @@ local function make_config()
                 },
                 ["select"] = {
                   ["exist"] = {
-                    "ac",
-                    "lang",
                     "lat",
                     "lon",
-                    "output",
-                    "tzshift",
-                    "unit",
                   },
+                },
+                ["response"] = {
+                  ["binary"] = true,
+                  ["kind"] = "raw",
+                  ["media"] = "image/png",
                 },
               },
             },

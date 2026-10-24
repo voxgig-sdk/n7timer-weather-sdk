@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `c
 
 ## Install
 This package is not yet published to RubyGems. Install it from the
-GitHub release tag (`rb/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/n7timer-weather-sdk/releases)), or
+GitHub release tag (`rb/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/n7timer-weather-sdk/tags)), or
 from a clone:
 
 ```bash
@@ -43,10 +43,11 @@ client = N7timerWeatherSDK.new
 
 ```ruby
 begin
-  # list returns an Array of Apipl records — iterate directly.
-  apipls = client.Apipl.list
+  # list returns an Array of Apipl entities, one per record; data_get reads the record.
+  apipls = client.Apipl.list({ "lat" => 1, "lon" => 1, "output" => "example", "product" => "example" })
   apipls.each do |item|
-    puts "#{item["dataseries"]}"
+    record = item.data_get
+    puts "#{record["dataseries"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -60,7 +61,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  apipls = client.Apipl.list()
+  apipls = client.Apipl.list({ "lat" => 1, "lon" => 1, "output" => "example", "product" => "example" })
 rescue => err
   warn "list failed: #{err}"
 end
@@ -128,10 +129,10 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = N7timerWeatherSDK.test
 
-# Entity ops return the ENTITY (raises on error);
-# call data_get for the mock record.
-apipl = client.Apipl.list()
-puts apipl
+# list returns an Array of Apipl entities, one per mock record (raises on
+# error); data_get reads each record.
+apipls = client.Apipl.list({ "lat" => 1, "lon" => 1, "output" => "example", "product" => "example" })
+apipls.each { |item| puts item.data_get }
 ```
 
 ### Use a custom fetch function
@@ -216,8 +217,8 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria, and return it. Raises on error. |
+| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all), one per record. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -227,9 +228,10 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the result data directly. On failure they
-raise a `N7timerWeatherError` (a `StandardError` subclass), so wrap
-calls in `begin`/`rescue` where you need to handle errors.
+Entity operations return the entity, and `list` an `Array` of entities, one
+per record; an entity's `data_get` reads its record. On failure they raise a
+`N7timerWeatherError` (a `StandardError` subclass), so wrap calls in
+`begin`/`rescue` where you need to handle errors.
 
 The `direct` escape hatch is the exception: it never raises and instead
 returns a result `Hash` with these keys:
@@ -291,8 +293,9 @@ Create an instance: `apipl = client.Apipl`
 #### Example: List
 
 ```ruby
-# list returns an Array of Apipl records (raises on error).
-apipls = client.Apipl.list
+# list returns an Array of Apipl entities, one per record (raises on error).
+apipls = client.Apipl.list({ "lat" => 1, "lon" => 1, "output" => "example", "product" => "example" })
+apipls.each { |item| puts item.data_get }
 ```
 
 
@@ -494,7 +497,7 @@ stores the returned data and match criteria internally.
 
 ```ruby
 apipl = client.Apipl
-apipl.list()
+apipl.list({ "lat" => 1, "lon" => 1, "output" => "example", "product" => "example" })
 
 # apipl.data_get now returns the apipl data from the last list
 # apipl.match_get returns the last match criteria

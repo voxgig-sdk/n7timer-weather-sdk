@@ -20,7 +20,6 @@ export N7TIMER_WEATHER_APIKEY=sk_live_xxx
 
 # 4. Each command line is ONE boru expression, run against the API:
 ./n7timer-weather-cli list apipl
-./n7timer-weather-cli list graphical_api
 
 # 5. Override the API base URL for a single call
 N7TIMER_WEATHER_BASE=https://api.example.com ./n7timer-weather-cli list apipl

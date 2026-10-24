@@ -8,6 +8,19 @@ import { N7timerWeatherEntityBase } from './N7timerWeatherEntityBase';
 import { Utility } from './utility/Utility';
 import { BaseFeature } from './feature/base/BaseFeature';
 declare const stdutil: Utility;
+type DirectResult = {
+    ok: false;
+    err: any;
+    status?: undefined;
+    headers?: undefined;
+    data?: undefined;
+} | {
+    ok: boolean;
+    status: number;
+    headers: any;
+    data: any;
+    err?: any;
+};
 declare class N7timerWeatherSDK {
     _mode: string;
     _options: any;
@@ -18,32 +31,8 @@ declare class N7timerWeatherSDK {
     options(): any;
     utility(): any;
     prepare(fetchargs?: any): Promise<any>;
-    direct(fetchargs?: any): Promise<Error | {
-        ok: boolean;
-        err: any;
-        status?: undefined;
-        headers?: undefined;
-        data?: undefined;
-    } | {
-        ok: boolean;
-        status: number;
-        headers: any;
-        data: any;
-        err?: undefined;
-    }>;
-    _rawRequest(fetchargs?: any): Promise<Error | {
-        ok: boolean;
-        err: any;
-        status?: undefined;
-        headers?: undefined;
-        data?: undefined;
-    } | {
-        ok: boolean;
-        status: number;
-        headers: any;
-        data: any;
-        err?: undefined;
-    }>;
+    direct(fetchargs?: any): Promise<DirectResult>;
+    _rawRequest(fetchargs?: any): Promise<DirectResult>;
     graphql(query: string, variables?: any, ctrl?: any): Promise<any>;
     Apipl(entopts?: Record<string, any>): ApiplEntity;
     GraphicalApi(entopts?: Record<string, any>): GraphicalApiEntity;
@@ -57,3 +46,4 @@ declare class N7timerWeatherSDK {
 }
 declare const SDK: typeof N7timerWeatherSDK;
 export { stdutil, config, BaseFeature, N7timerWeatherEntityBase, N7timerWeatherSDK, SDK, };
+export type { DirectResult };

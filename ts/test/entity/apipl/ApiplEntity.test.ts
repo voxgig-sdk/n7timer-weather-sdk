@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { N7timerWeatherSDK, BaseFeature, stdutil } from '../../..'
+import { N7timerWeatherSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,64 @@ describe('ApiplEntity', async () => {
   })
 
 
+  class FailHook extends BaseFeature {
+    name = 'failhook'
+    version = '0.0.1'
+    active = true
+    unexpected = 0
+    init() { }
+    PreSpec() { throw new Error('apipl hook failed') }
+    PreUnexpected() { this.unexpected++ }
+  }
+
+  test('stream-error', async () => {
+    const offline = { net: { offline: true } }
+    await assert.rejects(async () => {
+      for await (const _item of N7timerWeatherSDK.test(offline).Apipl().stream('list')) { }
+    }, /offline/)
+
+    for await (const _item of N7timerWeatherSDK.test(offline).Apipl()
+      .stream('list', undefined, { ctrl: { throw: false } })) { }
+
+    if (null != (config as any).feature?.rbac) {
+      const denied = N7timerWeatherSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } })
+      await assert.rejects(async () => {
+        for await (const _item of denied.Apipl().stream('list')) { }
+      }, (err: any) => 'rbac_denied' === err.code)
+    }
+  })
+
+  test('stream-ctrl', async () => {
+    const explain: any = {}
+    const ctrl: any = { explain }
+    for await (const _item of N7timerWeatherSDK.test().Apipl().stream('list', undefined, { ctrl })) { }
+    assert.deepStrictEqual(Object.keys(ctrl), ['explain'])
+    assert(explain === ctrl.explain && 0 < Object.keys(explain).length)
+  })
+
+  test('unexpected', async () => {
+    const hook = new FailHook()
+    const client = new N7timerWeatherSDK({ feature: { test: { active: true } }, extend: [hook] })
+    await assert.rejects(client.Apipl().list(), /hook failed/)
+    assert(0 < hook.unexpected)
+
+    const fired = hook.unexpected
+    assert.strictEqual(await client.Apipl().list(undefined, { throw: false }), undefined)
+    assert(fired < hook.unexpected)
+  })
+
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = N7timerWeatherSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.Apipl().list({"ac":"x","lat":1,"lon":1,"output":"x","product":"x"} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.N7TIMER_WEATHER_TEST_LIVE
@@ -51,7 +109,7 @@ describe('ApiplEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"dataseries":{"a":true,"h":"Dataseries","n":"dataseries","r":false,"sh":"Array of forecast data points","t":"`$ARRAY`","union":{"branches":4,"count":1,"depth":1},"key$":"dataseries","index$":0},"init":{"a":true,"h":"Init","n":"init","r":false,"sh":"Initialization time of the forecast model (format: YYYYMMDDHH)","t":"`$STRING`","key$":"init","index$":1},"product":{"a":true,"h":"Product","n":"product","r":false,"sh":"Product type","t":"`$STRING`","key$":"product","index$":2}},"name":"apipl","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /bin/api.pl","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":0,"k":"query","n":"ac","or":"ac","r":false,"t":"`$INTEGER`","index$":0},{"a":true,"ex":"en","k":"query","n":"lang","or":"lang","r":false,"t":"`$STRING`","index$":1},{"a":true,"ex":23.09,"k":"query","n":"lat","or":"lat","r":true,"t":"`$NUMBER`","index$":2},{"a":true,"ex":113.17,"k":"query","n":"lon","or":"lon","r":true,"t":"`$NUMBER`","index$":3},{"a":true,"k":"query","n":"output","or":"output","r":true,"t":"`$STRING`","index$":4},{"a":true,"k":"query","n":"product","or":"product","r":true,"t":"`$STRING`","index$":5},{"a":true,"ex":0,"k":"query","n":"tzshift","or":"tzshift","r":false,"t":"`$INTEGER`","index$":6},{"a":true,"ex":"metric","k":"query","n":"unit","or":"unit","r":false,"t":"`$STRING`","index$":7}]},"k":"http","m":"GET","o":"/bin/api.pl","q":{"exist":["ac","lang","lat","lon","output","product","tzshift","unit"]},"r":{},"s":[{"lit":"bin"},{"lit":"api.pl"}],"t":{"req":"`reqdata`","res":"`body.dataseries`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"apipl","name__orig":"apipl","Name":"Apipl","name_":"apipl","name-":"apipl","NAME":"APIPL","index$":0}, {"active":true,"entity":"apipl","key$":"BasicApiplFlow","kind":"basic","name":"BasicApiplFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"apipl_ref01"}}],"index$":0}]}, 'Apipl', {"GET /bin/api.pl":{"protocol":"http","parameters":[{"name":"lon","in":"query","description":"Longitude coordinate of the location (float number with precision 0.001)","required":true,"schema":{"type":"number","format":"float","minimum":-180,"maximum":180,"example":113.17},"index$":0},{"name":"lat","in":"query","description":"Latitude coordinate of the location (float number with precision 0.001)","required":true,"schema":{"type":"number","format":"float","minimum":-90,"maximum":90,"example":23.09},"index$":1},{"name":"product","in":"query","description":"Weather product type to retrieve","required":true,"schema":{"type":"string","enum":["astro","civil","civillight","meteo","two"]},"index$":2},{"name":"output","in":"query","description":"Output format for the data","required":true,"schema":{"type":"string","enum":["xml","json"]},"index$":3},{"name":"ac","in":"query","description":"Altitude Correction (only applicable in ASTRO forecast)","required":false,"schema":{"type":"integer","enum":[0,2,7],"default":0},"index$":4},{"name":"lang","in":"query","description":"Language for the forecast (not applicable in METEO product)","required":false,"schema":{"type":"string","enum":["en","zh-CN","zh-TW"],"default":"en"},"index$":5},{"name":"unit","in":"query","description":"Unit system for measurements","required":false,"schema":{"type":"string","enum":["metric","british"],"default":"metric"},"index$":6},{"name":"tzshift","in":"query","description":"Timezone adjustment","required":false,"schema":{"type":"integer","enum":[-1,0,1],"default":0},"index$":7}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"dataseries":{"a":true,"h":"Dataseries","n":"dataseries","r":false,"sh":"Array of forecast data points","t":"`$ARRAY`","union":{"branches":4,"count":1,"depth":1},"key$":"dataseries","index$":0},"init":{"a":true,"h":"Init","n":"init","r":false,"sh":"Initialization time of the forecast model (format: YYYYMMDDHH)","t":"`$STRING`","key$":"init","index$":1},"product":{"a":true,"h":"Product","n":"product","r":false,"sh":"Product type","t":"`$STRING`","key$":"product","index$":2}},"name":"apipl","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /bin/api.pl","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":0,"k":"query","n":"ac","or":"ac","r":false,"t":"`$INTEGER`","index$":0},{"a":true,"ex":"en","k":"query","n":"lang","or":"lang","r":false,"t":"`$STRING`","index$":1},{"a":true,"ex":23.09,"k":"query","n":"lat","or":"lat","r":true,"t":"`$NUMBER`","index$":2},{"a":true,"ex":113.17,"k":"query","n":"lon","or":"lon","r":true,"t":"`$NUMBER`","index$":3},{"a":true,"k":"query","n":"output","or":"output","r":true,"t":"`$STRING`","index$":4},{"a":true,"k":"query","n":"product","or":"product","r":true,"t":"`$STRING`","index$":5},{"a":true,"ex":0,"k":"query","n":"tzshift","or":"tzshift","r":false,"t":"`$INTEGER`","index$":6},{"a":true,"ex":"metric","k":"query","n":"unit","or":"unit","r":false,"t":"`$STRING`","index$":7}]},"k":"http","m":"GET","o":"/bin/api.pl","q":{"exist":["lat","lon","output","product"]},"r":{},"rs":{"alternatives":[{"kind":"raw","media":"application/xml"}],"kind":"json","media":"application/json"},"s":[{"lit":"bin"},{"lit":"api.pl"}],"t":{"req":"`reqdata`","res":"`body.dataseries`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"apipl","name__orig":"apipl","Name":"Apipl","name_":"apipl","name-":"apipl","NAME":"APIPL","index$":0}, {"active":true,"entity":"apipl","key$":"BasicApiplFlow","kind":"basic","name":"BasicApiplFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"apipl_ref01"}}],"index$":0}]}, 'Apipl', {"GET /bin/api.pl":{"protocol":"http","parameters":[{"name":"lon","in":"query","description":"Longitude coordinate of the location (float number with precision 0.001)","required":true,"schema":{"type":"number","format":"float","minimum":-180,"maximum":180,"example":113.17},"index$":0},{"name":"lat","in":"query","description":"Latitude coordinate of the location (float number with precision 0.001)","required":true,"schema":{"type":"number","format":"float","minimum":-90,"maximum":90,"example":23.09},"index$":1},{"name":"product","in":"query","description":"Weather product type to retrieve","required":true,"schema":{"type":"string","enum":["astro","civil","civillight","meteo","two"]},"index$":2},{"name":"output","in":"query","description":"Output format for the data","required":true,"schema":{"type":"string","enum":["xml","json"]},"index$":3},{"name":"ac","in":"query","description":"Altitude Correction (only applicable in ASTRO forecast)","required":false,"schema":{"type":"integer","enum":[0,2,7],"default":0},"index$":4},{"name":"lang","in":"query","description":"Language for the forecast (not applicable in METEO product)","required":false,"schema":{"type":"string","enum":["en","zh-CN","zh-TW"],"default":"en"},"index$":5},{"name":"unit","in":"query","description":"Unit system for measurements","required":false,"schema":{"type":"string","enum":["metric","british"],"default":"metric"},"index$":6},{"name":"tzshift","in":"query","description":"Timezone adjustment","required":false,"schema":{"type":"integer","enum":[-1,0,1],"default":0},"index$":7}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -72,6 +130,12 @@ describe('ApiplEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

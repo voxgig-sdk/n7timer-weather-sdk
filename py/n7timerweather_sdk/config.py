@@ -96,6 +96,7 @@ def make_config():
         },
         "optspec": {
           "clearTimer": "`$FUNCTION`",
+          "now": "`$FUNCTION`",
           "setTimer": "`$FUNCTION`",
         },
         "strict": False,
@@ -206,6 +207,7 @@ def make_config():
                       "type": "`$STRING`",
                       "kind": "query",
                       "reqd": True,
+                      "field": True,
                     },
                     {
                       "name": "tzshift",
@@ -225,15 +227,21 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "ac",
-                    "lang",
                     "lat",
                     "lon",
                     "output",
                     "product",
-                    "tzshift",
-                    "unit",
                   ],
+                },
+                "response": {
+                  "alternatives": [
+                    {
+                      "kind": "raw",
+                      "media": "application/xml",
+                    },
+                  ],
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -329,14 +337,14 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "ac",
-                    "lang",
                     "lat",
                     "lon",
-                    "output",
-                    "tzshift",
-                    "unit",
                   ],
+                },
+                "response": {
+                  "binary": True,
+                  "kind": "raw",
+                  "media": "image/png",
                 },
               },
             ],

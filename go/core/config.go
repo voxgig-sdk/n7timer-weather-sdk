@@ -71,6 +71,7 @@ func MakeConfig() map[string]any {
 				},
 				"optspec": map[string]any{
 					"clearTimer": "`$FUNCTION`",
+					"now": "`$FUNCTION`",
 					"setTimer": "`$FUNCTION`",
 				},
 				"strict": false,
@@ -181,6 +182,7 @@ func MakeConfig() map[string]any {
 											"type": "`$STRING`",
 											"kind": "query",
 											"reqd": true,
+											"field": true,
 										},
 										map[string]any{
 											"name": "tzshift",
@@ -200,15 +202,21 @@ func MakeConfig() map[string]any {
 								},
 								"select": map[string]any{
 									"exist": []any{
-										"ac",
-										"lang",
 										"lat",
 										"lon",
 										"output",
 										"product",
-										"tzshift",
-										"unit",
 									},
+								},
+								"response": map[string]any{
+									"alternatives": []any{
+										map[string]any{
+											"kind": "raw",
+											"media": "application/xml",
+										},
+									},
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -304,14 +312,14 @@ func MakeConfig() map[string]any {
 								},
 								"select": map[string]any{
 									"exist": []any{
-										"ac",
-										"lang",
 										"lat",
 										"lon",
-										"output",
-										"tzshift",
-										"unit",
 									},
+								},
+								"response": map[string]any{
+									"binary": true,
+									"kind": "raw",
+									"media": "image/png",
 								},
 							},
 						},

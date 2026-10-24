@@ -114,15 +114,21 @@ main: kit: entity: apipl: {
           o: "/bin/api.pl"
           q: {
             exist: [
-              "ac"
-              "lang"
               "lat"
               "lon"
               "output"
               "product"
-              "tzshift"
-              "unit"
             ]
+          }
+          rs: {
+            alternatives: [
+              {
+                kind: "raw"
+                media: "application/xml"
+              }
+            ]
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

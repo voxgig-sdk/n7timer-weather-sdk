@@ -79,14 +79,14 @@ main: kit: entity: graphical_api: {
           o: "/bin/astro.php"
           q: {
             exist: [
-              "ac"
-              "lang"
               "lat"
               "lon"
-              "output"
-              "tzshift"
-              "unit"
             ]
+          }
+          rs: {
+            binary: true
+            kind: "raw"
+            media: "image/png"
           }
           s: [
             {

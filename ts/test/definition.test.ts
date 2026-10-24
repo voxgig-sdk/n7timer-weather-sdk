@@ -16,16 +16,21 @@ const PLAN: any[] = [
     "path": "/bin/api.pl",
     "args": [],
     "select": {
-      "ac": "v1",
-      "lang": "v1",
       "lat": 23.09,
       "lon": 113.17,
       "output": "v1",
       "product": "v1",
-      "tzshift": "v1",
-      "unit": "v1"
+      "ac": 0,
+      "lang": "en",
+      "tzshift": 0,
+      "unit": "metric"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json",
+      "application/xml"
+    ],
     "query": [
       "lon",
       "lat",
@@ -35,6 +40,40 @@ const PLAN: any[] = [
       "lang",
       "unit",
       "tzshift"
+    ],
+    "queryArgs": [
+      {
+        "name": "ac",
+        "wire": "ac"
+      },
+      {
+        "name": "lang",
+        "wire": "lang"
+      },
+      {
+        "name": "lat",
+        "wire": "lat"
+      },
+      {
+        "name": "lon",
+        "wire": "lon"
+      },
+      {
+        "name": "output",
+        "wire": "output"
+      },
+      {
+        "name": "product",
+        "wire": "product"
+      },
+      {
+        "name": "tzshift",
+        "wire": "tzshift"
+      },
+      {
+        "name": "unit",
+        "wire": "unit"
+      }
     ],
     "auth": null,
     "status": 200,
@@ -68,15 +107,19 @@ const PLAN: any[] = [
     "path": "/bin/astro.php",
     "args": [],
     "select": {
-      "ac": "v1",
-      "lang": "v1",
       "lat": 23.09,
       "lon": 113.17,
-      "output": "v1",
-      "tzshift": "v1",
-      "unit": "v1"
+      "ac": 0,
+      "lang": "en",
+      "output": "internal",
+      "tzshift": 0,
+      "unit": "metric"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "image/png"
+    ],
     "query": [
       "lon",
       "lat",
@@ -85,6 +128,36 @@ const PLAN: any[] = [
       "unit",
       "output",
       "tzshift"
+    ],
+    "queryArgs": [
+      {
+        "name": "ac",
+        "wire": "ac"
+      },
+      {
+        "name": "lang",
+        "wire": "lang"
+      },
+      {
+        "name": "lat",
+        "wire": "lat"
+      },
+      {
+        "name": "lon",
+        "wire": "lon"
+      },
+      {
+        "name": "output",
+        "wire": "output"
+      },
+      {
+        "name": "tzshift",
+        "wire": "tzshift"
+      },
+      {
+        "name": "unit",
+        "wire": "unit"
+      }
     ],
     "auth": null,
     "status": 200,
